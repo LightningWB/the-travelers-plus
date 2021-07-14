@@ -1,0 +1,111 @@
+// use this to reference data structure sent to the client
+
+type supplies = {
+	[key:string]:{
+		count:number,
+		data:{
+			craft:boolean,
+			craft_data:{
+				[key:string]:{
+					count:number,
+					title:string
+				}
+			}|undefined,
+			craft_time:string|undefined,
+			desc:string,
+			icon:string,
+			name:string,
+			title:string,
+			type:'misc'|'tool'|'build'|'weap'|'bp'|'rare'|undefined,
+			weight:number,
+			func:boolean|undefined,
+			func_desc:string|undefined,
+		}
+	}
+}
+
+export type savedDB = {
+	turn?:number|undefined,
+	steps_taken?:number|undefined,
+	seconds_played?:number|undefined,
+	deaths?:number|undefined,
+	kills?:number|undefined,
+	locs_explored?:number|undefined,
+	kills_offline?:number|undefined,
+	deaths_battle?:number|undefined,
+	state?:'travel'|'int'|'event'|'loot'|undefined,
+	x?:number|undefined,
+	y?:number|undefined,
+	username?:string|undefined,
+	level?:number|undefined,
+	supplies?:supplies|undefined,
+	equipped?:string|undefined,
+	skills?:{
+		next_level_xp:number,
+		level:number,
+		xp:number,
+		sp:number
+	}
+	gained_xp?:number|undefined,
+	proximity?:{
+		stumps?:{x:number, y:number}[],
+		players?:{x:number, y:number}[],
+		objs?:{char:string, x:number, y:number, is_breakable:boolean, walk_over:boolean}[]
+	}|undefined,
+	loot?:{
+		title:string,
+		visited:boolean,
+		items:supplies,
+		desc:string,
+		visitdesc:string
+	}|undefined,
+	item_limit?:number,
+	event_data?:{
+		visited:boolean,
+		stage_data:{
+			title:string,
+			desc:string,
+			visited:string,
+			btns:{
+				[key:string]:{
+					text:string,
+					req_met:boolean,
+					req_is_now_locked:boolean
+				}
+			}
+		}
+	}|undefined,
+	new_icon?:string|undefined,
+	doors?:{x:number, y:number}[]|undefined,
+	loot_change?:{
+		takeall:boolean,
+		was_you:boolean,
+		your_new:supplies,
+		your_weight:number,
+		opp_new:supplies,
+		opp_weight:number,
+		which:boolean,
+		item_id:string,
+		amount:number,
+		item_data:{
+			craft:boolean,
+			craft_data:{
+				[key:string]:{
+					count:number,
+					title:string
+				}
+			}|undefined,
+			craft_time:string|undefined,
+			desc:string,
+			icon:string,
+			name:string,
+			title:string,
+			type:'misc'|'tool'|'build'|'weap'|'bp'|'rare'|undefined,
+			weight:number,
+			func:boolean|undefined,
+			func_desc:string|undefined,
+		}
+	}|undefined,
+	break_time?:number|undefined,
+	breaking?:boolean|undefined
+}

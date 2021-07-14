@@ -1,0 +1,430 @@
+{
+	"id": "desolate",
+	"weight": 1,
+	"rooms": {
+		"death": {
+			"id": "death",
+			"title": "death",
+			"body": "you died, but death isn't implemented yet. lucky you.",
+			"btns": [
+				"leave"
+			]
+		},
+		"main": {
+			"id": "main",
+			"title": "a desolate city",
+			"body": "red skyscrapers rise out of the wasteland, their strong metal beams exposed and oxidized. the soot-caked wasteland turns into hard asphalt, rising over slums that begin to poke out of the sand. an exit curves away to your right, but otherwise, the highway continues onward.",
+			"btns": [
+				{
+					"for": "slums",
+					"text": "the slums",
+					"req": false
+				},
+				{
+					"for": "towers",
+					"text": "the highway",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"slums": {
+			"id": "slums",
+			"title": "the slums",
+			"body": "the road curves in a wide circle until it buries itself under the sand and ash. broken shingles meet with strong brick buildings buried up to their roofs. in the distance, you see one with an exposed window.",
+			"btns": [
+				{
+					"for": "bedroom",
+					"text": "the window",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"bedroom": {
+			"id": "bedroom",
+			"title": "a bedroom",
+			"body": "the sand pours past broken glass into the dark interior of a townhouse. this was a child's room; the walls are colors that would have been vivid were they not so faded now. there's two corpses on the floor, one small with a large piece of concrete lodged in its skull, and another larger one wrapping it in a tight embrace. a mother and her child. similarly sized rocks are strewn across the blue carpet. there's an open door on the opposite side of this room that leads to a hallway, cut short by a window that has also overflowed with sand. there's nothing worth taking in here.",
+			"btns": [
+				{
+					"for": "buriedTown",
+					"text": "back outside",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"buriedTown": {
+			"id": "buriedTown",
+			"title": "a buried town",
+			"body": "clambering over the broken glass and back onto the wasteland, you continue to walk up and down the buried houses. roofs are broken and windows shattered, but they are all filled to the brim with sand; anything worth taking has long been buried. the strong bricks of these buildings seem like they would have held up better than the skeletal skyscrapers in the distance, had they not been covered so effectively.",
+			"btns": [
+				{
+					"for": "towers",
+					"text": "into the city",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"towers": {
+			"id": "towers",
+			"title": "the midst of towers",
+			"body": "the buildings are unfathomably tall, cutting through the ashen atmosphere. their decorative exteriors have been worn away by something powerful; what was once colorful paint and detailed engravings are now simply blasted steel, leaving the skeletons bare and open. from certain angles you can see straight through each structure. you arrive at an intersection, where an entrance to a subway to your right leads underground. across the way is a large blue tent, pinned to the street, its opening flapping in the wind. to the left, you notice one of the bare skyscrapers has an intact staircase a few layers into its bones.",
+			"visited": "clone",
+			"btns": [
+				{
+					"for": "subway",
+					"text": "the subway",
+					"req": false
+				},
+				{
+					"for": "tent",
+					"text": "the tent",
+					"req": false
+				},
+				{
+					"for": "skyscraper",
+					"text": "the skyscraper",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"tent":{
+			"id": "tent",
+			"title": "a camping tent",
+			"body": "a skull pokes out of a sleeping bag, its body wrapped tightly for warmth",
+			"visited": "clone",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "scrap_metal",
+					"min": 1,
+					"max": 7,
+					"chance": 1
+				},
+				{
+					"id": "cloth",
+					"min": 1,
+					"max": 5,
+					"chance": 0.85
+				},
+				{
+					"id": "wood_stick",
+					"min": 1,
+					"max": 5,
+					"chance": 0.85
+				},
+				{
+					"id": "medical_pill",
+					"min": 1,
+					"max": 2,
+					"chance": 0.7
+				},
+				{
+					"id": "rope",
+					"min": 1,
+					"max": 2,
+					"chance": 0.66666
+				},
+				{
+					"id": "bp_reality_anchor",
+					"min": 1,
+					"max": 1,
+					"chance": 0.25
+				},
+				{
+					"id": "syringe",
+					"min": 1,
+					"max": 1,
+					"chance": 0.25
+				},
+				{
+					"id": "bp_metal_detector",
+					"min": 1,
+					"max": 1,
+					"chance": 0.15
+				}
+				
+			],
+			"nextId": "towers",
+			"size": 50
+		},
+		"skyscraper": {
+			"id": "skyscraper",
+			"title": "the tower's bones",
+			"body": "you navigate through the building’s supports and to the staircase, which leads to a bare second floor. soot cakes the beams of steel, and your footprints are quickly blown away by the soft breeze escaping from outside. in one corner of the structure, a wall hides the sky beyond.",
+			"visited": "clone",
+			"btns": [
+				{
+					"for": "office",
+					"text": "the corner",
+					"req": false
+				},
+				{
+					"for": "towers",
+					"text": "go back",
+					"req": false
+				}
+			]
+		},
+		"office": {
+			"id": "office",
+			"title": "the ruined office",
+			"body": "an office room is covered in shards of glass, shattered inward from where windows used to be. blood coats the wall behind the desk, and a dead body, its flesh withered away, is sprawled against the chair without a head. in its limp arms, a shotgun rests, its wood rotted and metal rusted. on top of the desk is a short handwritten note.they found me. i see the lights of their cars outside my office. forgive me that i had to leave you all this way. i hope you can find someone else to supply you. don’t let them win.it might be worth a look around to see if anything is left.",
+			"visited": "clone",
+			"btns": [
+				{
+					"for": "deadMan",
+					"text": "the body",
+					"req": false
+				},
+				{
+					"for": "desk",
+					"text": "the desk",
+					"req": false
+				},
+				{
+					"for": "towers",
+					"text": "go back",
+					"req": false
+				}
+			]
+		},
+		"deadMan":{
+			"id": "deadMan",
+			"title": "a dead man",
+			"body": "the shotgun is useless and has no bullets, but his form might conceal something.",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "steel_shard",
+					"min": 1,
+					"max": 3,
+					"chance": 0.5
+				},
+				{
+					"id": "cloth",
+					"min": 1,
+					"max": 4,
+					"chance": 0.5
+				},
+				{
+					"id": "rope",
+					"min": 1,
+					"max": 3,
+					"chance": 0.45
+				},
+				{
+					"id": "medical_pill",
+					"min": 1,
+					"max": 1,
+					"chance": 0.333333
+				},
+				{
+					"id": "bp_metal_detector",
+					"min": 1,
+					"max": 1,
+					"chance": 0.2
+				},
+				{
+					"id": "shotgun_shell",
+					"min": 1,
+					"max": 2,
+					"chance": 0.01
+				},
+				{
+					"id": "bp_low_teleporter",
+					"min": 1,
+					"max": 1,
+					"chance": 0.01
+				}
+				
+			],
+			"nextId": "office",
+			"size": 30
+		},
+		"desk": {
+			"id": "desk",
+			"title": "under the desk",
+			"body": "the drawers have been cleared but beneath the desk is a small black safe, its paint slightly chipped with rust. there can't be much room for something inside.",
+			"btns": [
+				{
+					"for": "safe",
+					"text": "beak it open",
+					"req": true,
+					"reqItems": [
+						{"id": "blowtorch", "title":"powered blowtorch", "count": 1}
+					],
+					"reqConsume": false
+				},
+				{
+					"for": "office",
+					"text": "the rest of the room",
+					"req": false
+				},
+				{
+					"for": "towers",
+					"text": "go back",
+					"req": false
+				}
+			]
+		},
+		"safe": {
+			"id": "safe",
+			"title": "the safe",
+			"body": "TODO. not on wiki yet.",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "keycard_a",
+					"min": 1,
+					"max": 1,
+					"chance": 1
+				}
+			],
+			"nextId": "office"
+		},
+		"subway": {
+			"id": "subway",
+			"title": "the subway",
+			"body": "as you descend the staircase, you notice the air grow extremely still. the stale atmosphere feels almost like wading through a liquid. the tiles lining the walls and floor are filthy, and the path continues down until you arrive at a platform with a single subway track. the train is not here, and one side of the tunnel, the ceiling has caved in and blocked the way.",
+			"btns": [
+				{
+					"for": "tunnel",
+					"text": "the railway",
+					"req": false
+				},
+				{
+					"for": "towers",
+					"text": "go back",
+					"req": false
+				}
+			]
+		},
+		"tunnel": {
+			"id": "tunnel",
+			"title": "the tunnel",
+			"body": "it's now pitch black, the little existing light now totally absorbed. you trail a hand on the wall to keep track of where you are, rubbing mud off as you go. after a few minutes, your hand collides with a cold metal box fixed to the side of the tunnel. feeling at it, you realize it opens, and your hand rests on what feels like a lever.",
+			"btns": [
+				{
+					"for": "train",
+					"text": "activate lever",
+					"req": false
+				},
+				{
+					"for": "platform",
+					"text": "keep walking",
+					"req": false
+				}
+			]
+		},
+		"train": {
+			"id": "train",
+			"title": "the weakly lit tunnel",
+			"body": "the lights flicker on, illuminating the black rails and tunnel. further ahead you see another subway platform, but beyond that, you see two bright beams activate, accompanied by the sound of screeching metal. watching for a moment, you realize they are approaching you at startling speed.",
+			"btns": [
+				{
+					"for": "death",
+					"text": "deactivate lever",
+					"req": false
+				},
+				{
+					"for": "screaming",
+					"text": "run",
+					"req": false
+				}
+			]
+		},
+		"screaming": {
+			"id": "screaming",
+			"title": "a screaming train",
+			"body": "you turn heel and sprint, tearing down the tunnel as the subway speeds at you, and in the light of the overhead lamps, you spot a gap in the wall. ducking inside, you squeeze yourself against the tiny amount of extra room this gap affords you, before finally the train blows past. you step out, and looking back, and you watch as the train collides with the rubble at the original platform, an ear-shattering crash echoing through the dark tunnel before fading back to dead silence.",
+			"btns": [
+				{
+					"for": "platform",
+					"text": "keep walking",
+					"req": false
+				}
+			]
+		},
+		"platform": {
+			"id": "platform",
+			"title": "another platform",
+			"body": "you continue down the long tunnel and are greeted by an entrance to a new platform, filled with an orange flickering light. a trash can is aflame in the center, with corpses in warm clothes strewn around it. these bodies are fairly fresh, hidden away down here, not having succumbed to decomposition like the rest of the world.",
+			"btns": [
+				{
+					"for": "bodies",
+					"text": "check bodies",
+					"req": false
+				},
+				{
+					"for": "buried",
+					"text": "continue",
+					"req": false
+				}
+			]
+		},
+		"bodies": {
+			"id": "bodies",
+			"title": "homeless bodies",
+			"body": "in death,they can no longer hide and protect that which was theirs.",
+			"loot": true,
+			"nextId": "buried",
+			"size": 50,
+			"lootTable": [
+				{
+					"id": "medical_pill",
+					"min": 1,
+					"max": 2,
+					"chance": 1
+				},
+				{
+					"id": "syringe",
+					"min": 1,
+					"max": 2,
+					"chance": 1
+				},
+				{
+					"id": "wire",
+					"min": 1,
+					"max": 5,
+					"chance": 0.55
+				},
+				{
+					"id": "rope",
+					"min": 1,
+					"max": 4,
+					"chance": 0.25
+				},
+				{
+					"id": "plastic",
+					"min": 1,
+					"max": 2,
+					"chance": 0.15
+				}
+			]
+		},
+		"buried": {
+			"id": "buried",
+			"title": "the buried platform",
+			"body": "the exits on this platform are buried in dirt, but the tunnel continues onward.",
+			"btns": [
+				{
+					"for": "continuing",
+					"text": "the tunnel",
+					"req": false
+				}
+			]
+		},
+		"continuing": {
+			"id": "continuing",
+			"title": "the continuing dark platform",
+			"body": "you walk another kilometer down the subway until the tunnel begins to curve upward. after several more minutes of travel, the ceiling opens to the sky, revealing the outside world. the tunnel might have led to more city in the past, but now its buried under sand and ash.",
+			"btns": [
+				"leave"
+			]
+		}
+	}
+}

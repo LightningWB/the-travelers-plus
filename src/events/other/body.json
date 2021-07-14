@@ -1,0 +1,16 @@
+{
+	"id": "body",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "a broken body",
+			"body": "the ruined corpse of a traveler lies on the ground, surrounded neatly by its possessions.",
+			"visited": "the ruined corpse of a traveler lies on the ground, surrounded neatly by its possessions. it's already been searched.",
+			"loot": true,
+			"lootTable": [],
+			"nextId": "leave",
+			"size": 200
+		}
+	}
+}

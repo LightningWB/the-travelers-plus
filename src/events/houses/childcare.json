@@ -1,0 +1,63 @@
+{
+	"id": "childcare",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "a childcare center",
+			"body": "asphalt escapes beneath the ashen sand and leads to a single building, standing alone among a strip of collapsed structures. a sign over the glass doors indicates it was once a place where parents would leave their children during working hours. graffiti coats the walls, most of it too faded to read, but one mural states \"it was them all along\".",
+			"btns": [
+				{
+					"for": "waitingRoom",
+					"text": "look inside",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"waitingRoom": {
+			"id": "waitingRoom",
+			"title": "an empty waiting room",
+			"body": "the glass door creaks open to reveal a colorful room, with posters of cartoon characters peeling off the walls. the chairs in the lobby are still aligned neatly, and papers still rest peacefully on the receptionist's desk. someone could have been here as recently as yesterday. there's a few doors against the walls, and a short hallway that leads to a kitchen and maintenance area.",
+			"btns": [
+				{
+					"for": "frontDesk",
+					"text": "the front desk",
+					"req": false
+				},
+				{
+					"for": "otherRooms",
+					"text": "the other rooms",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"otherRooms": {
+			"id": "otherRooms",
+			"title": "the other rooms",
+			"body": "each room is a different color, with walls plastered with historical facts, simple math, or english phrases. even in the dark, with little escaping through the windows, the bright colors are a stark contrast to the rest of the world. the desks are still organized, the chairs still in order. the boards on the walls have been wiped clean. there's still toys and instruments and writing utensils in these rooms, but otherwise nothing useful.",
+			"btns": [
+				{
+					"for": "frontDesk",
+					"text": "the front desk",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"frontDesk": {
+			"id": "otherRooms",
+			"title": "the front desk",
+			"body": "the papers behind the desk are strewn wildly, as though someone left in a hurry. a light on the monitor is blinking softly, and tapping the keyboard wakes the computer up. an email is open on the screen, unfinished and unsent. there are about forty addresses this would be sent to.<span class='doc'>attention parents: due to the recent rioting and controversies, we have decided to close the business permanently. please keep your children safe at home, and don't let them leave until the public outcry starts to ...</span>the network connection is offline, the rest of the inbox is inaccessible.",
+			"btns": [
+				{
+					"for": "otherRooms",
+					"text": "the other rooms",
+					"req": false
+				},
+				"leave"
+			]
+		}
+	}
+}

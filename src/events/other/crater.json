@@ -1,0 +1,15 @@
+{
+	"id": "crater",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "a blasted crater",
+			"body": "the sand and ash has been carved out of the ground for a kilometer around, replaced with blackened shattered glass. the crater is a hundred meters deep at its lowest point.",
+			"loot": true,
+			"lootTable": [],
+			"nextId": "leave",
+			"size": 200
+		}
+	}
+}

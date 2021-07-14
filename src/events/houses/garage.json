@@ -1,0 +1,121 @@
+{
+	"id": "garage",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "a garage",
+			"body": "a row of tall garage doors stand indented into the short building, boarded over by wood, chains, and threatening signs. the chains cover a glass door, but with the right tool, it might be possible to break through.",
+			"visitedBody": "a row of tall garage doors stand indenting into a short building, boarded over by wood, chains, and threatening signs. the chains over the glass door have been snapped, leaving it wide open.",
+			"visitTarget": "supplies",
+			"btns": [
+				{
+					"for": "snare",
+					"text": "break in",
+					"req": true,
+					"reqItems": [
+						{"id": "bolt_cutters", "title":"bolt cutters", "count": 1}
+					],
+					"reqConsume": false
+				},
+				"leave"
+			]
+		},
+		"snare": {
+			"id": "snare",
+			"title": "a triggered snare",
+			"body": "a charred corpse rests in the middle of the tiled floor, ash stretched away from it. a broken tripwire is visible, extending out of the blast from either direction, and because of this you notice a closer wire on the floor, taut and active. in the back of the area, a hallway is illuminated, its door wide open, spilling light into the otherwise dark interior. a sign next to it indicates it has tools and supplies. several wrenches and tools rest in a disorderly pile near to the front desk.",
+			"btns": [
+				{
+					"for": "trap",
+					"text": "step over tripwire",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"trap": {
+			"id": "trap",
+			"title": "past the trap",
+			"body": "you step safely over the last tripwire and into the hallway, following it into a room filled with old tools and devices. the wall has a message scrawled by a marker, resting over two starved bodies on the ground.<span class=\"doc\">if anyone is reading this, know who you fight for. look how they trapped us in. do we starve, or burn? you should know by now how cruel they are. we knew too much for them. lucky for us, we got the message out in time. in the end, we got the last laugh, and we'll be laughing all the way to the grave.</span>there might be something of use in here.",
+			"btns": [
+				{
+					"for": "supplies",
+					"text": "loot area",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"supplies": {
+			"id": "supplies",
+			"title": "tools and supplies",
+			"body": "most of these are useless now, but someone may have left something behind.",
+			"loot": true,
+			"nextId": "leave",
+			"lootTable": [
+				{
+					"id": "scrap_metal",
+					"min": 1,
+					"max": 6,
+					"chance": 0.85
+				},
+				{
+					"id": "rope",
+					"min": 2,
+					"max": 7,
+					"chance": 0.55
+				},
+				{
+					"id": "baseball_bat",
+					"min": 1,
+					"max": 1,
+					"chance": 0.50
+				},
+				{
+					"id": "shovel",
+					"min": 1,
+					"max": 1,
+					"chance": 0.45
+				},
+				{
+					"id": "bp_metal_detector",
+					"min": 1,
+					"max": 1,
+					"chance": 0.33
+				},
+				{
+					"id": "steel_shard",
+					"min": 2,
+					"max": 7,
+					"chance": 0.25
+				},
+				{
+					"id": "bolt_cutters",
+					"min": 1,
+					"max": 1,
+					"chance": 0.2
+				},
+				{
+					"id": "machete",
+					"min": 1,
+					"max": 1,
+					"chance": 0.1
+				},
+				{
+					"id": "blowtorch",
+					"min": 1,
+					"max": 1,
+					"chance": 0.05
+				},
+				{
+					"id": "axe",
+					"min": 1,
+					"max": 1,
+					"chance": 0.01
+				}
+			],
+			"size": 100
+		}
+	}
+}

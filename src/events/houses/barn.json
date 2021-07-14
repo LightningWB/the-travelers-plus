@@ -1,0 +1,57 @@
+{
+	"id": "barn",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "a barn",
+			"body": "once used for housing farm supplies, a barn with chipping paint now rests with its large doors wide open. peering inside, it looks like someone is standing there, watching you as you walk closer.",
+			"visited": "clone",
+			"btns": [
+				{
+					"for": "figure",
+					"text": "enter",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"figure": {
+			"id": "figure",
+			"title": "a shadowy figure",
+			"body": "the shadows shroud the figure as you draw nearer it. it is motionless, seeming to watch you carefully until you are close enough to touch.",
+			"visited": "clone",
+			"btns": [
+				{
+					"for": "contact",
+					"text": "make contact",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"contact": {
+			"id": "contact",
+			"title": "contact",
+			"body": "you reach out and push its arm, the figure unflinching as you feel its clothes. you feel the crunch of straw, its body rotating away easily, and you realize it's simply a scarecrow. as you walk away, your foot brushes a sheet of metal on the ground.",
+			"visited": "clone",
+			"btns": [
+				{
+					"for": "sign",
+					"text": "observer metal",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"sign": {
+			"id": "sign",
+			"title": "a sign",
+			"body": "you take the metal sign and move toward a spot of light on the hay floor, dimly shining through a gap in the high roof. it says \"trespassers will be shot.\" there's nothing left here.",
+			"visited": "clone",
+			"btns": [
+				"leave"
+			]
+		}
+	}
+}

@@ -1,0 +1,144 @@
+{
+	"id": "cabin",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "a cabin",
+			"body": "a small cabin stands weak against the withered wasteland. termites have eaten the wall away, rusted hinges the only thing that indicate a door was once here. the floor inside has crashed away, revealing a dull concrete basement.",
+			"btns": [
+				{
+					"for": "inside",
+					"text": "enter",
+					"req": false
+				},
+				{
+					"for": "backyard",
+					"text": "check the back",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"inside": {
+			"id": "inside",
+			"title": "inside",
+			"body": "you climb down into the basement, and notice a wooden box in the corner. there's otherwise nothing else down here.",
+			"btns": [
+				{
+					"for": "box",
+					"text": "investigate box",
+					"req": false
+				},
+				{
+					"for": "basement",
+					"text": "get out",
+					"req": false
+				}
+			]
+		},
+		"basement": {
+			"id": "basement",
+			"title": "the basement",
+			"body": "the basement is shallow, and it's not hard to reach up and grab the rim of the concrete foundation. you heave yourself out.",
+			"btns": [
+				"leave"
+			]
+		},
+		"box": {
+			"id": "box",
+			"title": "a strange box",
+			"body": "it appears to be painted like wood, but it's a far colder material when you touch it. a low-pitched hum emanates from it, and from the slight gap under the lid, a faint purple light throbs inside, accompanied by a unique scent. there's no visible lock, but you can't find a way to open it. you attempt to lift the whole thing, but it stays firmly in place.",
+			"btns": [
+				{
+					"for": "open",
+					"text": "pry open",
+					"req": true,
+					"reqItems": [
+						{"id": "crowbar", "title":"crowbar", "count": 1}
+					],
+					"reqConsume": false
+				},
+				{
+					"for": "basement",
+					"text": "get out",
+					"req": false
+				}
+			]
+		},
+		"open": {
+			"id": "open",
+			"title": "pried open",
+			"body": "the lid is wide open, leaning against the wall.",
+			"loot": true,
+			"nextId": "basement"
+		},
+		"backyard": {
+			"id": "backyard",
+			"title": "the backyard",
+			"body": "you walk around the structure and find an air conditioner in the back, sucking in ash and blowing it into the cabin. its power source is unknown. to its side is a plastic container, its lid leaning against its side.",
+			"btns": [
+				{
+					"for": "plasticContainer",
+					"text": "a plastic container",
+					"req": false
+				},
+				"leave"
+			]
+		},
+		"plasticContainer": {
+			"id": "plasticContainer",
+			"title": "pried open",
+			"body": "the lid is wide open, leaning against the wall.",
+			"visited": "clone",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "rope",
+					"min": 1,
+					"max": 4,
+					"chance": 0.55
+				},
+				{
+					"id": "cloth",
+					"min": 1,
+					"max": 4,
+					"chance": 0.45
+				},
+				{
+					"id": "soda_bottle",
+					"min": 1,
+					"max": 1,
+					"chance": 0.2
+				},
+				{
+					"id": "rusty_knife",
+					"min": 1,
+					"max": 1,
+					"chance": 0.2
+				},
+				{
+					"id": "wire",
+					"min": 1,
+					"max": 3,
+					"chance": 0.2
+				},
+				{
+					"id": "fire_extinguisher",
+					"min": 1,
+					"max": 1,
+					"chance": 0.1
+				},
+				{
+					"id": "baseball_bat",
+					"min": 1,
+					"max": 1,
+					"chance": 0.1
+				}
+				
+			],
+			"nextId": "leave",
+			"size": 100
+		}
+	}
+}

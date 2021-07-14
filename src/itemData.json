@@ -1,0 +1,1385 @@
+{
+    "boat": {
+        "name": "boat",
+        "title": "small boat",
+        "type": "tool",
+        "weight": 40,
+        "icon": "︺",
+        "desc": "capable of floating in water, and durable enough to resist acidic corrosion. it's barely large enough for one person.",
+        "craft": true,
+        "craft_time": 100,
+        "craft_data": {
+            "wood_stick": {
+                "count": 15,
+                "title": "wood plank"
+            },
+            "plastic": {
+                "count": 25,
+                "title": "plastic pieces"
+            },
+            "steel_shard": {
+                "count": 5,
+                "title": "steel shard"
+            }
+        },
+        "func": true,
+        "func_desc": "will allow safe travel over acidic waters. do not unequip unless you are in a safe location."
+    },
+    "wood_stick": {
+        "name": "wood_stick",
+        "title": "wood plank",
+        "type": "misc",
+        "weight": 1,
+        "icon": "/",
+        "desc": "a plank of old wood. versatile and abundant."
+    },
+    "shovel": {
+        "name": "shovel",
+        "title": "shovel",
+        "type": "tool",
+        "weight": 7,
+        "icon": "––D",
+        "desc": "digs holes. could also be used as a weapon in a pinch.",
+        "craft": true,
+        "craft_time": 20,
+        "craft_data": {
+            "wood_stick": {
+                "count": 1,
+                "title": "wood plank"
+            },
+            "scrap_metal": {
+                "count": 3,
+                "title": "scrap metal"
+            }
+        },
+        "weapon": true,
+        "weapon_data": {
+            "dmg": 21,
+            "sp": 20
+        },
+        "func": true,
+        "func_desc": "a simple shovel, capable of digging a few feet into the ground, or filling in a hole.",
+        "func_actions": {
+            "dig": {
+                "server": "dig",
+                "client": "ENGINE.log('digging...');",
+                "btn_text": "dig"
+            },
+            "fill": {
+                "server": "fill",
+                "client": "",
+                "btn_text": "fill"
+            }
+        }
+    },
+    "alien_shard": {
+        "name": "alien_shard",
+        "title": "unknown material shard",
+        "type": "rare",
+        "weight": 65,
+        "icon": "|>",
+        "desc": "a pyramidal, translucent material that glows purple from deep inside. its surface is perfectly smooth, and its four faces meet to form sharp points. it's also extremely heavy."
+    },
+    "alien_fragment": {
+        "name": "alien_fragment",
+        "title": "unknown material fragment",
+        "type": "rare",
+        "weight": 10,
+        "icon": "O",
+        "desc": "a heavy, spherical material that mostly resembles stone, but it glows bright purple, its hue shifting slightly when viewed from different angles. its surface, where not cracked, is extremely smooth, and it has a unique scent."
+    },
+    "rusty_knife": {
+        "name": "rusty_knife",
+        "title": "rusty knife",
+        "type": "weap",
+        "weight": 4,
+        "icon": "4",
+        "desc": "an old butcher's knife, edge rusted away, but still capable of damage.",
+        "craft": true,
+        "craft_time": 15,
+        "craft_data": {
+            "wood_stick": {
+                "count": 1,
+                "title": "wood plank"
+            },
+            "scrap_metal": {
+                "count": 2,
+                "title": "scrap metal"
+            }
+        },
+        "weapon": true,
+        "weapon_data": {
+            "dmg": 9,
+            "sp": 10
+        }
+    },
+    "crowbar": {
+        "name": "crowbar",
+        "title": "crowbar",
+        "type": "tool",
+        "weight": 6,
+        "icon": "{",
+        "desc": "a long, curved piece of steel, meant for prying things apart.",
+        "craft": true,
+        "craft_time": 30,
+        "craft_data": {
+            "scrap_metal": {
+                "count": 2,
+                "title": "scrap metal"
+            },
+            "steel_shard": {
+                "count": 5,
+                "title": "steel shard"
+            }
+        },
+        "weapon": true,
+        "weapon_data": {
+            "dmg": 12,
+            "sp": 11
+        }
+    },
+    "sign_block": {
+        "name": "sign_block",
+        "title": "wooden sign",
+        "type": "build",
+        "weight": 10,
+        "icon": "¶",
+        "desc": "a wooden sign, upon which a message can be written.",
+        "craft": true,
+        "craft_time": 30,
+        "craft_data": {
+            "wood_stick": {
+                "count": 8,
+                "title": "wood plank"
+            },
+            "scrap_metal": {
+                "count": 2,
+                "title": "scrap metal"
+            }
+        },
+        "break_time": 180,
+        "build": true,
+        "build_desc": "when placed, you will be able to write a short message on it, visible to any traveler who visits it."
+    },
+    "bolt_cutters": {
+        "name": "bolt_cutters",
+        "title": "bolt cutters",
+        "type": "tool",
+        "weight": 7,
+        "icon": "X",
+        "desc": "two long handles, bolted on an axle and tipped with steel. capable of snipping many materials.",
+        "craft": true,
+        "craft_time": 45,
+        "craft_data": {
+            "scrap_metal": {
+                "count": 6,
+                "title": "scrap metal"
+            },
+            "steel_shard": {
+                "count": 2,
+                "title": "steel shard"
+            },
+            "rope": {
+                "count": 2,
+                "title": "rope"
+            }
+        }
+    },
+    "baseball_bat": {
+        "name": "baseball_bat",
+        "title": "baseball bat",
+        "type": "weap",
+        "weight": 9,
+        "icon": "-==",
+        "desc": "once used for sport, this bat now serves as a blunt weapon.",
+        "craft": true,
+        "craft_time": 30,
+        "craft_data": {
+            "wood_stick": {
+                "count": 5,
+                "title": "wood plank"
+            },
+            "steel_shard": {
+                "count": 3,
+                "title": "steel shard"
+            }
+        },
+        "weapon": true,
+        "weapon_data": {
+            "dmg": 10,
+            "sp": 12
+        }
+    },
+    "wood_block": {
+        "name": "wood_block",
+        "title": "wooden fence",
+        "type": "build",
+        "weight": 20,
+        "icon": "+",
+        "desc": "a kilometer's worth of wooden fencing.",
+        "craft": true,
+        "craft_time": 90,
+        "craft_data": {
+            "wood_stick": {
+                "count": 20,
+                "title": "wood plank"
+            },
+            "rope": {
+                "count": 1,
+                "title": "rope"
+            }
+        },
+        "break_time": 10800,
+        "build": true,
+        "build_desc": "a kilometer of wooden fencing. it can't be walked over, but it's fairly easy to break through."
+    },
+    "wood_door": {
+        "name": "wood_door",
+        "title": "wooden gate",
+        "type": "build",
+        "weight": 25,
+        "icon": "D",
+        "desc": "a crude gate fashioned out of wood.",
+        "craft": true,
+        "craft_time": 150,
+        "craft_data": {
+            "wood_block": {
+                "count": 1,
+                "title": "wooden fence"
+            },
+            "scrap_metal": {
+                "count": 3,
+                "title": "scrap metal"
+            },
+            "rope": {
+                "count": 2,
+                "title": "rope"
+            }
+        },
+        "break_time": 10800,
+        "build": true,
+        "build_desc": "a crude gate fashioned out of wood. secured by a passcode mechanism."
+    },
+    "wire": {
+        "name": "wire",
+        "title": "wire",
+        "type": "misc",
+        "weight": 1,
+        "icon": "s",
+        "desc": "a line of copper wrapped in an insulator to carry electricity.",
+        "craft": true,
+        "craft_time": 8,
+        "craft_data": {
+            "copper_coil": {
+                "count": 1,
+                "title": "copper coil"
+            },
+            "cloth": {
+                "count": 1,
+                "title": "cloth"
+            }
+        }
+    },
+    "copper_coil": {
+        "name": "copper_coil",
+        "title": "copper coil",
+        "type": "misc",
+        "weight": 5,
+        "icon": "§",
+        "desc": "hard and exposed copper wire, coiled around a plastic spool.",
+        "craft": true,
+        "craft_time": 25,
+        "craft_data": {
+            "copper_ore": {
+                "count": 2,
+                "title": "copper ore"
+            }
+        }
+    },
+    "camo": {
+        "name": "camo",
+        "title": "active camouflage",
+        "type": "tool",
+        "weight": 5,
+        "icon": "%",
+        "desc": "when laying to rest, the user becomes very difficult to see, only visible within a range of 5 kilometers.",
+        "craft": true,
+        "craft_time": 35,
+        "craft_data": {
+            "circuit_board": {
+                "count": 1,
+                "title": "circuit board"
+            },
+            "wire": {
+                "count": 5,
+                "title": "wire"
+            },
+            "cloth": {
+                "count": 20,
+                "title": "cloth"
+            }
+        },
+        "func": true,
+        "func_desc": "the areas concealed by the suit become invisible when worn. while your head and hands still stick out when standing, you are very difficult to see when asleep, only visible up to 5km away."
+    },
+    "scrap_block": {
+        "name": "scrap_block",
+        "title": "scrap metal fence",
+        "type": "build",
+        "weight": 35,
+        "icon": "#",
+        "desc": "a kilometer's worth of scrap metal fencing.",
+        "craft": true,
+        "craft_time": 120,
+        "craft_data": {
+            "scrap_metal": {
+                "count": 30,
+                "title": "scrap metal"
+            },
+            "wood_stick": {
+                "count": 5,
+                "title": "wood plank"
+            },
+            "rope": {
+                "count": 1,
+                "title": "rope"
+            }
+        },
+        "break_time": 21600,
+        "build": true,
+        "build_desc": "a kilometer of scrap metal fencing. it can't be walked over, and takes some time to break through."
+    },
+    "scrap_door": {
+        "name": "scrap_door",
+        "title": "scrap metal gate",
+        "type": "build",
+        "weight": 30,
+        "icon": "<b>D</b>",
+        "desc": "a metal gate fashioned from scrapped machinery.",
+        "craft": true,
+        "craft_time": 200,
+        "craft_data": {
+            "scrap_block": {
+                "count": 1,
+                "title": "scrap metal fence"
+            },
+            "rope": {
+                "count": 2,
+                "title": "rope"
+            },
+            "steel_shard": {
+                "count": 3,
+                "title": "steel shard"
+            },
+            "circuit_board": {
+                "count": 1,
+                "title": "circuit board"
+            }
+        },
+        "break_time": 21600,
+        "build": true,
+        "build_desc": "a metal gate fashioned from scrapped machinery. secured by a passcode mechanism."
+    },
+    "blowtorch": {
+        "name": "blowtorch",
+        "title": "powered blowtorch",
+        "type": "tool",
+        "weight": 35,
+        "icon": "r=",
+        "desc": "a powerful torch, capable of melting weaker metals.",
+        "craft": true,
+        "craft_time": 150,
+        "craft_data": {
+            "scrap_metal": {
+                "count": 15,
+                "title": "scrap metal"
+            },
+            "wire": {
+                "count": 4,
+                "title": "wire"
+            },
+            "plastic": {
+                "count": 7,
+                "title": "plastic pieces"
+            },
+            "battery": {
+                "count": 2,
+                "title": "energy cell"
+            }
+        }
+    },
+    "machete": {
+        "name": "machete",
+        "title": "machete",
+        "type": "weap",
+        "weight": 15,
+        "icon": "!",
+        "desc": "a long and sharp blade, its edge unevenly serrated, capable of heavy damage.",
+        "craft": true,
+        "craft_time": 65,
+        "craft_data": {
+            "wood_stick": {
+                "count": 2,
+                "title": "wood plank"
+            },
+            "scrap_metal": {
+                "count": 10,
+                "title": "scrap metal"
+            },
+            "steel_shard": {
+                "count": 20,
+                "title": "steel shard"
+            }
+        },
+        "weapon": true,
+        "weapon_data": {
+            "dmg": 29,
+            "sp": 17
+        }
+    },
+    "control_panel": {
+        "name": "control_panel",
+        "title": "control panel",
+        "type": "misc",
+        "weight": 5,
+        "icon": "&lt;&gt;",
+        "desc": "a small screen with programmable buttons. capable of being rigged up to many different machines.",
+        "craft": true,
+        "craft_time": 75,
+        "craft_data": {
+            "scrap_metal": {
+                "count": 5,
+                "title": "scrap metal"
+            },
+            "plastic": {
+                "count": 5,
+                "title": "plastic pieces"
+            },
+            "circuit_board": {
+                "count": 1,
+                "title": "circuit board"
+            },
+            "wire": {
+                "count": 10,
+                "title": "wire"
+            },
+            "copper_coil": {
+                "count": 2,
+                "title": "copper coil"
+            }
+        }
+    },
+    "small_chest": {
+        "name": "small_chest",
+        "title": "small storage unit",
+        "type": "build",
+        "weight": 15,
+        "icon": "◻",
+        "desc": "a small structure capable of holding a lot of items.",
+        "craft": true,
+        "craft_time": 75,
+        "craft_data": {
+            "wood_stick": {
+                "count": 15,
+                "title": "wood plank"
+            },
+            "scrap_metal": {
+                "count": 10,
+                "title": "scrap metal"
+            },
+            "plastic": {
+                "count": 10,
+                "title": "plastic pieces"
+            },
+            "rope": {
+                "count": 4,
+                "title": "rope"
+            }
+        },
+        "break_time": 300,
+        "build": true,
+        "build_desc": "a small structure capable of holding a lot of items."
+    },
+    "axe": {
+        "name": "axe",
+        "title": "axe",
+        "type": "tool",
+        "weight": 9,
+        "icon": "––A",
+        "desc": "a sharp axe, capable of breaking down strong structures.",
+        "craft": true,
+        "craft_time": 25,
+        "craft_data": {
+            "wood_stick": {
+                "count": 2,
+                "title": "wood plank"
+            },
+            "steel_shard": {
+                "count": 5,
+                "title": "steel shard"
+            }
+        },
+        "weapon": true,
+        "weapon_data": {
+            "dmg": 17,
+            "sp": 13
+        },
+        "breaker": true,
+        "break_ratio": 25
+    },
+    "radio": {
+        "name": "radio",
+        "title": "radiowave transmitter",
+        "type": "tool",
+        "weight": 5,
+        "icon": "[]‾",
+        "desc": "a small screen and keypad capable of broadcasting messages globally through radiowaves. also capable of broadcasting on encrypted channels.",
+        "craft": true,
+        "craft_time": 50,
+        "craft_data": {
+            "control_panel": {
+                "count": 1,
+                "title": "control panel"
+            },
+            "plastic": {
+                "count": 10,
+                "title": "plastic pieces"
+            }
+        },
+        "func": true,
+        "func_desc": "you can toggle the radio on or off, and set whether it should broadcast on an encrypted channel or not.",
+        "func_actions": {
+            "radio_toggle": {
+                "server": "radio_toggle",
+                "client": "ENGINE.log('radio activated, now listening.');",
+                "btn_text": "toggle"
+            },
+            "radio_transmit": {
+                "server": "radio_transmit",
+                "client": "MSG.open('enter a message to transmit globally. 100 character limit.', 'message', 100, 'transmit', 'cancel', 'radio_transmit');",
+                "btn_text": "transmit a message"
+            },
+            "radio_setchannel": {
+                "server": "radio_setchannel",
+                "client": "MSG.open('enter any nine-character code to set an encryption channel. if you enter a blank code, it will be reset to transmit without encryption.', 'encryption code', 9, 'set channel', 'cancel', 'radio_set_channel');",
+                "btn_text": "set channel"
+            }
+        }
+    },
+    "large_chest": {
+        "name": "large_chest",
+        "title": "large storage unit",
+        "type": "build",
+        "weight": 25,
+        "icon": "▭",
+        "desc": "a large structure capable of holding a huge amount of items.",
+        "craft": true,
+        "craft_time": 150,
+        "craft_data": {
+            "steel_shard": {
+                "count": 10,
+                "title": "steel shard"
+            },
+            "scrap_metal": {
+                "count": 15,
+                "title": "scrap metal"
+            },
+            "wood_stick": {
+                "count": 25,
+                "title": "wood plank"
+            },
+            "rope": {
+                "count": 4,
+                "title": "rope"
+            }
+        },
+        "break_time": 600,
+        "build": true,
+        "build_desc": "a small structure capable of holding a lot of items."
+    },
+    "steel_block": {
+        "name": "steel_block",
+        "title": "reinforced steel fence",
+        "type": "build",
+        "weight": 50,
+        "icon": "<b>#</b>",
+        "desc": "a kilometer's worth of reinforced steel fencing.",
+        "craft": true,
+        "craft_time": 150,
+        "craft_data": {
+            "steel_shard": {
+                "count": 30,
+                "title": "steel shard"
+            },
+            "scrap_metal": {
+                "count": 5,
+                "title": "scrap metal"
+            },
+            "rope": {
+                "count": 2,
+                "title": "rope"
+            }
+        },
+        "break_time": 57600,
+        "build": true,
+        "build_desc": "a kilometer of reinforced steel fencing. it can't be walked over, and takes a lot of time to break through."
+    },
+    "sledgehammer": {
+        "name": "sledgehammer",
+        "title": "sledgehammer",
+        "type": "tool",
+        "weight": 9,
+        "icon": "––]",
+        "desc": "a heavy hammer, capable of quick destruction.",
+        "craft": true,
+        "craft_time": 25,
+        "craft_data": {
+            "scrap_metal": {
+                "count": 5,
+                "title": "scrap metal"
+            },
+            "steel_shard": {
+                "count": 8,
+                "title": "steel shard"
+            }
+        },
+        "weapon": true,
+        "weapon_data": {
+            "dmg": 22,
+            "sp": 16
+        },
+        "breaker": true,
+        "break_ratio": 40
+    },
+    "steel_door": {
+        "name": "steel_door",
+        "title": "steel gate",
+        "type": "build",
+        "weight": 35,
+        "icon": "$",
+        "desc": "a sturdy gate fashioned from strong steel.",
+        "craft": true,
+        "craft_time": 250,
+        "craft_data": {
+            "steel_block": {
+                "count": 1,
+                "title": "reinforced steel fence"
+            },
+            "copper_coil": {
+                "count": 4,
+                "title": "copper coil"
+            },
+            "control_panel": {
+                "count": 1,
+                "title": "control panel"
+            }
+        },
+        "break_time": 57600,
+        "build": true,
+        "build_desc": "a metal gate fashioned from scrapped machinery. secured by a small computer with a keypad."
+    },
+    "charged_core": {
+        "name": "charged_core",
+        "title": "charged core",
+        "type": "rare",
+        "weight": 15,
+        "icon": "@",
+        "desc": "a spherical cell, capable of supplying a large amount of power.",
+        "craft": true,
+        "craft_time": 500,
+        "craft_data": {
+            "scrap_metal": {
+                "count": 10,
+                "title": "scrap metal"
+            },
+            "circuit_board": {
+                "count": 2,
+                "title": "circuit board"
+            },
+            "wire": {
+                "count": 5,
+                "title": "wire"
+            },
+            "battery": {
+                "count": 3,
+                "title": "energy cell"
+            },
+            "copper_coil": {
+                "count": 1,
+                "title": "copper coil"
+            }
+        }
+    },
+    "player_scanner": {
+        "name": "player_scanner",
+        "title": "low-range rescue scanner",
+        "type": "tool",
+        "weight": 15,
+        "icon": "(s)",
+        "desc": "scans for intelligent life within a square radius of 30 kilometers, and beeps with volume proportional to the distance of the closest lifeform.",
+        "craft": true,
+        "craft_time": 750,
+        "craft_data": {
+            "control_panel": {
+                "count": 1,
+                "title": "control panel"
+            },
+            "battery": {
+                "count": 5,
+                "title": "energy cell"
+            },
+            "wire": {
+                "count": 10,
+                "title": "wire"
+            },
+            "scrap_metal": {
+                "count": 15,
+                "title": "scrap metal"
+            }
+        },
+        "func": true,
+        "func_desc": "scans for intelligent life within a square radius of 30 kilometers, and beeps with volume proportional to the distance of the closest lifeform.",
+        "func_start": "ENGINE.log('the device has a single button on it, with an electric speaker next to it.');",
+        "func_actions": {
+            "scan": {
+                "server": "scan",
+                "client": "ENGINE.log('scanning for life...');",
+                "btn_text": "scan"
+            }
+        }
+    },
+    "player_scanner_highrange": {
+        "name": "player_scanner_highrange",
+        "title": "high-range rescue scanner",
+        "type": "tool",
+        "weight": 20,
+        "icon": "(S)",
+        "desc": "scans for intelligent life within a square radius of 100 kilometers, and will indicate the approximate direction.",
+        "craft": true,
+        "craft_time": 4000,
+        "craft_data": {
+            "player_scanner": {
+                "count": 1,
+                "title": "low-range rescue scanner"
+            },
+            "charged_core": {
+                "count": 1,
+                "title": "charged core"
+            },
+            "wire": {
+                "count": 10,
+                "title": "wire"
+            },
+            "plastic": {
+                "count": 5,
+                "title": "plastic pieces"
+            }
+        },
+        "func": true,
+        "func_desc": "scans for intelligent life within a square radius of 100 kilometers, and will indicate the approximate direction.",
+        "func_start": "ENGINE.log('the device shows a white light, a green light, and a red light, and an arrow that spins freely. you switch the scanner on and the white light activates.');",
+        "func_actions": {
+            "scan": {
+                "server": "scan",
+                "client": "ENGINE.log('scanning for life...', false);",
+                "btn_text": "scan"
+            }
+        }
+    },
+    "heat_masker": {
+        "name": "heat_masker",
+        "title": "life signature mask",
+        "type": "tool",
+        "weight": 15,
+        "icon": "≈",
+        "desc": "when active, the user becomes impossible to detect by life scans.",
+        "craft": true,
+        "craft_time": 100,
+        "craft_data": {
+            "alien_fragment": {
+                "count": 1,
+                "title": "unknown material fragment"
+            },
+            "circuit_board": {
+                "count": 2,
+                "title": "circuit board"
+            },
+            "copper_coil": {
+                "count": 5,
+                "title": "copper coil"
+            },
+            "wire": {
+                "count": 10,
+                "title": "wire"
+            }
+        },
+        "func": true,
+        "func_desc": "the atmosphere around you feels very cold."
+    },
+    "ocean_platform": {
+        "name": "ocean_platform",
+        "title": "ocean platform",
+        "type": "build",
+        "weight": 65,
+        "icon": "Θ",
+        "desc": "an intricate and sturdy platform designed to resist erosion in acidic water. capable of supporting travelers and structures on top of it.",
+        "craft": true,
+        "craft_time": 300,
+        "craft_data": {
+            "copper_coil": {
+                "count": 25,
+                "title": "copper coil"
+            },
+            "steel_shard": {
+                "count": 10,
+                "title": "steel shard"
+            },
+            "scrap_metal": {
+                "count": 25,
+                "title": "scrap metal"
+            },
+            "plastic": {
+                "count": 15,
+                "title": "plastic pieces"
+            }
+        },
+        "break_time": 10,
+        "build": true,
+        "build_desc": "an intricate and sturdy platform designed to resist erosion in acidic water. capable of supporting travelers and structures on top of it. if a structure atop it is destroyed, it will break as well."
+    },
+    "metal_detector": {
+        "name": "metal_detector",
+        "title": "metal detector",
+        "type": "tool",
+        "weight": 15,
+        "icon": "¯\\_",
+        "desc": "detects materials hidden underground.",
+        "craft": true,
+        "craft_time": 80,
+        "craft_data": {
+            "scrap_metal": {
+                "count": 20,
+                "title": "scrap metal"
+            },
+            "circuit_board": {
+                "count": 1,
+                "title": "circuit board"
+            },
+            "wire": {
+                "count": 3,
+                "title": "wire"
+            },
+            "battery": {
+                "count": 1,
+                "title": "energy cell"
+            }
+        },
+        "func": true,
+        "func_desc": "while walking, the metal detector will ping if it finds useful materials underground automatically. if you have a shovel, you can also dig in place without needing to equip it.",
+        "func_actions": {
+            "dig_with_shovel": {
+                "server": "dig_with_shovel",
+                "client": "if (SUPPLIES.current['shovel'] !== undefined) {ENGINE.log('digging...', false);} else {ENGINE.log('you don\\'t have a shovel.');}",
+                "btn_text": "dig"
+            }
+        }
+    },
+    "scrap_metal": {
+        "name": "scrap_metal",
+        "title": "scrap metal",
+        "type": "misc",
+        "weight": 2,
+        "icon": "ð",
+        "desc": "a few shards of metal. probably can be bent into useful shapes."
+    },
+    "plastic": {
+        "name": "plastic",
+        "title": "plastic pieces",
+        "type": "misc",
+        "weight": 2,
+        "icon": "ß",
+        "desc": "some different kinds of plastic, molded together."
+    },
+    "cloth": {
+        "name": "cloth",
+        "title": "cloth",
+        "type": "misc",
+        "weight": 1,
+        "icon": "c",
+        "desc": "tattered and partially rotted fabric, but combined with others like it, could still be put to use."
+    },
+    "soda_bottle": {
+        "name": "soda_bottle",
+        "title": "broken soda bottle",
+        "type": "weap",
+        "weight": 5,
+        "icon": "{,",
+        "desc": "a broken glass soda bottle, the faded label of its blue and red logo still prominent.",
+        "weapon": true,
+        "weapon_data": {
+            "dmg": 8,
+            "sp": 9
+        }
+    },
+    "fire_extinguisher": {
+        "name": "fire_extinguisher",
+        "title": "fire extinguisher",
+        "type": "weap",
+        "weight": 11,
+        "icon": "Û",
+        "desc": "an empty metal can, once capable of saving lives, is now used to inflict pain.",
+        "weapon": true,
+        "weapon_data": {
+            "dmg": 11,
+            "sp": 11
+        }
+    },
+    "circuit_board": {
+        "name": "circuit_board",
+        "title": "circuit board",
+        "type": "misc",
+        "weight": 2,
+        "icon": "▓",
+        "desc": "old and broken, but its electric components can still be used."
+    },
+    "keycard_a": {
+        "name": "keycard_a",
+        "title": "keycard type a",
+        "type": "rare",
+        "weight": 1,
+        "icon": "[a]",
+        "desc": "it describes itself as a security clearance card, with access limited to \"group a\"."
+    },
+    "keycard_e": {
+        "name": "keycard_e",
+        "title": "keycard type e",
+        "type": "rare",
+        "weight": 1,
+        "icon": "[e]",
+        "desc": "it describes itself as a security clearance card, with access limited to \"group e\"."
+    },
+    "pistol": {
+        "name": "pistol",
+        "title": "pistol",
+        "type": "weap",
+        "weight": 12,
+        "icon": "Г",
+        "desc": "a small handgun, rusted but functional, capable of doing moderate damage over a medium range."
+    },
+    "shotgun_shell": {
+        "name": "shotgun_shell",
+        "title": "shotgun shell",
+        "type": "misc",
+        "weight": 3,
+        "icon": "<b>-</b>",
+        "desc": "a cylinder of plastic containing several tiny metal balls. capable of inflicting heavy damage over a short range."
+    },
+    "keycard_c": {
+        "name": "keycard_c",
+        "title": "keycard type c",
+        "type": "rare",
+        "weight": 1,
+        "icon": "[c]",
+        "desc": "it describes itself as a security clearance card, with access limited to \"group c\"."
+    },
+    "syringe": {
+        "name": "syringe",
+        "title": "syringe",
+        "type": "misc",
+        "weight": 3,
+        "icon": "=-",
+        "desc": "intended for injecting liquids into a bloodstream."
+    },
+    "steel_shard": {
+        "name": "steel_shard",
+        "title": "steel shard",
+        "type": "misc",
+        "weight": 5,
+        "icon": "¤",
+        "desc": "high quality steel that seems to have been ripped off some old machine."
+    },
+    "keycard_b": {
+        "name": "keycard_b",
+        "title": "keycard type b",
+        "type": "rare",
+        "weight": 1,
+        "icon": "[b]",
+        "desc": "it describes itself as a security clearance card, with access limited to \"group b\"."
+    },
+    "keycard_d": {
+        "name": "keycard_d",
+        "title": "keycard type d",
+        "type": "rare",
+        "weight": 1,
+        "icon": "[d]",
+        "desc": "it describes itself as a security clearance card, with access limited to \"group d\"."
+    },
+    "low_teleporter": {
+        "name": "low_teleporter",
+        "title": "low-range personal teleporter",
+        "type": "tool",
+        "weight": 20,
+        "icon": "(t)",
+        "desc": "capable of teleporting 10 kilometers in a cardinal direction. consumes 1 energy cell per teleport.",
+        "craft": true,
+        "craft_time": 5000,
+        "craft_data": {
+            "control_panel": {
+                "count": 1,
+                "title": "control panel"
+            },
+            "charged_core": {
+                "count": 1,
+                "title": "charged core"
+            },
+            "wire": {
+                "count": 15,
+                "title": "wire"
+            },
+            "scrap_metal": {
+                "count": 25,
+                "title": "scrap metal"
+            }
+        },
+        "func": true,
+        "func_desc": "a delicate device that can teleport you 10km in any direction, if the current location or destination do not have too much interference. requires 1 energy cell to engage a teleport.",
+        "func_start": "ENGINE.log('you hold the device carefully in your hands. it\\'s only capable of function if you have a energy cell available to power it.');",
+        "func_actions": {
+            "north": {
+                "server": "north",
+                "client": "ENGINE.log('attempting to teleport north...', false);",
+                "btn_text": "teleport north"
+            },
+            "east": {
+                "server": "east",
+                "client": "ENGINE.log('attempting to teleport east...', false);",
+                "btn_text": "teleport east"
+            },
+            "south": {
+                "server": "south",
+                "client": "ENGINE.log('attempting to teleport south...', false);",
+                "btn_text": "teleport south"
+            },
+            "west": {
+                "server": "west",
+                "client": "ENGINE.log('attempting to teleport west...', false);",
+                "btn_text": "teleport west"
+            }
+        }
+    },
+    "max_pass": {
+        "name": "max_pass",
+        "title": "maximum security pass",
+        "type": "rare",
+        "weight": 1,
+        "icon": "[M]",
+        "desc": "a keycard with maximum government clearance."
+    },
+    "flash_drive": {
+        "name": "flash_drive",
+        "title": "flash drive",
+        "type": "rare",
+        "weight": 3,
+        "icon": "[]=",
+        "desc": "a small black rectangular device, with a metal prong sticking out of one end."
+    },
+    "copper_ore": {
+        "name": "copper_ore",
+        "title": "copper ore",
+        "type": "misc",
+        "weight": 6,
+        "icon": "&lt;c",
+        "desc": "contains pure copper."
+    },
+    "bp_low_teleporter": {
+        "name": "bp_low_teleporter",
+        "title": "bp: low-range personal teleporter",
+        "type": "bp",
+        "weight": 1,
+        "icon": "[]",
+        "desc": "a blueprint for the creation of a device that can teleport you short distances.",
+        "is_bp": true,
+        "bp_for": "low_teleporter"
+    },
+    "bp_metal_detector": {
+        "name": "bp_metal_detector",
+        "title": "bp: metal detector",
+        "type": "bp",
+        "weight": 1,
+        "icon": "[]",
+        "desc": "a blueprint for the creation of a device that can detect materials underground.",
+        "is_bp": true,
+        "bp_for": "metal_detector"
+    },
+    "rope": {
+        "name": "rope",
+        "title": "rope",
+        "type": "misc",
+        "weight": 3,
+        "icon": "~",
+        "desc": "a small section of rope, its ends frayed."
+    },
+    "alien_token": {
+        "name": "alien_token",
+        "title": "alien token",
+        "type": "rare",
+        "weight": 0,
+        "icon": "-o-",
+        "desc": "a small black ring, with a purple sphere shining like a jewel. a token of an ascended mind, from those who gave humanity another chance."
+    },
+    "reality_anchor": {
+        "name": "reality_anchor",
+        "title": "personal reality anchor",
+        "type": "build",
+        "weight": 13,
+        "icon": "┬",
+        "desc": "anchors the user's reality to a specific location. upon death, the user will reincarnate wherever their anchor was placed.",
+        "craft": true,
+        "craft_time": 250,
+        "craft_data": {
+            "control_panel": {
+                "count": 1,
+                "title": "control panel"
+            },
+            "battery": {
+                "count": 1,
+                "title": "energy cell"
+            },
+            "alien_fragment": {
+                "count": 1,
+                "title": "unknown material fragment"
+            }
+        },
+        "break_time": 7200,
+        "build": true,
+        "build_desc": "place the anchor on the ground and it will activate automatically. if you craft a new anchor and place it somewhere else, you will reincarnate there and previously placed anchors will be forgotten. if your anchor ends up blocked off, such that there is no safe location to reincarnate next to it, the anchor will be forgotten. once the anchor is placed, it will permanently stay at that location until destroyed. it cannot be picked up and used again.",
+        "build_start": "ENGINE.log('the reality anchor glows as you hold it.');"
+    },
+    "high_teleporter": {
+        "name": "high_teleporter",
+        "title": "high-range personal teleporter",
+        "type": "tool",
+        "weight": 35,
+        "icon": "(T)",
+        "desc": "capable of teleporting 1000 kilometers in a cardinal direction. consumes 5 charged cores per teleport.",
+        "craft": true,
+        "craft_time": 86400,
+        "craft_data": {
+            "low_teleporter": {
+                "count": 1,
+                "title": "low-range personal teleporter"
+            },
+            "alien_fragment": {
+                "count": 3,
+                "title": "unknown material fragment"
+            },
+            "charged_core": {
+                "count": 2,
+                "title": "charged core"
+            },
+            "wire": {
+                "count": 25,
+                "title": "wire"
+            }
+        },
+        "func": true,
+        "func_desc": "a heavy device that can teleport you 1000km in any direction, if the current location or destination do not have too much interference. requires 5 charged cores to engage a teleport.",
+        "func_start": "ENGINE.log('you hold the heavy device, electricity jolting out of its spherical slots. it\\'s only capable of function if you have 5 charged cores available to power it.');",
+        "func_actions": {
+            "north": {
+                "server": "north",
+                "client": "ENGINE.log('attempting to teleport north...', false);",
+                "btn_text": "teleport north"
+            },
+            "east": {
+                "server": "east",
+                "client": "ENGINE.log('attempting to teleport east...', false);",
+                "btn_text": "teleport east"
+            },
+            "south": {
+                "server": "south",
+                "client": "ENGINE.log('attempting to teleport south...', false);",
+                "btn_text": "teleport south"
+            },
+            "west": {
+                "server": "west",
+                "client": "ENGINE.log('attempting to teleport west...', false);",
+                "btn_text": "teleport west"
+            }
+        }
+    },
+    "WORLD_MACHINE": {
+        "name": "WORLD_MACHINE",
+        "title": "THE WORLD MACHINE",
+        "type": "rare",
+        "weight": 200,
+        "icon": "▀",
+        "desc": "a heavy black cube, with dozens of alien numbers etched into it on every side. an artifact of those who gave humanity another chance. it cannot be given away, and will disappear if you die.",
+        "func": true,
+        "func_desc": "there are no buttons, but you know that if you put forth mental willpower, it can be activated.",
+        "func_start": "ENGINE.log('the artifact pulls at your mind, beckoning you to activate it.');",
+        "func_actions": {
+            "depart": {
+                "server": "depart",
+                "client": "ENGINE.log('concentrating...', false);",
+                "btn_text": "activate"
+            }
+        }
+    },
+    "battery": {
+        "name": "battery",
+        "title": "energy cell",
+        "type": "misc",
+        "weight": 4,
+        "icon": "o",
+        "desc": "a charged battery, from a time when energy was unlimited."
+    },
+    "uranium": {
+        "name": "uranium",
+        "title": "uranium",
+        "type": "misc",
+        "weight": 25,
+        "icon": "x",
+        "desc": "a heavy rock, tinged with green and gold."
+    },
+    "shotgun": {
+        "name": "shotgun",
+        "title": "shotgun",
+        "type": "weap",
+        "weight": 22,
+        "icon": "~==",
+        "desc": "a pump-action shotgun, strong and sturdy, capable of dealing heavy damage over a short distance with a spray of metal pellets."
+    },
+    "bullet": {
+        "name": "bullet",
+        "title": "bullet",
+        "type": "misc",
+        "weight": 2,
+        "icon": "·",
+        "desc": "a piece of lead wrapped in metal. capable of inflicting moderate damage over a medium range."
+    },
+    "medical_pill": {
+        "name": "medical_pill",
+        "title": "medicine pill",
+        "type": "misc",
+        "weight": 1,
+        "icon": "⬬",
+        "desc": "a small pill taken from an unlabeled bottle. it's not clear what its effect is."
+    },
+    "nuke": {
+        "name": "nuke",
+        "title": "nuclear bomb",
+        "type": "weap",
+        "weight": 20,
+        "icon": ">=",
+        "desc": "the destroyer of worlds.",
+        "craft": true,
+        "craft_time": 15000,
+        "craft_data": {
+            "uranium": {
+                "count": 1,
+                "title": "uranium"
+            },
+            "alien_fragment": {
+                "count": 1,
+                "title": "unknown material fragment"
+            },
+            "control_panel": {
+                "count": 1,
+                "title": "control panel"
+            },
+            "charged_core": {
+                "count": 3,
+                "title": "charged core"
+            },
+            "wire": {
+                "count": 10,
+                "title": "wire"
+            },
+            "steel_shard": {
+                "count": 15,
+                "title": "steel shard"
+            }
+        },
+        "func": true,
+        "func_desc": "will unleash a colossal explosion capable of incredible damage to the surrounding world. detonating will instantly kill you and anyone nearby, and all of your supplies will be vaporized.",
+        "func_start": "ENGINE.log('the control panel blinks green, the activation button primed and ready.');",
+        "func_actions": {
+            "detonate": {
+                "server": "detonate",
+                "client": "ENGINE.log('detonating...', false);",
+                "btn_text": "detonate"
+            }
+        }
+    },
+    "alien_phaser": {
+        "name": "alien_phaser",
+        "title": "alien material phaser",
+        "type": "rare",
+        "weight": 35,
+        "icon": "P",
+        "desc": "a unique and heavy device, built in an entirely inhuman way, that can phase its user through certain solid materials.",
+        "craft": true,
+        "craft_time": 5000,
+        "craft_data": {
+            "alien_fragment": {
+                "count": 5,
+                "title": "unknown material fragment"
+            },
+            "low_teleporter": {
+                "count": 1,
+                "title": "low-range personal teleporter"
+            },
+            "steel_shard": {
+                "count": 20,
+                "title": "steel shard"
+            }
+        }
+    },
+    "bp_high_teleporter": {
+        "name": "bp_high_teleporter",
+        "title": "bp: high-range personal teleporter",
+        "type": "bp",
+        "weight": 1,
+        "icon": "[]",
+        "desc": "a blueprint for the creation of a device that can teleport you very long distances.",
+        "is_bp": true,
+        "bp_for": "high_teleporter"
+    },
+    "unknown material key": {
+        "name": "alien_key",
+        "title": "unknown material key",
+        "type": "rare",
+        "weight": 9,
+        "icon": "V=K",
+        "desc": "a hard, translucent, purple material, sculpted into an intricate key."
+    },
+    "bp_boat": {
+        "name": "bp_boat",
+        "title": "bp: small boat",
+        "type": "bp",
+        "weight": 1,
+        "icon": "[]",
+        "desc": "a blueprint for a vehicle that can float in water and resist acidic corrosion.",
+        "is_bp": true,
+        "bp_for": "boat"
+    },
+    "bp_reality_anchor": {
+        "name": "bp_reality_anchor",
+        "title": "bp: personal reality anchor",
+        "type": "bp",
+        "weight": 1,
+        "icon": "[]",
+        "desc": "a blueprint for a device that can anchor ones life force to a specific location. it specifies use of an unknown material.",
+        "is_bp": true,
+        "bp_for": "reality_anchor"
+    },
+    "maintenance_key": {
+        "name": "maintenance_key",
+        "title": "maintenance key",
+        "type": "misc",
+        "weight": 2,
+        "icon": "K-v",
+        "desc": "a rusty key."
+    }
+}

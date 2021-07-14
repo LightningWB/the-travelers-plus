@@ -1,0 +1,500 @@
+{
+	"id": "walled",
+	"weight": 10,
+	"rooms": {
+		"death": {
+			"id": "death",
+			"title": "death",
+			"body": "you died, but death isn't implemented yet. lucky you.",
+			"btns": [
+				"leave"
+			]
+		},
+		"main": {
+			"id": "main",
+			"title": "a walled city",
+			"body": "a majestic city enclosed in ancient stone rises out of the horizon, its innermost towers piercing the unending clouds. the portion of wall you've approached is dominating and unscathed, but a section a few kilometers to the east looks a little more weathered.",
+			"btns": [
+				{
+					"for": "eastern",
+					"text": "the eastern side"
+				},
+				"leave"
+			]
+		},
+		"eastern": {
+			"id":"eastern",
+			"title": "the collapsed eastern wall",
+			"body": "rubble is spread evenly, skewing far into the desert. whatever destroyed it must have come from inside. you can step delicately over the strewn cement and metal to get through. passing around the edge of the wall reveals the great city, its tall towers still relinquishing debris to the strong winds. the clouds are parted at the tip of the highest tower, revealing the slightest hint of blue sky. the ground lowers into a massive lake, the ashen waters covering the base of every tower. the closest structure to you appears to be an oil refinery, its maze of pipes surrounding the inner building.",
+			"btns": [
+				{
+					"for": "waters",
+					"text": "swim to refinery"
+				},
+				"leave"
+			]
+		},
+		"waters": {
+			"id":"waters",
+			"title": "ashen waters",
+			"body": "you descend into the water, submerging yourself almost entirely, and begin swimming toward the refinery. the water burns lightly, getting worse as you swim on. you can feel the stinging through your clothes, and just as you can feel your outer layer of skin begin withering, you arrive at the refinery. the wire fence that blocks it has mostly fallen, and after picking through it you find an exit from the building back here. its chains have fallen to the ground, and the door swings loosely with the wind.",
+			"btns": [
+				{
+					"for": "perimeter",
+					"text": "circle then perimeter"
+				},
+				{
+					"for": "exit",
+					"text": "go in",
+					"req": true,
+					"reqItems": [
+						{"id": "bolt_cutters", "title": "bolt cutters", "count": 1}
+					],
+					"reqConsume": false,
+					"reqForAll": false,
+					"reqTarget": "keyConsole"
+				},
+				"leave"
+			]
+		},
+		"perimeter": {
+			"id":"perimeter",
+			"title": "the perimeter",
+			"body": "it's clear why the wire fence was here; climbing over all the intersecting pipes and machinery proves to be more difficult than it seemed. after a while you arrive at a road, pipes still reaching overhead. one path leads left to an opening in the fence, toward the city. to the right is what appears to be the main entrance.",
+			"btns": [
+				{
+					"for": "mainArea",
+					"text": "the main entrance"
+				},
+				{
+					"for": "trail",
+					"text": "toward the city"
+				},
+				"leave"
+			]
+		},
+		"exit": {
+			"id":"exit",
+			"title": "the exit",
+			"body": "the door creaks on its hinges, opening slowly on its own, pushing away the chains on the ground. you step around it and into the dark hallway beyond. running your hand along the wall, you find a switch, and activating it causes the building to groan. after a moment the faint sound of a generator kicks on, and the whirring grows louder before the hallway becomes washed with eerie green emergency lights. the corridor leads into a staircase to an upper level, which opens into a catwalk over a long room filled with machinery. at the end of the catwalk is an unlabeled door, and a console facing the area below.",
+			"btns": [
+				{
+					"for": "keyConsole",
+					"text": "the console"
+				},
+				{
+					"for": "miniCloset",
+					"text": "the door"
+				},
+				{
+					"for": "machinery",
+					"text": "drop down"
+				},
+				"leave"
+			]
+		},
+		"keyConsole": {
+			"id": "keyConsole",
+			"title": "the console",
+			"body": "the bulbs and dials appear broken or otherwise non-functional.",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "maintenance_key",
+					"min": 1,
+					"max": 1,
+					"chance": 1
+				}
+			],
+			"nextId": "catwalk",
+			"size": 200
+		},
+		"miniCloset": {
+			"id": "miniCloset",
+			"title": "the door",
+			"body": "it opens to reveal a small room filled with useful supplies and electronics.",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "scrap_metal",
+					"min": 1,
+					"max": 6,
+					"note": "TODO: LOOT TABLES HERE",
+					"chance": 1
+				},
+				{
+					"id": "wire",
+					"min": 1,
+					"max": 2,
+					"chance": 1
+				},
+				{
+					"id": "circuit_board",
+					"min": 1,
+					"max": 1,
+					"chance": 1
+				}
+			],
+			"nextId": "catwalk",
+			"size": 200
+		},
+		"catwalk": {
+			"id":"catwalk",
+			"title": "the end of the catwalk",
+			"body": "there's a control console here and a door. you can drop down to the machinery below safely, but there would be no way back up.",
+			"btns": [
+				{
+					"for": "keyConsole",
+					"text": "the console"
+				},
+				{
+					"for": "miniCloset",
+					"text": "the door"
+				},
+				{
+					"for": "machinery",
+					"text": "drop down"
+				},
+				"leave"
+			]
+		},
+		"machinery": {
+			"id":"machinery",
+			"title": "a room of machinery",
+			"body": "you climb over the railing and drop to the floor. a gash in the ceiling reveals the dim sky, letting ash in to coat all the machines, and you walk among them, looking for something useful. most are built for the passing or cleaning of oil, and a few have begun to whir as they receive power. there's a corridor out of this room to the left, lit up with red light around a bend. to the right is an opening that leads to a wider area.",
+			"btns": [
+				{
+					"for": "redCorridor",
+					"text": "the red corridor"
+				},
+				{
+					"for": "mainArea",
+					"text": "the main area"
+				}
+			]
+		},
+		"redCorridor": {
+			"id":"redCorridor",
+			"title": "the red corridor",
+			"body": "the walls glow red as you follow the path around a corner, finally revealing a large room with a furnace emitting immense heat. a conveyer belt slowly rotates next to it, ready to feed metals to be smelted.",
+			"btns": [
+				{
+					"for": "furnace",
+					"text": "place 10 copper ore",
+					"req": true,
+					"reqItems": [
+						{"id": "copper_ore", "title": "copper ore", "count": 10}
+					],
+					"reqConsume": true
+				},
+				{
+					"for": "machinery",
+					"text": "back to machinery room"
+				}
+			]
+		},
+		"furnace": {
+			"id":"furnace",
+			"title": "TODO: get 10 copper to find the stuff for this place",
+			"body": "you put 10 copper ore in a furnace and get 10 coils or something",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "copper_coil",
+					"min": 1,
+					"max": 10,
+					"chance": 1
+				}
+			],
+			"store": false,
+			"nextId": "redCorridor",
+			"size": 200
+		},
+		"mainArea": {
+			"id":"mainArea",
+			"title": "the main area",
+			"body": "you slide the glass entrance open, and are greeted by deep darkness, broken only by some dim light escaping through the ceiling in the distance. running your hands along the wall, you find a switch and activate it. the lights overhead flicker on, washing the room in an eerie green, and the refinery comes to life as an emergency generator kicks on in the distance, humming intensely. there's a rotten wood desk in front of a wall that looks like it once held a logo; despite seeming to be the main entrance, the area is not grand or well-presented. this was a place for work, not grand advertising gestures. there's two staircases to either side, but both have withered over time, making the upper levels inaccessible. across the room from the main desk is a maintenance closet, and a door labeled with a hazard symbol. there's also an opening that leads to an area with many pipes and different machines.",
+			"btns": [
+				{
+					"for": "maintenanceCloset",
+					"text": "unlock maintenance closet",
+					"req": true,
+					"reqItems": [
+						{"id": "maintenance_key", "title": "maintenance key", "count": 1}
+					],
+					"reqConsume": true,
+					"reqForAll": false,
+					"reqTarget": "maintenanceCloset"
+				},
+				{
+					"for": "hazardDoor",
+					"text": "the hazard door"
+				},
+				{
+					"for": "machinery",
+					"text": "the machinery room"
+				},
+				{
+					"for": "trail",
+					"text": "back out toward the city"
+				}
+			]
+		},
+		"maintenanceCloset": {
+			"id": "maintenanceCloset",
+			"title": "the maintenance closet",
+			"body": "there could still be something useful to scrounge up from in here.",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "scrap_metal",
+					"min": 1,
+					"max": 6,
+					"note": "TODO: LOOT TABLES HERE",
+					"chance": 1
+				},
+				{
+					"id": "wire",
+					"min": 1,
+					"max": 4,
+					"chance": 1
+				},
+				{
+					"id": "wood_stick",
+					"min": 1,
+					"max": 2,
+					"chance": 1
+				},
+				{
+					"id": "rope",
+					"min": 1,
+					"max": 2,
+					"chance": 1
+				},
+				{
+					"id": "circuit_board",
+					"min": 1,
+					"max": 2,
+					"chance": 1
+				}
+			],
+			"nextId": "mainArea",
+			"size": 50
+		},
+		"hazardDoor": {
+			"id":"hazardDoor",
+			"title": "the hazard door",
+			"body": "this door isn't locked, and creaks open to reveal a descending staircase. the metal steps ache as you go down, the light slowly being swallowed by the darkness. as you reach the bottom, the lights in this area flicker on as well, but these are a deep red. there's more intertwined pipes down here, most leaking black liquids onto the floor, pumping what little oil manages to run through them. the brick walls are shining with moisture, and to one side is a panel of machinery, its buttons lit and blinking. there's a door in the back corner, as well, labeled \"authorized personnel only\".",
+			"btns": [
+				{
+					"for": "controlPanel",
+					"text": "the control panel",
+					"lock": true,
+					"lockTarget": "woodBox"
+				},
+				{
+					"for": "restrictedAccess",
+					"text": "the restricted access door"
+				},
+				{
+					"for": "mainArea",
+					"text": "back upstairs"
+				}
+			]
+		},
+		"controlPanel": {
+			"id": "controlPanel",
+			"title": "the control panel",
+			"body": "you twist a few buttons and switch a few levers, and for a moment nothing happens, but suddenly the basement begins to rumble. a few of the pipes burst from the movement, and after a moment, the rumbling stops. you look around and notice that a section of the wall in the other corner of the room has slid away, revealing an area beyond.",
+			"btns": [
+				{
+					"for": "gap",
+					"text": "the gap in the wall"
+				},
+				{
+					"for": "restrictedAccess",
+					"text": "the restricted access door"
+				},
+				{
+					"for": "mainArea",
+					"text": "back upstairs"
+				}
+			]
+		},
+		"gap": {
+			"id":"gap",
+			"title": "the gap",
+			"body": "you're greeted by another staircase, and you descend far deeper than before. the new area is expansive and dark, so much so that you can't see more than a few meters around. after walking forward for several seconds, you can just barely make out another control panel against the wall. at its base is a rotten wooden box, its lid closed.",
+			"btns": [
+				{
+					"for": "darkRoom",
+					"text": "check control panel"
+				},
+				{
+					"for": "woodBox",
+					"text": "check wood box"
+				}
+			]
+		},
+		"darkRoom": {
+			"id":"darkRoom",
+			"title": "the dark room",
+			"body": "the control panel protrudes from the wall unnaturally. it seems makeshift, like it wasn't designed with the rest of the building. there's a broken screen panel on it, and a single red button below it.",
+			"btns": [
+				{
+					"for": "flood",
+					"text": "activate button"
+				},
+				{
+					"for": "woodBox",
+					"text": "check wood box"
+				}
+			]
+		},
+		"woodBox": {
+			"id": "woodBox",
+			"title": "a rotten wood box",
+			"body": "there's still a few things worth taking in here.",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "wood_stick",
+					"min": 1,
+					"max": 6,
+					"note": "TODO: LOOT TABLES HERE",
+					"chance": 1
+				},
+				{
+					"id": "scrap_metal",
+					"min": 1,
+					"max": 4,
+					"chance": 1
+				},
+				{
+					"id": "plastic",
+					"min": 1,
+					"max": 4,
+					"chance": 0.5
+				}
+			],
+			"nextId": "darkRoom",
+			"size": 200
+		},
+		"flood": {
+			"id":"flood",
+			"title": "a flood of water",
+			"body": "another secret door slides open in one side of the room, but your feet are suddenly soaked by a wash of cold water. it fills quickly, going past your knees in seconds. it might not be worth the risk.",
+			"btns": [
+				{
+					"for": "wading",
+					"text": "escape up stairs"
+				},
+				{
+					"for": "darkness",
+					"text": "swim to secret door"
+				}
+			]
+		},
+		"darkness": {
+			"id":"darkness",
+			"title": "darkness",
+			"body": "you swim toward where you heard the sound of the secret door. precious seconds are wasted as you feel against the wall; the darkness now absolute, and the water is splashing into your eyes and burning. finally you find the gap in the wall, but the water's above your head and pressing against the ceiling. you can't se a way out, and swim hopelessly in one direction, but if there was anything useful down here, it would be impossible to retrieve. your lungs burn more and more until you reflexively gasp for a breath, and your life blinks out.",
+			"btns": [
+				{
+					"for": "death",
+					"text": "death"
+				}
+			]
+		},
+		"wading": {
+			"id":"wading",
+			"title": "a flood of water",
+			"body": "there's plenty of time to escape up the stairs, and you wade through the water until you are back in the higher basement. the red glow shines on the rising water, bubbling and surging until it reaches the top stair and finally stopping. after a moment it grows still.",
+			"btns": [
+				{
+					"for": "restrictedAccess",
+					"text": "the restricted access door"
+				},
+				{
+					"for": "basement",
+					"text": "back upstairs"
+				}
+			]
+		},
+		"restrictedAccess": {
+			"id":"restrictedAccess",
+			"title": "restricted access",
+			"body": "the door is locked tight. to its right is a panel with three half-spherical indents. electricity jolts out of them every few seconds, filling the silence.",
+			"visitedBody" : "the door is locked tight. to its right is a panel with three empty charged cores, their massive power somehow entirely depleted.",
+			"visitTarget" : "keycardB",
+			"btns": [
+				{
+					"for": "keycardB",
+					"text": "open door",
+					"req": true,
+					"reqItems": [
+						{"id": "charged_core", "title": "charged core", "count": 3}
+					],
+					"reqConsume": true,
+					"reqLock": true,
+					"reqTarget": "keycardB"
+				},
+				{
+					"for": "basement",
+					"text": "the basement"
+				}
+			]
+		},
+		"keycardB": {
+			"id": "keycardB",
+			"title": "TODO: title not documented",
+			"body": "the door slides open to reveal a small room, complete with an old desk and hundreds of wires running along the walls. what's in here is definitely worth taking.",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "keycard_b",
+					"min": 1,
+					"max": 1,
+					"chance": 1
+				}
+			],
+			"nextId": "restrictedAccess",
+			"size": 0
+		},
+		"basement": {
+			"id":"basement",
+			"title": "the basement",
+			"body": "there's a control panel, a staircase back up, and a door marked \"authorized personnel only\".",
+			"btns": [
+				{
+					"for": "restrictedAccess",
+					"text": "the restricted access door"
+				},
+				{
+					"for": "mainArea",
+					"text": "back upstairs"
+				}
+			]
+		},
+		"trail": {
+			"id":"trail",
+			"title": "the asphalt trail",
+			"body": "you walk along the small road toward the city, underneath the dancing pipes, and are eventually met by a wide, empty parking lot. just past it is a bridge.",
+			"btns": [
+				{
+					"for": "bridge",
+					"text": "the bridge"
+				},
+				"leave"
+			]
+		},
+		"bridge": {
+			"id":"bridge",
+			"title": "the top of the bridge",
+			"body": "the bridge has broken down entirely, separated from its other half by around twenty meters. jumping down and swimming is also not an option. there's a body resting in a lawn chair here, a fishing rod still in its hands. an old man, his white hair still flowing in the wind. he has a smile on his face, as though he enjoyed his final moments. his body has only barely begun to rot, compared to the other corpses you've seen around the world.",
+			"btns": [
+				"leave"
+			]
+		}
+	}
+}
