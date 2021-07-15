@@ -55,6 +55,7 @@ plugin.on('travelers::levelUpPlayer', require('./crafting').connect, BASE_PRIORI
 plugin.on('playerConnect', require('./crafting').connect, BASE_PRIORITY);
 plugin.on('playerTick', require('./crafting').tick, BASE_PRIORITY);
 plugin.on('actions::craft', require('./crafting').craft, BASE_PRIORITY);
+plugin.on('actions::craft_cancelall', require('./crafting').cancelAll, BASE_PRIORITY);
 // equipment
 plugin.on('actions::equip', require('./equipment').equip, BASE_PRIORITY);
 plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY);

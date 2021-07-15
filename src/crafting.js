@@ -59,8 +59,26 @@ module.exports.tick = function(player) {
 		{
 			newQueue[id] = player.public.craft_queue[id];
 		}
-		player.public.craft_queue = newQueue;
+		if(activeIds.length > 0)player.public.craft_queue = newQueue;
+		else player.public.craft_queue = undefined;
 		player.addPropToQueue('craft_queue');
+	}
+}
+
+module.exports.cancelAll = function(packet, player) {
+	if(player.public.craft_queue && player.public.state === 'travel')
+	{
+		for(const id in player.public.craft_queue)
+		{
+			const target = item(player.public.craft_queue[id].item_id);
+			for(const ingredientId in target.craft_data)
+			{
+				giveItemToPlayer(ingredientId, target.craft_data[ingredientId].count, player);
+			}
+		}
+		player.public.craft_queue = undefined;
+		player.addPropToQueue('craft_queue');
+		emit('travelers', 'renderItems', player);
 	}
 }
 

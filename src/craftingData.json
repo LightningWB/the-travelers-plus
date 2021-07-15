@@ -5,5 +5,8 @@
 	"14": ["copper_coil", "camo", "radio", "scrap_block", "scrap_door"],
 	"19": ["blowtorch", "machete", "control_panel", "airwave_tower", "small_chest"],
 	"24": ["axe", "large_chest"],
-	"29": ["steel_block", "sledgehammer", "steel_door"]
+	"29": ["steel_block", "sledgehammer", "steel_door"],
+	"34": ["charged_core", "player_scanner"],
+	"39": ["player_scanner_highrange", "heat_masker"],
+	"49": ["ocean_platform"]
 }
