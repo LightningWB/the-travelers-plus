@@ -95,6 +95,7 @@ export type room = {// text room
 	loot: true,
 	/**
 	 * the next room to bring the player to
+	 * set to "leave" to have a looting screen end an event
 	 */
 	nextId: string,
 	/**
