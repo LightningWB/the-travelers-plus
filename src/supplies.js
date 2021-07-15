@@ -29,7 +29,7 @@ module.exports.renderItems = function(player, addToQueue) {
 			data: items[id]
 		};
 	}
-	if(addToQueue)player.addPropToQueue('supplies');
+	if(addToQueue !== false)player.addPropToQueue('supplies');
 }
 
 module.exports.givePlayerItem = function(id, count, player) {
