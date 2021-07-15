@@ -111,3 +111,8 @@ module.exports.item = function(id) {
 	emit('travelers', 'getItem', id, d);
 	return d;
 }
+
+module.exports.giveItemToPlayer = function(id, count, player)
+{
+	emit('travelers', 'givePlayerItem', id, count, player);
+}

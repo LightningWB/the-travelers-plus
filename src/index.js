@@ -48,7 +48,13 @@ plugin.on('travelers::givePlayerItem', require('./supplies').givePlayerItem, BAS
 plugin.on('travelers::takePlayerItem', require('./supplies').takePlayerItem, BASE_PRIORITY);
 plugin.on('travelers::removeItem', require('./supplies').removeItem, BASE_PRIORITY);
 plugin.on('travelers::addItem', require('./supplies').addItem, BASE_PRIORITY);
-plugin.on('playerConnect', require('./supplies').playerJoin, BASE_PRIORITY);
+plugin.on('playerConnect', require('./supplies').playerJoin, BASE_PRIORITY + 5);// apply first so other stuff can check levels
+// crafting
+plugin.on('travelers::addCraftableItem', require('./crafting').addUnlockLevel, BASE_PRIORITY);
+plugin.on('travelers::levelUpPlayer', require('./crafting').connect, BASE_PRIORITY);
+plugin.on('playerConnect', require('./crafting').connect, BASE_PRIORITY);
+plugin.on('playerTick', require('./crafting').tick, BASE_PRIORITY);
+plugin.on('actions::craft', require('./crafting').craft, BASE_PRIORITY);
 // equipment
 plugin.on('actions::equip', require('./equipment').equip, BASE_PRIORITY);
 plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY);
@@ -74,3 +80,13 @@ require('./events/houses.json').forEach(e=>thetravelers.emit('travelers', 'addEv
 require('./events/cites.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'city', require('./events/cities/' + e)));
 thetravelers.emit('travelers', 'addEvent', 'body', require('./events/other/body.json'));
 thetravelers.emit('travelers', 'addEvent', 'crater', require('./events/other/crater.json'));
+(function(){// load recipe level unlocks
+	const data = require('./craftingData.json');
+	for(const key in data)
+	{
+		for(const item of data[key])
+		{
+			thetravelers.emit('travelers', 'addCraftableItem', item, Number(key));
+		}
+	}
+})();

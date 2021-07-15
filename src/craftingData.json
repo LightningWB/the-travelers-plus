@@ -1,0 +1,9 @@
+{
+	"0": ["rusty_knife", "crowbar"],
+	"4": ["shovel", "sign_block"],
+	"9": ["bolt_cutters", "baseball_bat", "wood_block", "wood_door", "wire"],
+	"14": ["copper_coil", "camo", "radio", "scrap_block", "scrap_door"],
+	"19": ["blowtorch", "machete", "control_panel", "airwave_tower", "small_chest"],
+	"24": ["axe", "large_chest"],
+	"29": ["steel_block", "sledgehammer", "steel_door"]
+}
