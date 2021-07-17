@@ -61,6 +61,7 @@ module.exports.tick = function(player) {
 		}
 		if(activeIds.length > 0)player.public.craft_queue = newQueue;
 		else player.public.craft_queue = undefined;
+		player.temp.craft_queue = {};
 		player.addPropToQueue('craft_queue');
 	}
 }
@@ -70,13 +71,31 @@ module.exports.cancelAll = function(packet, player) {
 	{
 		for(const id in player.public.craft_queue)
 		{
-			const target = item(player.public.craft_queue[id].item_id);
-			for(const ingredientId in target.craft_data)
+			if(player.public.craft_queue[id])
 			{
-				giveItemToPlayer(ingredientId, target.craft_data[ingredientId].count, player);
+				const target = item(player.public.craft_queue[id].item_id);
+				for(const ingredientId in target.craft_data)
+				{
+					giveItemToPlayer(ingredientId, target.craft_data[ingredientId].count, player);
+				}
 			}
 		}
 		player.public.craft_queue = undefined;
+		player.addPropToQueue('craft_queue');
+		emit('travelers', 'renderItems', player);
+	}
+}
+
+module.exports.cancelOne = function(packet, player) {
+	if(player.public.craft_queue && player.public.state === 'travel' && player.public.craft_queue[packet.item])
+	{
+		const id = packet.item;
+		const target = item(player.public.craft_queue[id].item_id);
+		for(const ingredientId in target.craft_data)
+		{
+			giveItemToPlayer(ingredientId, target.craft_data[ingredientId].count, player);
+		}
+		player.public.craft_queue[id] = undefined;
 		player.addPropToQueue('craft_queue');
 		emit('travelers', 'renderItems', player);
 	}
