@@ -1,0 +1,109 @@
+{
+  "id": "church",
+  "weight": 1,
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a church",
+      "body": "a tall but thin building is just ahead, a cross atop its steeple and double doors shut tight.",
+      "btns": [
+        {
+          "for": "pews",
+          "text": "investigate"
+        },
+        "leave"
+      ]
+    },
+    "pews": {
+      "id": "pews",
+      "title": "rows of pews",
+      "body": "long seats are covered in sheetrock and glass from the collapsed ceiling above. a wooden altar stands above the room with a big and withered book on it. behind this is a fixture of a starved man with his arms outstretched, his wrists and feet driven through with nails to crossed wooden beams.",
+      "btns": [
+		{
+			"for": "book",
+			"text": "the book"
+		},
+        "leave"
+      ]
+    },
+    "book": {
+      "id": "book",
+      "title": "a withered book",
+      "body": "after ascending the stairs, a dead man in white and gold robes is revealed, laying on his back with his arms outstretched. the book's pages have begun to rot, but the first sentence it's open to is clearly visible.\n<span class=\"doc\">\"for god so loved the world, that he gave his only begotten son, that whosoever believed in him should not perish, but have everlasting life\"</span>the words \"should not perish\" have been circled with a blue pen dozens of times, the page partially torn.",
+      "btns": [
+        {
+          "for": "halls",
+          "text": "the back halls"
+        },
+        {
+          "for": "confessions",
+          "text": "the confession booth"
+        },
+        "leave"
+      ]
+    },
+    "confessions": {
+      "id": "confessions",
+      "title": "confessions",
+      "body": "a small body rests in front of the curtain, bony hands clasped tightly together. in front of it is lined paper and a pen, with a final message written on it.\n<span class=\"doc\">\"may god have mercy on us. and may he forgive those who left us like this.\"</span class=\"event-doc\">there's nothing else here.",
+      "btns": [
+        {
+          "for": "halls",
+          "text": "the back halls"
+        },
+        "leave"
+      ]
+    },
+    "halls": {
+      "id": "halls",
+      "title": "the back halls",
+      "body": "the corridor is lined with strips of tape, their pictures having fallen to the floor long ago. the tiles are covered by colorful papers with depictions of ancient biblical events. the rooms have been cleared, only old plastic folding chairs and tables resting against the walls. there's a way to an electrical control room at the end of the hall, by the exit.",
+      "btns": [
+        {
+          "for": "control",
+          "text": "the control room"
+        },
+        "leave"
+      ]
+    },
+    "control": {
+      "id": "control",
+      "title": "the control room",
+      "body": "a few electrical parts are still laying around. some might be useful.",
+      "loot": true,
+	  "nextId": "leave",
+      "lootTable": [
+        {
+          "id": "copper_coil",
+          "min": 1,
+          "max": 4,
+          "chance": 1
+        },
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 6,
+          "chance": 0.85
+        },
+        {
+          "id": "circuit_board",
+          "min": 1,
+          "max": 1,
+          "chance": 0.45
+        },
+        {
+          "id": "wire",
+          "min": 1,
+          "max": 4,
+          "chance": 0.4
+        },
+        {
+          "id": "battery",
+          "min": 1,
+          "max": 2,
+          "chance": 0.2
+        }
+      ]
+    }
+  }
+}
