@@ -541,6 +541,16 @@ module.exports.movePlayer = function(player) {
 	}
 }
 
+module.exports.reEnter = function(packet, player) {
+	if(player.public.state === 'travel')
+	{
+		if(getEvent(player.public.x, player.public.y))
+		{
+			emit('travelers', 'movePlayerToEvent', player, 'any');
+		}
+	}
+}
+
 /**
  * @param {players.player} player 
  */

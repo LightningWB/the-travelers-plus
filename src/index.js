@@ -34,6 +34,7 @@ plugin.on('actions::loot_next', require('./events').loot_next, BASE_PRIORITY);
 plugin.on('actions::loot_exchange', require('./events').loot_exchange, BASE_PRIORITY);
 plugin.on('actions::loot_takeall', require('./events').loot_all, BASE_PRIORITY);
 plugin.on('actions::event_choice', require('./events').event_choice, BASE_PRIORITY);
+plugin.on('actions::reenter', require('./events').reEnter, BASE_PRIORITY);
 plugin.on('playerConnect', require('./events').loadPlayer, BASE_PRIORITY + 10);
 plugin.on('playerSave', require('./events').savePlayer, BASE_PRIORITY);
 plugin.on('playerReady', require('./events').playerJoin, BASE_PRIORITY);
