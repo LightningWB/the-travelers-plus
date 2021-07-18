@@ -32,6 +32,7 @@ plugin.on('travelers::addEventTile', require('./events').addEventTile, BASE_PRIO
 plugin.on('travelers::generateLoot', require('./events').generateLoot, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./events').loot_next, BASE_PRIORITY);
 plugin.on('actions::loot_exchange', require('./events').loot_exchange, BASE_PRIORITY);
+plugin.on('actions::loot_takeall', require('./events').loot_all, BASE_PRIORITY);
 plugin.on('actions::event_choice', require('./events').event_choice, BASE_PRIORITY);
 plugin.on('playerConnect', require('./events').loadPlayer, BASE_PRIORITY + 10);
 plugin.on('playerSave', require('./events').savePlayer, BASE_PRIORITY);
@@ -83,6 +84,7 @@ require('./events/houses.json').forEach(e=>thetravelers.emit('travelers', 'addEv
 require('./events/cites.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'city', require('./events/cities/' + e)));
 thetravelers.emit('travelers', 'addEvent', 'body', require('./events/other/body.json'));
 thetravelers.emit('travelers', 'addEvent', 'crater', require('./events/other/crater.json'));
+thetravelers.emit('travelers', 'addEvent', 'hole', require('./events/other/hole.json'));
 (function(){// load recipe level unlocks
 	const data = require('./craftingData.json');
 	for(const key in data)

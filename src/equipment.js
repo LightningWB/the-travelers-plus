@@ -86,6 +86,12 @@ module.exports.north = function(player) {
 	player.addPropToQueue('x');
 }
 
+module.exports.dig = function(player) {
+	const {x , y} = player.public;
+	if(chunks.getObject(x, y))return;
+	placeEvent(x, y, 'o', 'hole', 'hole');
+}
+
 module.exports.detonate = function(player) {
 	const {x , y} = player.public;
 	if(chunks.getObject(x, y))return;

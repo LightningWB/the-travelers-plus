@@ -1,0 +1,16 @@
+{
+	"id": "hole",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "a hole in the ground",
+			"body": "dug with haste.",
+			"visited": "an old hole, covered by a light layer of ash.",
+			"loot": true,
+			"lootTable": [],
+			"nextId": "leave",
+			"size": 75
+		}
+	}
+}
