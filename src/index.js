@@ -48,7 +48,7 @@ plugin.on('travelers::givePlayerItem', require('./supplies').givePlayerItem, BAS
 plugin.on('travelers::takePlayerItem', require('./supplies').takePlayerItem, BASE_PRIORITY);
 plugin.on('travelers::removeItem', require('./supplies').removeItem, BASE_PRIORITY);
 plugin.on('travelers::addItem', require('./supplies').addItem, BASE_PRIORITY);
-plugin.on('playerConnect', require('./supplies').playerJoin, BASE_PRIORITY + 5);// apply first so other stuff can check levels
+plugin.on('playerConnect', require('./supplies').playerJoin, BASE_PRIORITY + 10);// apply first so other stuff can check levels
 // crafting
 plugin.on('travelers::addCraftableItem', require('./crafting').addUnlockLevel, BASE_PRIORITY);
 plugin.on('travelers::levelUpPlayer', require('./crafting').connect, BASE_PRIORITY);
@@ -64,6 +64,7 @@ plugin.on('equip_actions::high_teleporter::north', require('./equipment').north,
 plugin.on('equip_actions::high_teleporter::east', require('./equipment').east, BASE_PRIORITY);
 plugin.on('equip_actions::high_teleporter::south', require('./equipment').south, BASE_PRIORITY);
 plugin.on('equip_actions::high_teleporter::west', require('./equipment').west, BASE_PRIORITY);
+plugin.on('equip_actions::shovel::dig', require('./equipment').dig, BASE_PRIORITY);
 plugin.on('equip_actions::nuke::detonate', require('./equipment').detonate, BASE_PRIORITY);
 // base
 plugin.on('playerReady', require('./base').join, BASE_PRIORITY);

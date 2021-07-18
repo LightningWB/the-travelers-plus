@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
 const getItem = require('./supplies').item;
+const giveItemToPlayer = require('./supplies').giveItemToPlayer;
 
 // if someone uses public event ids to brute force this, nice job to them. they can see button target ids until the server restarts.
 const salt = util.randomString(9);
@@ -470,6 +471,52 @@ module.exports.loot_exchange = function(packet, player) {
 				}
 			}
 			emit('travelers', 'calcWeight', player);
+		}
+	}
+}
+
+/**
+ * @param {object} packet 
+ * @param {players.player} player 
+ */
+module.exports.loot_all = function(packet, player) {
+	if(player.public.state === 'looting')
+	{
+		const eventObj = getEvent(player.public.x, player.public.y);
+		if(eventObj && eventObj.type === player.private.eventData.type && eventObj.id === player.private.eventData.id)
+		{
+			const loot = eventObj.loot[player.private.eventData.room];
+			let opWeight = 0;
+			const compiled = {};
+			for(const itemId in loot)
+			{
+				if(typeof loot[itemId] === 'number')
+				{
+					const item = getItem(itemId);
+					const weight = item.weight;
+					let pWeight = player.public.skills.carry;
+					let changed = 0;
+					while(pWeight + weight < player.public.skills.max_carry && loot[itemId] - changed > 0)
+					{
+						pWeight += weight;
+						changed++;
+					}
+					loot[itemId] -= changed;
+					giveItemToPlayer(itemId, changed, player);
+					opWeight += weight * loot[itemId];
+					if(loot[itemId] === 0)loot[itemId] = undefined;
+					else compiled[itemId] = {count: loot[itemId], data: item};
+				}
+			}
+			emit('travelers', 'renderItems', player, false);
+			player.sendMidCycleCall({loot_change: {
+				takeall: true,
+				was_you: true,
+				your_new: player.temp.supplies,
+				your_weight: player.public.skills.carry,
+				opp_weight: opWeight,
+				opp_new: compiled
+			}});
 		}
 	}
 }

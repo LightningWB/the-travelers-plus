@@ -51,7 +51,7 @@ module.exports.takePlayerItem = function(id, count, player) {
 }
 
 module.exports.removeItem = function(id, count, storage) {
-	if(!storage[id])
+	if(typeof storage[id] !== 'number')
 	{
 		storage[id] = 0;
 	}
@@ -63,7 +63,7 @@ module.exports.removeItem = function(id, count, storage) {
 }
 
 module.exports.addItem = function(id, count, storage) {
-	if(!storage[id])
+	if(typeof storage[id] !== 'number')
 	{
 		storage[id] = 0;
 	}
