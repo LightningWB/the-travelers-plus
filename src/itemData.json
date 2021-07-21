@@ -1020,7 +1020,7 @@
         "type": "tool",
         "weight": 20,
         "icon": "(t)",
-        "desc": "capable of teleporting 10 kilometers in a cardinal direction. consumes 1 energy cell per teleport.",
+        "desc": "capable of teleporting 100 kilometers in a cardinal direction. consumes 1 energy cell per teleport.",
         "craft": true,
         "craft_time": 5000,
         "craft_data": {
@@ -1042,7 +1042,7 @@
             }
         },
         "func": true,
-        "func_desc": "a delicate device that can teleport you 10km in any direction, if the current location or destination do not have too much interference. requires 1 energy cell to engage a teleport.",
+        "func_desc": "a delicate device that can teleport you 100km in any direction, if the current location or destination do not have too much interference. requires 1 energy cell to engage a teleport.",
         "func_start": "ENGINE.log('you hold the device carefully in your hands. it\\'s only capable of function if you have a energy cell available to power it.');",
         "func_actions": {
             "north": {
@@ -1161,7 +1161,7 @@
         "type": "tool",
         "weight": 35,
         "icon": "(T)",
-        "desc": "capable of teleporting 1000 kilometers in a cardinal direction. consumes 5 charged cores per teleport.",
+        "desc": "capable of teleporting 4000 kilometers in a cardinal direction. consumes 5 charged cores per teleport.",
         "craft": true,
         "craft_time": 86400,
         "craft_data": {
@@ -1183,7 +1183,7 @@
             }
         },
         "func": true,
-        "func_desc": "a heavy device that can teleport you 1000km in any direction, if the current location or destination do not have too much interference. requires 5 charged cores to engage a teleport.",
+        "func_desc": "a heavy device that can teleport you 4000km in any direction, if the current location or destination do not have too much interference. requires 5 charged cores to engage a teleport.",
         "func_start": "ENGINE.log('you hold the heavy device, electricity jolting out of its spherical slots. it\\'s only capable of function if you have 5 charged cores available to power it.');",
         "func_actions": {
             "north": {
