@@ -677,7 +677,8 @@ module.exports.addEventTile = function(x, y, char, id, type)
 			eventData: {
 				loot: {},
 				type: type,
-				id: id
+				id: id,
+				visitedRooms: []
 			}
 		});
 	}
