@@ -247,7 +247,7 @@ module.exports.calcPlayerEvent = function(player) {
 						endBtn.req_items[item.id] = {title: item.title, count: item.count};
 					}
 					let reqMet = true;
-					if(btn.reqForAll === false && btn.reqTarget && eventObj.visitedRooms.includes(activeRoom.visitTarget))
+					if(btn.reqForAll === false && btn.reqTarget && eventObj.visitedRooms.includes(btn.reqTarget))
 					{
 						reqMet = true;
 						endBtn.req_met = reqMet;
@@ -337,6 +337,7 @@ module.exports.event_choice = function(packet, player) {
 	if(player.public.state === 'event' && typeof packet.option === 'string')
 	{
 		const activeRoom = getRoom(player);
+		const eventObj = getEvent(player.public.x, player.public.y);
 		compileBtns(activeRoom);
 		// verify they can press the button
 		const targetBtn = activeRoom.btns.find(b=>b.for === packet.option);
@@ -353,7 +354,12 @@ module.exports.event_choice = function(packet, player) {
 				let reqMet = true;
 				if(targetBtn.req)
 				{
-					if(targetBtn.reqItems)for(const item of targetBtn.reqItems)
+					// check if this is a locked thing
+					if(targetBtn.lock && eventObj.visitedRooms.includes(targetBtn.lockTarget))reqMet = false;
+					// if its already been opened
+					else if(targetBtn.reqForAll !== true && eventObj.visitedRooms.includes(targetBtn.reqTarget))reqMet = true;
+					// just if they have items
+					else if(targetBtn.reqItems)for(const item of targetBtn.reqItems)
 					{
 						if(!player.private.supplies[item.id] || player.private.supplies[item.id] < item.count)reqMet = false;
 					}
@@ -365,9 +371,9 @@ module.exports.event_choice = function(packet, player) {
 						for(const item of targetBtn.reqItems)
 						{
 							emit('travelers', 'takePlayerItem', item.id, item.count, player);
-							emit('travelers', 'calcWeight', player);
-							emit('travelers', 'renderPlayerItems', player);
 						}
+						emit('travelers', 'calcWeight', player);
+						emit('travelers', 'renderPlayerItems', player);
 					}
 					player.private.eventData.room = targetBtn.for;
 					emit('travelers', 'calcPlayerEvent', player);
