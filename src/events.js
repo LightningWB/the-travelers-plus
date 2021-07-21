@@ -195,7 +195,7 @@ module.exports.calcPlayerEvent = function(player) {
 		{
 			let visited = true;
 			let items = {};
-			if(eventObj.loot[activeRoom.id] === undefined)
+			if(!eventObj.visitedRooms.includes(activeRoom.id))
 			{
 				visited = false;// hasn't been visited so use non visited description
 				emit('travelers', 'generateLoot', activeRoom, eventObj.loot[activeRoom.id] = {});
@@ -247,7 +247,7 @@ module.exports.calcPlayerEvent = function(player) {
 						endBtn.req_items[item.id] = {title: item.title, count: item.count};
 					}
 					let reqMet = true;
-					if(btn.reqForAll === false && btn.reqTarget && eventObj.loot[btn.reqTarget])
+					if(btn.reqForAll === false && btn.reqTarget && eventObj.visitedRooms.includes(activeRoom.visitTarget))
 					{
 						reqMet = true;
 						endBtn.req_met = reqMet;
@@ -261,9 +261,9 @@ module.exports.calcPlayerEvent = function(player) {
 						btns[btn.for] = endBtn;
 					}
 				}
-				else if(btn.lock)
+				else if(btn.lock && btn.lockTarget)
 				{
-					if(!(btn.lockTarget && eventObj.loot[btn.lockTarget]))btns[btn.for] = {
+					if(!eventObj.visitedRooms.includes(btn.lockTarget))btns[btn.for] = {
 						text: btn.text
 					};
 				}
@@ -280,7 +280,7 @@ module.exports.calcPlayerEvent = function(player) {
 			let visited = false;
 			if(activeRoom.visitTarget)
 			{
-				if(eventObj.loot[activeRoom.visitTarget])// loot already exists
+				if(eventObj.visitedRooms.includes(activeRoom.visitTarget))// loot already exists
 				{
 					visited = true;
 				}
@@ -295,6 +295,10 @@ module.exports.calcPlayerEvent = function(player) {
 			};
 			player.public.state = 'event';
 			player.addPropToQueue('event_data', 'state');
+		}
+		if(!eventObj.visitedRooms.includes(activeRoom.id))
+		{
+			eventObj.visitedRooms.push(activeRoom.id);
 		}
 	}
 }
@@ -605,6 +609,11 @@ module.exports.saveChunk = function(chunk) {
 						else unHashed.main = o.private.eventData.loot[id];
 					}
 					o.private.eventData.loot = unHashed;
+					if(Array.isArray(o.private.eventData.visitedRooms))
+					{
+						o.private.eventData.visitedRooms = o.private.eventData.visitedRooms.map(name=> hashTable[name]);
+						if(o.private.eventData.visitedRooms.length === 0)o.private.eventData.visitedRooms = undefined;// db space saver
+					}
 				}
 			});
 		}
@@ -634,6 +643,11 @@ module.exports.loadChunk = function(chunk) {
 						else hashed.main = o.private.eventData.loot[id];
 					}
 					o.private.eventData.loot = hashed;
+					if(Array.isArray(o.private.eventData.visitedRooms))
+					{
+						o.private.eventData.visitedRooms = o.private.eventData.visitedRooms.map(name=> hash(name));
+					}
+					else o.private.eventData.visitedRooms = [];// allow malformed objects to be fine
 				}
 			});
 		}
