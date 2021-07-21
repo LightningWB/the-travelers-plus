@@ -1381,5 +1381,41 @@
         "weight": 2,
         "icon": "K-v",
         "desc": "a rusty key."
+    },
+	"airwave_tower": {
+        "name": "airwave_tower",
+        "title": "radiowave disruption tower",
+        "type": "build",
+        "weight": 25,
+        "icon": "ƛ",
+        "desc": "a rudimentary tower that amplifies a specific electromagnetic wavelength to prevent teleportation into or out of its 8 kilometer range.",
+        "craft": true,
+        "craft_time": 120,
+        "craft_data": {
+            "wood_block": {
+                "count": 1,
+                "title": "wood fence"
+            },
+            "control_panel": {
+                "count": 1,
+                "title": "control panel"
+            },
+			"battery": {
+                "count": 3,
+                "title": "energy cell"
+            },
+			"wire": {
+                "count": 3,
+                "title": "wire"
+            },
+			"radio": {
+                "count": 2,
+                "title": "radiowave transmitter"
+            }
+        },
+        "break_time": 1800,
+        "build": true,
+        "build_desc": "place the tower on the ground and it will activate automatically. travelers cannot teleport into or out of its 8 kilometer range.it cannot be picked up and used again.",
+		"build_start": ""
     }
 }
