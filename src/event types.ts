@@ -35,7 +35,7 @@ type btn = {
 	 */
 	lock?: boolean,
 	/**
-	 * the target looting screen to check if this button should be disabled
+	 * the target room to check if this button should be disabled. defaults to `this.for`
 	 */
 	lockTarget?: string,
 	/**

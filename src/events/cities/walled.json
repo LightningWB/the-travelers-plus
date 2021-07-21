@@ -289,8 +289,7 @@
 				{
 					"for": "controlPanel",
 					"text": "the control panel",
-					"lock": true,
-					"lockTarget": "controlPanel"
+					"lock": true
 				},
 				{
 					"for": "restrictedAccess",

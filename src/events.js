@@ -265,9 +265,9 @@ module.exports.calcPlayerEvent = function(player) {
 						btns[btn.for] = endBtn;
 					}
 				}
-				else if(btn.lock && btn.lockTarget)
+				else if(btn.lock)
 				{
-					if(!eventObj.visitedRooms.includes(btn.lockTarget))btns[btn.for] = {
+					if(!eventObj.visitedRooms.includes(btn.lockTarget || btn.for))btns[btn.for] = {
 						text: btn.text
 					};
 				}
@@ -359,7 +359,7 @@ module.exports.event_choice = function(packet, player) {
 				if(targetBtn.req)
 				{
 					// check if this is a locked thing
-					if(targetBtn.lock && eventObj.visitedRooms.includes(targetBtn.lockTarget))reqMet = false;
+					if(targetBtn.lock && eventObj.visitedRooms.includes(targetBtn.lockTarget || targetBtn.for))reqMet = false;
 					// if its already been opened
 					else if(targetBtn.reqForAll === false && eventObj.visitedRooms.includes(targetBtn.reqTarget || targetBtn.for))reqMet = true;
 					// just if they have items
