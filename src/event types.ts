@@ -8,9 +8,9 @@ type btn = {
 	 */
 	text: string,
 	/**
-	 * if there is a requirement
+	 * if there is a requirement. defaults to false
 	 */
-	req: boolean,
+	req?: boolean,
 	/**
 	 * an array of items needed to fulfil the requirement
 	 */
@@ -61,9 +61,9 @@ export type room = {// text room
 	 */
 	body: string,
 	/**
-	 * the body for if its already visited
+	 * the body for if its already visited. if it is unspecified, no visited body is set
 	 */
-	visitedBody: string | 'clone',
+	visitedBody?: string,
 	/**
 	 * the looting screen to check to determine if its been visited yet
 	 */
@@ -86,11 +86,11 @@ export type room = {// text room
 	 */
 	body: string,
 	/**
-	 * description if its been visited already
+	 * description if its been visited already. if it is unspecified, no visited body is set
 	 */
-	visitedBody: string | 'clone',
+	visitedBody?: string,
 	/**
-	 * make sure this is et to true to tell tt+ to set this as a looting screen
+	 * make sure this is this to true to tell tt+ to set this as a looting screen
 	 */
 	loot: true,
 	/**
