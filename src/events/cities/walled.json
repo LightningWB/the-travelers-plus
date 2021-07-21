@@ -52,7 +52,7 @@
 					],
 					"reqConsume": false,
 					"reqForAll": false,
-					"reqTarget": "keyConsole"
+					"reqTarget": "exit"
 				},
 				"leave"
 			]
@@ -290,7 +290,7 @@
 					"for": "controlPanel",
 					"text": "the control panel",
 					"lock": true,
-					"lockTarget": "woodBox"
+					"lockTarget": "controlPanel"
 				},
 				{
 					"for": "restrictedAccess",

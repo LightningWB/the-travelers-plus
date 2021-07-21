@@ -75,7 +75,7 @@
 			"title": "a pile of ash",
 			"body": "you follow the footsteps until they end at a pile of ash. the hill stretches into the abyss with no end in sight. climbing the mound would leave you buried for eternity. there is no point in risking your life here.",
 			"visitedBody": "you follow the footsteps until they end at a pile of ash. the hill stretches into the abyss with no end in sight. climbing the mound would leave you buried for eternity. you notice a heap of ash next to a small tunnel going through the pile; one can barely squeeze through.",
-			"visitTarget": "supplies",
+			"visitTarget": "kitchen",
 			"btns": [
 				{
 					"for": "kitchen",
@@ -86,7 +86,7 @@
 					],
 					"reqConsume": false,
 					"reqForAll": false,
-					"reqTarget": "supplies",
+					"reqTarget": "kitchen",
 					"hide": true
 				},
 				{

@@ -7,7 +7,7 @@
 			"title": "a garage",
 			"body": "a row of tall garage doors stand indented into the short building, boarded over by wood, chains, and threatening signs. the chains cover a glass door, but with the right tool, it might be possible to break through.",
 			"visitedBody": "a row of tall garage doors stand indenting into a short building, boarded over by wood, chains, and threatening signs. the chains over the glass door have been snapped, leaving it wide open.",
-			"visitTarget": "supplies",
+			"visitTarget": "snare",
 			"btns": [
 				{
 					"for": "snare",
@@ -16,7 +16,8 @@
 					"reqItems": [
 						{"id": "bolt_cutters", "title":"bolt cutters", "count": 1}
 					],
-					"reqConsume": false
+					"reqConsume": false,
+					"reqForAll": false
 				},
 				"leave"
 			]
