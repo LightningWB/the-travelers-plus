@@ -128,6 +128,14 @@ module.exports.craft = function(packet, player) {
 	emit('travelers', 'renderItems', player);
 }
 
+module.exports.unlockCrafting = function(player, learningItem)
+{
+	if(player.private.bps === undefined)player.private.bps = [];
+	const bps = player.private.bps;
+	if(!bps.includes(learningItem))bps.push(learningItem);
+	emit('travelers', 'renderCrafting', player);
+}
+
 module.exports.learn = function(packet, player) {
 	if(player.public.state === 'travel' && typeof packet.item === 'string')
 	{
@@ -135,10 +143,7 @@ module.exports.learn = function(packet, player) {
 		if(bp && bp.is_bp && bp.bp_for)
 		{
 			const learningItem = bp.bp_for;
-			if(player.private.bps === undefined)player.private.bps = [];
-			const bps = player.private.bps;
-			if(!bps.includes(learningItem))bps.push(learningItem);
-			emit('travelers', 'renderCrafting', player);
+			emit('travelers', 'unlockCraftingForPlayer', player, learningItem);
 			takePlayerItem(packet.item, 1, player);
 			emit('travelers', 'renderItems', player, true);
 		}

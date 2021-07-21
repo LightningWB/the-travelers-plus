@@ -54,8 +54,9 @@ plugin.on('playerConnect', require('./supplies').playerJoin, BASE_PRIORITY + 10)
 // crafting
 plugin.on('travelers::addCraftableItem', require('./crafting').addUnlockLevel, BASE_PRIORITY);
 plugin.on('travelers::levelUpPlayer', require('./crafting').connect, BASE_PRIORITY);
-plugin.on('playerConnect', require('./crafting').connect, BASE_PRIORITY);
+plugin.on('travelers::unlockCraftingForPlayer', require('./crafting').unlockCrafting, BASE_PRIORITY);
 plugin.on('travelers::renderCrafting', require('./crafting').connect, BASE_PRIORITY);
+plugin.on('playerConnect', require('./crafting').connect, BASE_PRIORITY);
 plugin.on('playerTick', require('./crafting').tick, BASE_PRIORITY);
 plugin.on('actions::craft', require('./crafting').craft, BASE_PRIORITY);
 plugin.on('actions::craft_cancelall', require('./crafting').cancelAll, BASE_PRIORITY);
