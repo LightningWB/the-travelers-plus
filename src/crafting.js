@@ -1,9 +1,10 @@
 const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
-const { item, givePlayerItem, giveItemToPlayer } = require('./supplies');
+const { item, givePlayerItem, giveItemToPlayer, takePlayerItem } = require('./supplies');
 
 const levelUnlocks = [];
 
 function canMake(player, id) {
+	if((player.private.bps || []).includes(id))return true;
 	const craftItem = item(id);
 	const levelUnlockData = levelUnlocks.find(e=>e.id === id);
 	if(craftItem.craft && levelUnlockData && player.public.skills.level >= levelUnlockData.level)
@@ -127,6 +128,23 @@ module.exports.craft = function(packet, player) {
 	emit('travelers', 'renderItems', player);
 }
 
+module.exports.learn = function(packet, player) {
+	if(player.public.state === 'travel' && typeof packet.item === 'string')
+	{
+		const bp = item(packet.item);
+		if(bp && bp.is_bp && bp.bp_for)
+		{
+			const learningItem = bp.bp_for;
+			if(player.private.bps === undefined)player.private.bps = [];
+			const bps = player.private.bps;
+			if(!bps.includes(learningItem))bps.push(learningItem);
+			emit('travelers', 'renderCrafting', player);
+			takePlayerItem(packet.item, 1, player);
+			emit('travelers', 'renderItems', player, true);
+		}
+	}
+}
+
 /**
  * @param {players.player} player 
  */
@@ -138,15 +156,15 @@ module.exports.connect = function(player) {
 		const clientList = {};
 		for(const craftable of ableMake)
 		{
-			if(clientList[craftable] === undefined)
+			if(clientList[craftable.level] === undefined)
 			{
-				clientList[craftable] = [];
+				clientList[craftable.level] = [];
 			}
 			const obj = {};
 			obj[craftable.id] = item(craftable.id);
-			clientList[craftable].push(obj);
+			clientList[craftable.level].push(obj);
 		}
-		clientList.blueprints = [];// TODO
+		clientList.blueprints = (player.private.bps || []).map(i=>{const o = {}; o[i] = item(i); return o;});
 		player.temp.craft_items = clientList;
 		player.addPropToQueue('craft_items');
 	}
