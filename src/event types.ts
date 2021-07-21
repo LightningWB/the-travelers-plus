@@ -26,7 +26,7 @@ type btn = {
 	/**
 	 * a looting room to check if the requirement has been fulfilled.
 	 * the way it works is
-	 * if roomFromId(reqTarget) has looting: requirement fulfilled
+	 * if roomFromId(reqTarget) has been visited: requirement fulfilled
 	 * else: requirement not fulfilled
 	 */
 	reqTarget?: string,
