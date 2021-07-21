@@ -64,6 +64,7 @@ plugin.on('actions::craft_cancelone', require('./crafting').cancelOne, BASE_PRIO
 plugin.on('actions::learn', require('./crafting').learn, BASE_PRIORITY);
 // equipment
 plugin.on('actions::equip', require('./equipment').equip, BASE_PRIORITY);
+plugin.on('actions::dequip', require('./equipment').dequip, BASE_PRIORITY);
 plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY);
 plugin.on('equip_actions::high_teleporter::north', require('./equipment').north, BASE_PRIORITY);
 plugin.on('equip_actions::high_teleporter::east', require('./equipment').east, BASE_PRIORITY);

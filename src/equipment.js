@@ -22,6 +22,13 @@ module.exports.equip = function(packet, player) {
 	}
 }
 
+module.exports.dequip = function(packet, player) {
+	if(player.public.state === 'travel')
+	{
+		player.public.equipped = undefined;
+	}
+}
+
 /**
  * @param {object} packet 
  * @param {players.player} player 
