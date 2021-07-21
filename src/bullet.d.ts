@@ -101,6 +101,8 @@ declare namespace plugins
 		export function getPlayerByUsername(username: string): player.playerData
 		export function isPlayerOnline(username: string): boolean
 		export function getOnlinePlayer(username: string): player.playerData
+		export function onlinePlayers(): player.playerData[]
+		export function onlinePlayerNames(): string[]
 	}
 	export namespace chunks
 	{
