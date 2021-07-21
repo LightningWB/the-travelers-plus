@@ -24,7 +24,7 @@ type btn = {
 	 */
 	reqForAll?: boolean,
 	/**
-	 * a looting room to check if the requirement has been fulfilled.
+	 * a looting room to check if the requirement has been fulfilled. defaults to `this.for`
 	 * the way it works is
 	 * if roomFromId(reqTarget) has been visited: requirement fulfilled
 	 * else: requirement not fulfilled

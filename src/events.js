@@ -247,10 +247,14 @@ module.exports.calcPlayerEvent = function(player) {
 						endBtn.req_items[item.id] = {title: item.title, count: item.count};
 					}
 					let reqMet = true;
-					if(btn.reqForAll === false && btn.reqTarget && eventObj.visitedRooms.includes(btn.reqTarget))
+					if(btn.reqForAll === false)
 					{
-						reqMet = true;
-						endBtn.req_met = reqMet;
+						const targetRoom = btn.reqTarget || btn.for;
+						if(eventObj.visitedRooms.includes(targetRoom))
+						{
+							reqMet = true;
+							endBtn.req_met = reqMet;
+						}
 					}
 					else for(const item of btn.reqItems)
 					{
@@ -357,7 +361,7 @@ module.exports.event_choice = function(packet, player) {
 					// check if this is a locked thing
 					if(targetBtn.lock && eventObj.visitedRooms.includes(targetBtn.lockTarget))reqMet = false;
 					// if its already been opened
-					else if(targetBtn.reqForAll !== true && eventObj.visitedRooms.includes(targetBtn.reqTarget))reqMet = true;
+					else if(targetBtn.reqForAll === false && eventObj.visitedRooms.includes(targetBtn.reqTarget || targetBtn.for))reqMet = true;
 					// just if they have items
 					else if(targetBtn.reqItems)for(const item of targetBtn.reqItems)
 					{
@@ -617,7 +621,7 @@ module.exports.saveChunk = function(chunk) {
 					o.private.eventData.loot = unHashed;
 					if(Array.isArray(o.private.eventData.visitedRooms))
 					{
-						o.private.eventData.visitedRooms = o.private.eventData.visitedRooms.map(name=> hashTable[name]);
+						o.private.eventData.visitedRooms = o.private.eventData.visitedRooms.map(name=> name === 'main' ? 'main' : hashTable[name]);
 						if(o.private.eventData.visitedRooms.length === 0)o.private.eventData.visitedRooms = undefined;// db space saver
 					}
 				}
@@ -651,7 +655,7 @@ module.exports.loadChunk = function(chunk) {
 					o.private.eventData.loot = hashed;
 					if(Array.isArray(o.private.eventData.visitedRooms))
 					{
-						o.private.eventData.visitedRooms = o.private.eventData.visitedRooms.map(name=> hash(name));
+						o.private.eventData.visitedRooms = o.private.eventData.visitedRooms.map(name=> name === 'main' ? 'main' : hash(name));
 					}
 					else o.private.eventData.visitedRooms = [];// allow malformed objects to be fine
 				}
