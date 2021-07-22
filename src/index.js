@@ -66,17 +66,30 @@ plugin.on('actions::learn', require('./crafting').learn, BASE_PRIORITY);
 plugin.on('actions::equip', require('./equipment').equip, BASE_PRIORITY);
 plugin.on('actions::dequip', require('./equipment').dequip, BASE_PRIORITY);
 plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY);
-plugin.on('equip_actions::high_teleporter::north', require('./equipment/high_teleporter').north, BASE_PRIORITY);
-plugin.on('equip_actions::high_teleporter::east', require('./equipment/high_teleporter').east, BASE_PRIORITY);
-plugin.on('equip_actions::high_teleporter::south', require('./equipment/high_teleporter').south, BASE_PRIORITY);
-plugin.on('equip_actions::high_teleporter::west', require('./equipment/high_teleporter').west, BASE_PRIORITY);
-plugin.on('equip_actions::low_teleporter::north', require('./equipment/low_teleporter').north, BASE_PRIORITY);
-plugin.on('equip_actions::low_teleporter::east', require('./equipment/low_teleporter').east, BASE_PRIORITY);
-plugin.on('equip_actions::low_teleporter::south', require('./equipment/low_teleporter').south, BASE_PRIORITY);
-plugin.on('equip_actions::low_teleporter::west', require('./equipment/low_teleporter').west, BASE_PRIORITY);
-plugin.on('equip_actions::shovel::dig', require('./equipment/shovel').dig, BASE_PRIORITY);
-plugin.on('equip_actions::nuke::detonate', require('./equipment/nuke').detonate, BASE_PRIORITY);
+// equipment
+	// high teleporter
+	plugin.on('equip_actions::high_teleporter::north', require('./equipment/high_teleporter').north, BASE_PRIORITY);
+	plugin.on('equip_actions::high_teleporter::east', require('./equipment/high_teleporter').east, BASE_PRIORITY);
+	plugin.on('equip_actions::high_teleporter::south', require('./equipment/high_teleporter').south, BASE_PRIORITY);
+	plugin.on('equip_actions::high_teleporter::west', require('./equipment/high_teleporter').west, BASE_PRIORITY);
+	// low teleporter
+	plugin.on('equip_actions::low_teleporter::north', require('./equipment/low_teleporter').north, BASE_PRIORITY);
+	plugin.on('equip_actions::low_teleporter::east', require('./equipment/low_teleporter').east, BASE_PRIORITY);
+	plugin.on('equip_actions::low_teleporter::south', require('./equipment/low_teleporter').south, BASE_PRIORITY);
+	plugin.on('equip_actions::low_teleporter::west', require('./equipment/low_teleporter').west, BASE_PRIORITY);
+	// shovel
+	plugin.on('equip_actions::shovel::dig', require('./equipment/shovel').dig, BASE_PRIORITY);
+	// radio
+	plugin.on('playerConnect', require('./equipment/radio').connect, BASE_PRIORITY);
+	plugin.on('equip_actions::radio::radio_toggle', require('./equipment/radio').radio_toggle, BASE_PRIORITY);
+	plugin.on('equip_actions::radio::radio_transmit', require('./equipment/radio').radio_transmit, BASE_PRIORITY);
+	plugin.on('equip_actions::radio::radio_setchannel', require('./equipment/radio').radio_setchannel, BASE_PRIORITY);
+	// nuke
+	plugin.on('equip_actions::nuke::detonate', require('./equipment/nuke').detonate, BASE_PRIORITY);
 // base
+require('./base').plugin(plugin);// give base access to the plugin for message popups
+plugin.on('travelers::eventLogUnsafe', require('./base').eventLog, BASE_PRIORITY);
+plugin.on('travelers::eventLog', require('./base').eventLogEscape, BASE_PRIORITY);
 plugin.on('playerReady', require('./base').join, BASE_PRIORITY);
 plugin.on('playerCreate', require('./base').create, BASE_PRIORITY);
 // chunks
