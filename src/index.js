@@ -14,6 +14,9 @@ plugin.on('travelers::stopPlayerMovement', require('./movement').stopPlayerMovem
 plugin.on('playerTick', require('./movement').tick, BASE_PRIORITY);
 plugin.on('playerReady', require('./movement').join, BASE_PRIORITY);
 plugin.on('actions::doublestep', require('./movement').doubleStep, BASE_PRIORITY);
+// time
+plugin.on('gameTickPre', require('./time').gameTickPre, BASE_PRIORITY);
+plugin.on('playerTick', require('./time').playerTick, BASE_PRIORITY);
 // stats
 plugin.on('playerCreate', require('./stats').playerCreate, BASE_PRIORITY);
 plugin.on('playerConnect', require('./stats').playerJoin, BASE_PRIORITY);
