@@ -55,7 +55,7 @@ module.exports.tick = function(player)
 		for(let y = player.public.y-15; y < player.public.y + 16; y++)
 		{
 			const object = chunks.getObject(x, y);
-			if(object)
+			if(object && object.private && object.private.visible !== false)
 			{
 				proximity.push(object.public);
 			}

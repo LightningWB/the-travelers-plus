@@ -482,6 +482,11 @@ module.exports.loot_exchange = function(packet, player) {
 						which: false,
 						item_data: d
 					}});
+					if(player.public.equipped === packet.item && (player.private.supplies[packet.item] === undefined || player.private.supplies[packet.item] < 1))
+					{
+						player.addPropToQueue('equipped');
+						player.public.equipped = undefined;
+					}
 				}
 			}
 			emit('travelers', 'calcWeight', player);
@@ -541,7 +546,7 @@ module.exports.loot_all = function(packet, player) {
 module.exports.movePlayer = function(player) {
 	if(player.cache.travelData.dir === '')return;
 	const tile = generateTileAt(player.public.x, player.public.y);
-	if(getEvent(player.public.x, player.public.y))
+	if(getEvent(player.public.x, player.public.y) && chunks.getObject(player.public.x, player.public.y).private.visible !== false)
 	{
 		emit('travelers', 'movePlayerToEvent', player, 'any');
 	}
@@ -595,7 +600,7 @@ module.exports.loadPlayer = function(player) {
 module.exports.saveChunk = function(chunk) {
 	for(const id in chunk)
 	{
-		if(id !== 'players')
+		if(id !== 'players' && chunk[id])
 		{
 			const objs = chunk[id];
 			objs.forEach(o=>{

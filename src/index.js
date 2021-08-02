@@ -3,6 +3,8 @@ const thetravelers = require('./bullet');
 const { placeEvent, addEventTile } = require('./events');
 
 const plugin = thetravelers.makePlugin('the travelers plus');
+// state checking
+require('./checks').registerStates(plugin);
 // admin utilities
 require('./supplies').admin(plugin);
 require('./stats').admin(plugin);
@@ -82,6 +84,9 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	plugin.on('equip_actions::low_teleporter::west', require('./equipment/low_teleporter').west, BASE_PRIORITY);
 	// shovel
 	plugin.on('equip_actions::shovel::dig', require('./equipment/shovel').dig, BASE_PRIORITY);
+	plugin.on('equip_actions::shovel::fill', require('./equipment/shovel').fill, BASE_PRIORITY);
+	plugin.on('actions::loot_next', require('./equipment/shovel').loot_next, BASE_PRIORITY - 10);
+	plugin.on('saveChunk', require('./holes').unloadChunk, BASE_PRIORITY + 10);
 	// radio
 	plugin.on('playerConnect', require('./equipment/radio').connect, BASE_PRIORITY);
 	plugin.on('equip_actions::radio::radio_toggle', require('./equipment/radio').radio_toggle, BASE_PRIORITY);
