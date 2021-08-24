@@ -2,7 +2,15 @@
 	"barn.json",
 	"cabin.json",
 	"childcare.json",
+	"church.json",
 	"garage.json",
+	"humble.json",
 	"lightning.json",
-	"church.json"
+	"low.json",
+	"old.json",
+	"pet.json",
+	"ruined.json",
+	"shack.json",
+	"trapdoor.json",
+	"weathered.json"
 ]
