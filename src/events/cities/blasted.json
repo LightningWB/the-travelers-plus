@@ -1,0 +1,605 @@
+{
+  "id": "blasted",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a blasted city",
+      "body": "the asphalt leading to the red towers ahead is smoothed over, as though it had been fiercely melted into uniformity. the edges of the road are tinged with glass, hiding beneath the ash and sand. the skyscrapers have had their windows and walls blasted off, exposing their rusted skeletons of steel. one tower pierces the black clouds in the atmosphere, but the rest fall short. the ash floating in the air is joined by the tangy smell of metallic dust, gently raining from the city's bones. the flat road leads deep inside the city.",
+      "btns": [
+        {
+          "for": "black",
+          "text": "the road"
+        },
+        "leave"
+      ]
+    },
+    "black": {
+      "id": "black",
+      "title": "inside the shack",
+      "body": "the smaller buildings are entirely burnt out, brick and rusted steel the only indicator that they once existed. what isn't caked in ash is glaring in angry red, like an ancient fiery beast. the road continues deeper, but even as the remains of the structures grow taller, the debris grows thicker, crowding the flat street and making your travel slower. you climb atop the rubble and continue on, the flat road disappearing underneath the wreckage. the path continues into the heart of the city, until you reach the foot of the tallest tower, the one you saw from the outside. what once were grand double doors welcome you inside, but you could get in through any of the numerous broken windows at ground level anyway. this tower isn't as skeletal as the others; some walls are still intact, and many patches of concrete indicate that floors higher up are still stable.",
+      "btns": [
+        {
+          "for": "lobby",
+          "text": "the tower"
+        },
+        "leave"
+      ]
+    },
+    "lobby": {
+      "id": "lobby",
+      "title": "the tower lobby",
+      "body": "the rusted steel beams imply a grand and tall lobby, with many directions to go and floors to explore, but the blasted rubble covers the floor and most of the halls. anything that could have been wood or paper is now just charred husk. the area is well-lit, light flowing in from the many gaps in the walls. from here, there's an elevator shaft, a hall with a symbol indicating a staircase, and a door with an \"exit\" sign over it.",
+      "btns": [
+        {
+          "for": "elevator",
+          "text": "the elevator"
+        },
+        {
+          "for": "staircase",
+          "text": "the staircase"
+        },
+        {
+          "for": "exit",
+          "text": "the exit sign"
+        },
+        "leave"
+      ]
+    },
+    "elevator": {
+      "id": "elevator",
+      "title": "the elevator shaft",
+      "body": "clearly the elevator is no longer functional, its interior gutted by whatever burnt the rest of the place out. the cables through the exposed roof are snapped or otherwise unstable. the button panel hangs off the wall though, revealing some electronics. ",
+      "loot": true,
+      "nextId": "lobby",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "circuit_board",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "id": "copper_coil",
+          "min": 1,
+          "max": 3,
+          "chance": 1
+        },
+        {
+          "id": "wire",
+          "min": 1,
+          "max": 6,
+          "chance": 1
+        },
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 7,
+          "chance": 0.9
+        },
+        {
+          "id": "battery",
+          "min": 1,
+          "max": 1,
+          "chance": 0.55
+        }
+      ]
+    },
+    "staircase": {
+      "id": "staircase",
+      "title": "the staircase",
+      "body": "a symbol of a man walking up stairs has been scorched to be barely recognizable. its hall leads to a tall concrete tube, its walls lined by a square spiral staircase. it ascends for fifteen floors before the next flight is covered by the debris of the collapsed stairs above it. there's doors in the wall, indicating entry to the fifteenth story. they open out to some business's lobby, but this one is far more exposed to the open air. the red towers surrounding the building and the endless landscape beyond are all visible between the steel beams. the tower creaks and groans as it sways lightly with the breeze up here, stirring the dead atmosphere. it's unclear what this business once was, but in the far corner, a large metal safe is exposed, no longer obscured by rooms and halls. there's also a maintenance ladder going up a few steel beams, and a pile of rubble to one corner is sloped in a way that leads to the next floor.",
+      "btns": [
+        {
+          "for": "safe",
+          "text": "the safe",
+          "req": true,
+          "reqItems": [
+            {
+              "id": "blowtorch",
+              "title": "powered blowtorch",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "for": "maintenance",
+          "text": "the ladder"
+        },
+        {
+          "for": "sixteenth",
+          "text": "the rubble pile"
+        }
+      ]
+    },
+    "safe": {
+      "id": "safe",
+      "title": "the safe",
+      "body": "hundreds of stacks of cash line the inside of the safe. there's also a computer, which might have some parts worth scavenging. it seems like this floor was dedicated to a bank.",
+      "loot": true,
+      "nextId": "fifteenth",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "circuit_board",
+          "min": 1,
+          "max": 3,
+          "chance": 1
+        },
+        {
+          "id": "wire",
+          "min": 1,
+          "max": 8,
+          "chance": 1
+        },
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 9,
+          "chance": 0.9
+        },
+        {
+          "id": "",
+          "min": 1,
+          "max": 4,
+          "chance": 0.9
+        }
+      ]
+    },
+    "fifteenth": {
+      "id": "fifteenth",
+      "title": "the fifteenth floor",
+      "body": "there's a rusted ladder against a steel beam to one corner of the floor, and just ahead, a pile of rubble leads to the level above you.",
+      "btns": [
+        {
+          "for": "maintenance",
+          "text": "the ladder"
+        },
+        {
+          "for": "sixteenth",
+          "text": "the rubble pile"
+        }
+      ]
+    },
+    "maintenance": {
+      "id": "maintenance",
+      "title": "the maintenance ladder",
+      "body": "the rust of the steel bites into your hands as you climb. the weathered bolts holding the ladder to the beam groan, but hold tightly. you climb for three stories before the next bolt of the ladder is loose, and starts to shake. many of the bolts going higher from here seem unstable, and some are clearly broken entirely.",
+      "btns": [
+        {
+          "for": "rusty",
+          "text": "continue climbing"
+        },
+        {
+          "for": "eighteenth",
+          "text": "the eighteenth floor"
+        }
+      ]
+    },
+    "rusty": {
+      "id": "rusty",
+      "title": "the rusty ladder",
+      "body": "the ladder protests more as you climb higher, until finally, about three stories higher than before, it separates from the steel beam entirely and starts leaning backward over the open air. reacting quickly, you're able to reach around and grab the beam, swinging your legs around and landing delicately on the thin walkway. the ladder holds in place for a moment before drifting back toward the steel and settling on it. the walkway connects into a construction catwalk, ropes dangling off its rails, and it leads to a maintenance doorway that connects into the concealed twenty-first floor.",
+      "btns": [
+        {
+          "for": "twentyfirst",
+          "text": "the door"
+        }
+      ]
+    },
+    "twentyfirst": {
+      "id": "twentyfirst",
+      "title": "the twenty-first floor",
+      "body": "the walls are adorned with calendars and clocks, various items to help keep an office running, but the floor is missing entirely. there's a single strip of steel beam running to the opposite end of the room, where a broom closet's door hangs into the otherwise open air. balancing across the beam won't be hard, as with the others, but it's still unnerving.",
+      "btns": [
+        {
+          "for": "closet",
+          "text": "the broom closet"
+        }
+      ]
+    },
+    "closet": {
+      "id": "closet",
+      "title": "the broom closet",
+      "body": "the closet is entirely empty, swept clean of any supplies or scraps. even the carpet is torn up from the floor, and the wallpaper is peeling away. there's no further way to go from here.",
+      "btns": [
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "eighteenth": {
+      "id": "eighteenth",
+      "title": "the eighteenth floor",
+      "body": "this level is mostly collapsed, and you have to maintain balance while crossing a few steel beams to get to the actual floor. at this height, the city streets below are barely distinguishable. at the floor, there's an exit that leads back to the staircase. ",
+      "btns": [
+        {
+          "for": "staircase-2",
+          "text": "the staircase"
+        }
+      ]
+    },
+    "staircase-2": {
+      "id": "staircase-2",
+      "title": "the staircase",
+      "body": "the stairs go up quite a while before reaching another collapsed section, twenty more stories up. after exiting the staircase, this level is revealed to be much more intact; dozens of cubicles fill the room, and the hum of electricity fills the air. the lights in the ceiling are activated, and an desktop fan somewhere in the area stirs the air softly. there's also a room with an electrical symbol on it, bolted shut.",
+      "btns": [
+        {
+          "for": "electrical",
+          "text": "the electrical room",
+          "req": true,
+          "reqItems": [
+            {
+              "id": "bolt_cutters",
+              "title": "bolt cutters",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "electrical": {
+      "id": "electrical",
+      "title": "the electrical room",
+      "body": "most of the electronics in here have been ripped out. there's a ladder escaping into a room above against the far wall.",
+      "loot": true,
+      "nextId": "thirty-nineth",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "battery",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        },
+        {
+          "id": "plastic",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 4,
+          "chance": 0.9
+        }
+      ]
+    },
+    "thirty-nineth": {
+      "id": "thirty-nineth",
+      "title": "the thirty-nineth floor",
+      "body": "the ladder leads up into another maintenance room; this one has already been gutted of any potentially useful supplies. there's one door that leads outside, and a rush of air blows in as you open it. you're facing the open air, only a steel beam leading out from the doorway toward a flat deck that sticks out of the tower. to the right side, the beams and walls continue upward into the sky, while the rest of this platform descends downward back to the debris below. a section of beams leads precariously back to the thirty-nineth floor inside, but at the other end of the platform, several ropes descend from much higher on the building and connect to what seems to be a lift of some kind.",
+      "btns": [
+        {
+          "for": "thirtynineth-2",
+          "text": "back in the tower"
+        },
+        {
+          "for": "lift",
+          "text": "the lift"
+        }
+      ]
+    },
+    "shopping": {
+      "id": "shopping",
+      "title": "the shopping center",
+      "body": "despite the flames that once came through this tower, the metal and concrete walls of the restaurants have protected many of the supplies worth taking. from here, there's nowhere else to go but through the staircase. [NO LOOT TABLE YET]",
+      "btns": [
+        {
+          "for": "staircase-3",
+          "text": "continue"
+        },
+        "leave"
+      ]
+    },
+    "staircase-3": {
+      "id": "staircase-3",
+      "title": "the staircase",
+      "body": "the staircase goes another two floors up before being cut off again. the door here is not locked, but cannot be pushed open due to debris piled behind it. you descend one level and try to open that floor's door, but it opens to the air above the shopping center, where some sort of catwalk or upper level must have once existed. there's nowhere else to go in this direction. ",
+      "btns": [
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "lift": {
+      "id": "lift",
+      "title": "the lift",
+      "body": "balancing carefully across the suspended steel beams, you finally make it to the lift. there's cleaning supplies and a wide brush on it, and its railing has a section that slides out. it seems like it was meant for cleaning windows, back when the skyscraper still had them. the ropes appear to be intact and functional, and a wheel connected to the side can be spun to lift the entire apparatus.",
+      "btns": [
+        {
+          "for": "thirtynineth-2",
+          "text": "leave and go in the tower"
+        },
+        {
+          "for": "ascension",
+          "text": "ascend"
+        }
+      ]
+    },
+    "ascension": {
+      "id": "ascension",
+      "title": "ascension",
+      "body": "you begin spinning the wheel, and the lift climbs toward the top of the building, passing level after level. the nearby buildings get lower and lower, until even the tallest of them begin to disappear below you. the clouds above grow closer, until finally, the ropes reach their hinges at the top of the tower. at this height, the tower is mostly bare, and has become much thinner than at its base. it's only a dozen meters thick now, with a few exposed maintenance ladders leading to the antenna on the top. the air is thick with ash, the black clouds above not so far away anymore. the wasteland extends in every direction, as far as you can see, so extensive but still so bleak.",
+      "btns": [
+        {
+          "for": "ladders",
+          "text": "the ladders"
+        }
+      ]
+    },
+    "ladders": {
+      "id": "ladders",
+      "title": "the ladders",
+      "body": "the ladders here are much more thin, and surrounded by looped bars as an added safety measure. it continues upward until reaching a tiny platform, only two meters wide, that has supports connecting to a ceiling above it with an integrated power system. the electronics have been ripped out, but there's a toolbox on the floor and a wooden pallet with supplies nearby. there's a small set of stairs that leads in a circle around the platform to the upper area, where a final ladder climbs the antenna to get to the tower's peak. the antenna disappears into the clouds, though, and it's already difficult to breathe up here.",
+      "btns": [
+        {
+          "for": "toolbox",
+          "text": "loot area"
+        },
+        {
+          "for": "final",
+          "text": "the last ladder"
+        },
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "toolbox": {
+      "id": "toolbox",
+      "title": "the toolbox and pallet",
+      "body": "even though the original electronics have been removed, a final supply delivery was left here.",
+      "loot": true,
+      "nextId": "platform",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "rope",
+          "min": 1,
+          "max": 9,
+          "chance": 0
+        },
+        {
+          "id": "copper_coil",
+          "min": 1,
+          "max": 5,
+          "chance": 0
+        },
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 2,
+          "chance": 1
+        },
+        {
+          "id": "keycard_e",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        },
+        {
+          "id": "wire",
+          "min": 1,
+          "max": 11,
+          "chance": 0.9
+        },
+        {
+          "id": "plastic",
+          "min": 1,
+          "max": 2,
+          "chance": 0.7
+        },
+        {
+          "id": "battery",
+          "min": 1,
+          "max": 1,
+          "chance": 0.33
+        },
+        {
+          "id": "bp_low_teleporter",
+          "min": 1,
+          "max": 1,
+          "chance": 0.05
+        },
+        {
+          "id": "bp_high_teleporter",
+          "min": 1,
+          "max": 1,
+          "chance": 0.01
+        }
+      ]
+    },
+    "platform": {
+      "id": "platform",
+      "title": "the last platform",
+      "body": "the ladder leads up the antenna into the ash clouds, but it's already difficult to breathe down here. the climb might be impossible.",
+      "btns": [
+        {
+          "for": "final",
+          "text": "the last ladder"
+        },
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "final": {
+      "id": "final",
+      "title": "the final climb",
+      "body": "the ladder is secure against the steel antenna, and you begin the climb. the air grows extremely thick with ash, and soon, you are unable to breathe entirely. you squint upward, trying to see how much farther the top might be, but it's impossible to tell through the clouds. there's no way you can continue upward, and there doesn't seem to be any point in risking your life. you climb back down to the platform, taking a deep breath as soon as you are able. there's nowhere to go from here but down.",
+      "btns": [
+        {
+          "for": "toolbox",
+          "text": "loot area"
+        },
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "sixteenth": {
+      "id": "sixteenth",
+      "title": "the sixteenth story",
+      "body": "you climb the awkward rubble spilling from the above floor until you arrive at the next level. the floor only exists in this corner of the tower, but there's a spiral staircase that disappears into the more solid level above it. ",
+      "btns": [
+        {
+          "for": "furnished",
+          "text": "the spiral stairs"
+        }
+      ]
+    },
+    "furnished": {
+      "id": "furnished",
+      "title": "a furnished room",
+      "body": "despite the wreckage of the rest of the tower, the room revealed by scaling these stairs is still quite intact. the wallpaper is exquisite, flowering patterns of purple and green dancing across it. the room is a complete living space, with couches, lamps, a television, and a small kitchen in the back corner, as well as a bed nearby. however, all the furniture had been pushed against the walls, to clear the space for a charred corpse that lays in the center of the floor, its limbs contorted. resting on one couch is a red container of gasoline. scrawled in the ashes in the floor is a short message: \"save the children\". there's nothing else to do here.",
+      "btns": [
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "exit": {
+      "id": "exit",
+      "title": "the exit sign",
+      "body": "you go through the exit door, and the back of the tower looks much like the front does. to one side, though, is a fire escape staircase, leading far up along the outside of the tower.",
+      "btns": [
+        {
+          "for": "escape",
+          "text": "the fire escape"
+        },
+        "leave"
+      ]
+    },
+    "escape": {
+      "id": "escape",
+      "title": "the fire escape",
+      "body": "the old metal creaks and groans as you make your way upward, but the escape remains attached to the exposed beams of the tower. after about eight stories, the stairs disappear, and when you look over the railing, you can see their rusted remains far below, obvious now against the debris. there's a door here that leads inside.",
+      "btns": [
+        {
+          "for": "eighth",
+          "text": "the eighth floor"
+        }
+      ]
+    },
+    "eighth": {
+      "id": "eighth",
+      "title": "the eighth floor",
+      "body": "half the floor has collapsed, leaving the opposing side of the tower exposed to the open air, the other buildings visible further away. there's signs over a receptionist desk nearby, and the floor is filled with metal boxes and containers. sheets of blackened plastic drape over many of them, as though they once covered them, but were burned away. there's a closed office door next to the reception area.",
+      "btns": [
+        {
+          "for": "office",
+          "text": "the office"
+        },
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "office": {
+      "id": "office",
+      "title": "the office",
+      "body": "a headless corpse greets you as the door opens, sitting behind his desk in a rolling chair, the wall behind him ripped away. the remains of his body and clothes have been scorched and burnt black. a pistol rests on the desk, pointed toward the man, but his own hands are empty. a corded phone is on the table, showing one received voicemail available. it's muffled, but distinguishable as a woman's voice, anxiety edging every word.<span class=\"doc\">hey, i saw on the news, apparently there's rioters all through the city right now, and the military is nowhere near your building. something about protesting the government killing children... it's all so crazy, the conspiracies people come up with. but it looks like they're getting violent, so just please call me as soon as you get this, or come home whenever it's safe... i love you. bye. </span>",
+      "btns": [
+        {
+          "for": "blasted",
+          "text": "loot area"
+        },
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "blasted": {
+      "id": "blasted",
+      "title": "the blasted office",
+      "body": "the charred desk doesn't have anything useful available, but other things in the room are worth looking over.",
+      "loot": true,
+      "nextId": "office-2",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 4,
+          "chance": 1
+        },
+        {
+          "id": "pistol",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        },
+        {
+          "id": "cloth",
+          "min": 1,
+          "max": 4,
+          "chance": 0.9
+        },
+        {
+          "id": "plastic",
+          "min": 1,
+          "max": 4,
+          "chance": 0.8
+        },
+        {
+          "id": "bullet",
+          "min": 1,
+          "max": 1,
+          "chance": 0.05
+        }
+      ]
+    },
+    "office-2": {
+      "id": "office-2",
+      "title": "the office",
+      "body": "a soft breeze enters the room, carrying some ash with it. there's no other way to go from here but back to the bottom of the tower.",
+      "btns": [
+        {
+          "for": "descent",
+          "text": "return to tower base"
+        }
+      ]
+    },
+    "descent": {
+      "id": "descent",
+      "title": "descent",
+      "body": "the path down the tower is easy enough to backtrack along. nothing was particularly treacherous, but the actions were time-consuming; after a long while, you arrive back at the foot of the tower, and leave the entrance. the city's towers now surround you again as you stand atop their crumpled walls. every nearby building is entirely see-through, their supports the only indication they existed at all. there's no point checking what's inside any of them.",
+      "btns": [
+        {
+          "for": "lobby",
+          "text": "re-enter tower"
+        }
+      ]
+    },
+    "thirtynineth-2": {
+      "id": "thirtynineth-2",
+      "title": "the thirty-nineth floor",
+      "body": "you balance across the beams until you reach the interior of the new section of the tower. this section seems like it was constructed to be a great lobby, taking up two floors on its own, high ceilings far above. there's an indent in the ground, but looking through it reveals a hole directly to the next intact level several stories below. the patterns around the edges indicate it might have been a pool, or fountain. though it's now burnt out, the wall is lined with pockets and rooms that once had signs over them. this area was once a small shopping center. in a corner is a burnt-out elevator and a door leading back to the staircase, but there might be some things to take in this area.",
+      "btns": [
+        {
+          "for": "shopping",
+          "text": "loot area"
+        },
+        {
+          "for": "staircase",
+          "text": "the stairs"
+        }
+      ]
+    }
+  }
+}
