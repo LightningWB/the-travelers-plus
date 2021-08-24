@@ -18,7 +18,7 @@ module.exports.fill = function(player) {
 	const {x , y} = player.public;
 	const obj = chunks.getObject(x, y);
 	if(!obj)return;
-	if(obj.public.char === 'o' && obj.private.visible !== false)
+	if(obj.private && obj.private.eventData && obj.private.eventData.type === 'hole' && obj.private.visible !== false)
 	{
 		obj.private.visible = false;
 	}
