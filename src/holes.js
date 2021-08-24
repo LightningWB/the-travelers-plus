@@ -59,7 +59,7 @@ module.exports.unloadChunk = function(chunk) {
 	const keys = Object.keys(chunk);
 	for(const key of keys)
 	{
-		if(key !== 'players')
+		if(key !== 'meta')
 		{
 			if(chunk[key])// check to make sure the object isn't null/undefined
 			{

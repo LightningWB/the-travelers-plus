@@ -600,7 +600,7 @@ module.exports.loadPlayer = function(player) {
 module.exports.saveChunk = function(chunk) {
 	for(const id in chunk)
 	{
-		if(id !== 'players' && chunk[id])
+		if(id !== 'meta' && chunk[id])
 		{
 			const objs = chunk[id];
 			objs.forEach(o=>{
@@ -638,7 +638,7 @@ module.exports.saveChunk = function(chunk) {
 module.exports.loadChunk = function(chunk) {
 	for(const id in chunk)
 	{
-		if(id !== 'players')
+		if(id !== 'meta')
 		{
 			const objs = chunk[id];
 			objs.forEach(o=>{

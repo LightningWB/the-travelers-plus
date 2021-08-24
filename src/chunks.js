@@ -20,14 +20,14 @@ module.exports.tick = function(player)
 		{
 			// player chunk lists
 			const chunk = chunks.getChunkFromChunkCoords(x, y);
-			if(chunk && chunk.players === undefined)chunk.players = [];
-			if(chunk && x === chunkX  && y === chunkY && !chunk.players.includes(player.public.username))chunk.players.push(player.public.username);
+			if(chunk && chunk.meta.players === undefined)chunk.meta.players = [];
+			if(chunk && x === chunkX  && y === chunkY && !chunk.meta.players.includes(player.public.username))chunk.meta.players.push(player.public.username);
 			if(!chunks.isChunkCoordsLoaded(x, y))
 			{
 				chunks.loadChunk(x, y);
 			}
 			const ps = [];
-			if(chunk) for(const username of chunk.players)
+			if(chunk) for(const username of chunk.meta.players)
 			{
 				if(username !== me.public.username)
 				{
@@ -87,16 +87,16 @@ module.exports.save = function()
 		}
 		else
 		{
-			if(chunk.players)
+			if(chunk.meta.players)
 			{
 				const ps = [];
-				for(const player of chunk.players)
+				for(const player of chunk.meta.players)
 				{
 					const p = players.getPlayerByUsername(player);
 					const {x: playerX, y: playerY} = chunks.toChunkCoords(p.public.x, p.public.y);
 					if(playerX === x && playerY === y)ps.push(player);
 				}
-				chunk.players = ps;
+				chunk.meta.players = ps;
 			}
 			if(!activeChunks.includes(chunkId))
 			{
@@ -108,12 +108,17 @@ module.exports.save = function()
 }
 
 module.exports.chunkLoad = function(chunk) {
-	if(chunk.players === undefined)chunk.players = [];
+	if(chunk.players)// allow old saves to work nicely
+	{
+		chunk.meta.players = chunk.players;
+		delete chunk.players;
+	}
+	else if(chunk.meta.players === undefined)chunk.meta.players = [];
 }
 
 module.exports.chunkUnload = function(chunk) {
-	if(chunk.players.length === 0)
+	if(chunk.meta.players.length === 0)
 	{
-		delete chunk.players;
+		delete chunk.meta.players;
 	}
 }

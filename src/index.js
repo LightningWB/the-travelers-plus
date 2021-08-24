@@ -105,7 +105,7 @@ plugin.on('playerConnect', require('./chunks').tick, BASE_PRIORITY);
 plugin.on('playerTick', require('./chunks').tick, BASE_PRIORITY - 10);
 plugin.on('chunkSave', require('./chunks').save, BASE_PRIORITY);
 plugin.on('gameTickPre', require('./chunks').gameTickPre, BASE_PRIORITY);
-plugin.on('loadChunk', require('./chunks').chunkLoad, BASE_PRIORITY);
+plugin.on('loadChunk', require('./chunks').chunkLoad, BASE_PRIORITY + 100);
 plugin.on('saveChunk', require('./chunks').chunkUnload, BASE_PRIORITY);
 
 // loading data
