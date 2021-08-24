@@ -29,7 +29,7 @@ module.exports.doubleStep = function(packet, player) {
 			{
 				player.cache.doubleStep = false;
 			}
-			else if(packet.option === 'add' && player.public.skills.sp >= 10)
+			else if(packet.option === 'add' && player.public.skills.sp >= 10 && generateTileAt(player.public.x, player.public.y) !== 'M')
 			{
 				player.cache.doubleStep = true;
 			}
