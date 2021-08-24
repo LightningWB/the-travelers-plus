@@ -67,7 +67,7 @@ module.exports.move = function(player) {
 		const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, player.cache.doubleStep ? DOUBLE_STEP_MULTIPLIER: 1);
 		player.cache.doubleStep = false;
         
-        const tile = generateTileAt(x, y),
+        const tile = generateTileAt(x, y);
         const onWater = tile === "w";
         const onBorder = tile === "░";
         if (!onWater && !onBorder)
