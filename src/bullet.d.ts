@@ -28,6 +28,16 @@ declare namespace utility
 	type level = 'ERROR' | 'WARN' | 'INFO';
 	export function debug(mode:level, message: string): void
 	export function rand(min: number, max: number): number
+	type dataType = 'number' | 'int' | 'string' | 'object' | 'array' | 'boolean' | 'bigint' | 'symbol' | 'function';
+	export class Out<T>
+	{
+		constructor(val:T, t?:dataType)
+		private static verifyType(val:any, type:dataType):boolean
+		set(val:T):T
+		get():T
+		getType():dataType
+	}
+	export function out<T>(val: T, t?:dataType)
 }
 
 declare namespace chunk
@@ -44,12 +54,12 @@ declare namespace chunk
 		private: utility.anyObject
 	} |  string
 	// keys are x|y to be more memory and processor efficient
-	export type chunk = {
-		[key:string]:obj[],
+	type objs = {[key:string]:obj[]}
+	export type chunk = objs & {
 		/**
-		 * list of player usernames
+		 * metadata about an object
 		 */
-		players:string[]
+		meta:anyObject
 	}
 }
 
@@ -84,11 +94,24 @@ declare namespace player
 	}
 }
 
+type ops = {
+	staticFiles: boolean,
+	tps: number,
+	port: number,
+	title: string,
+	description: string
+}
+
 /**
  * plugins
  */
 declare namespace plugins
 {
+	type fullStorage = {
+		id: string,
+		data: utility.anyObject
+	}
+	export type storage = fullStorage["data"];
 	export const SAVE_INTERVAL:number;
 	export namespace players
 	{
@@ -149,8 +172,7 @@ declare namespace plugins
 		export function toChunkCoords(x:number, y:number):{x:number, y:number}
 	}
 	export const util: typeof utility;
-	export const options: utility.anyObject;
-	// dummy class to allow type definitions
+	export const options: ops;
 	class plugin
 	{
 		id: string;
@@ -186,9 +208,18 @@ declare namespace plugins
 		emit(event: string, ...args: any[]):any
 		addAdminButton(id:string, text: string, onSend: Function):any
 		addAdminText(id:string, placeHolder: string, text: string, onSend: Function):any
+		/**
+		 * gets the storage for this plugin
+		 * @returns plugin storage
+		 */
+		getStorage(): utility.anyObject
+		/**
+		  * sets the storage to a new value
+		  * @param storage new storage
+		  */
+		setStorage(storage: storage): void
 	}
 	export function makePlugin(id:string):plugin
-	export function triggerEvent(event: string, ...args):void
 	export function emit(namespace: string, method: string, ...args):void
 	export function generateTileAt(x:number, y:number):string
 }
