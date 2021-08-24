@@ -1,0 +1,92 @@
+{
+  "id": "weathered",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a weathered house",
+      "body": "a yellow home sticks out of the ground like a stain in the landscape, no accompanying road or houses nearby to indicate it as part of a neighborhood. the siding is peeling, the windows are broken, and the door hangs open, unmoving in the dead atmosphere.",
+      "btns": [
+        {
+          "for": "hall",
+          "text": "enter"
+        },
+        "leave"
+      ]
+    },
+    "hall": {
+      "id": "hall",
+      "title": "the entrance hall",
+      "body": "the front door opens into a hallway, with an entrance to either side for a moldy bathroom and a living room. old photos and paintings hang in the hallway, which leads to a kitchen.",
+      "btns": [
+        {
+          "for": "living",
+          "text": "the living room"
+        },
+        {
+          "for": "kitchen",
+          "text": "the kitchen"
+        },
+        "leave"
+      ]
+    },
+    "living": {
+      "id": "living",
+      "title": "the living room",
+      "body": "a smashed television hangs from the far wall above a fireplace, with a few sets of furniture facing it. another threshold leads to the kitchen. there's a shred of newspaper on the coffee table, blank, but its other side shows a part of a headline: \"seti finds...\"",
+      "btns": [
+        {
+          "for": "kitchen",
+          "text": "the kitchen"
+        },
+        "leave"
+      ]
+    },
+    "kitchen": {
+      "id": "kitchen",
+      "title": "the kitchen",
+      "body": "the kitchen is small, complete with only a few rotted chairs around a fallen table and a refrigerator. it's still humming, power somehow still reaching it after all this time, but the door hangs open, revealing an empty interior. the freezer door has alphabet magnets on it, a few of them spelling \"we miss you mom\". there's a door leading to the backyard.",
+      "btns": [
+        {
+          "for": "backyard",
+          "text": "the backyard"
+        },
+        "leave"
+      ]
+    },
+    "backyard": {
+      "id": "backyard",
+      "title": "the backyard",
+      "body": "a toy car is overturned in the dirt, ash layered on top of it. there’s an open shed, mostly empty.",
+      "loot": true,
+      "nextId": "kitchen",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 4,
+          "chance": 0.75
+        },
+        {
+          "id": "rope",
+          "min": 1,
+          "max": 4,
+          "chance": 0.5
+        },
+        {
+          "id": "cloth",
+          "min": 1,
+          "max": 5,
+          "chance": 0.5
+        },
+        {
+          "id": "fire_extinguisher",
+          "min": 1,
+          "max": 1,
+          "chance": 0.33
+        }
+      ]
+    }
+  }
+}

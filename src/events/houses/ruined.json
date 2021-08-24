@@ -1,0 +1,102 @@
+{
+  "id": "ruined",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a ruined house",
+      "body": "a once comfortable home has fallen to now-dead insects. the door has fallen from its hinges and lays out in the open, covering the stairs. there is little ash settled on it compared to the rest of the structure; someone was here recently. after walking inside, you notice a light flickering in the kitchen.",
+      "btns": [
+        {
+          "for": "kitchen",
+          "text": "the kitchen"
+        },
+        "leave"
+      ]
+    },
+    "kitchen": {
+      "id": "kitchen",
+      "title": "the kitchen",
+      "body": "a small generator, powered by a solar panel, remits what power it gains from the darkened world into the bulb above. knives were stolen and used for weapons long ago. otherwise empty, the cracked counter has a decaying paper resting on it.",
+      "btns": [
+        {
+          "for": "note",
+          "text": "an old note"
+        },
+        "leave"
+      ]
+    },
+    "note": {
+      "id": "note",
+      "title": "an old note",
+      "body": "what's visible on the note reads:<span class=\"doc\">a pity to have been born so late. being forced to grow up at this point in history. humanity near its </span>maybe the upper floor has anything left.",
+      "btns": [
+        {
+          "for": "top",
+          "text": "the top floor"
+        },
+        "leave"
+      ]
+    },
+    "top": {
+      "id": "top",
+      "title": "the top floor",
+      "body": "the stairs creak loudly, echoing through the gaping hole in the roof. the walls separating the rooms have fallen away to mere rubble. there's a trash bag in the back corner of all the mess, covered in the ash that coats the rest of this area. maybe there's something someone didn't need.",
+      "btns": [
+        {
+          "for": "trash",
+          "text": "search"
+        },
+        "leave"
+      ]
+    },
+    "trash": {
+      "id": "trash",
+      "title": "an old trash bag",
+      "body": "the bag has been bent over and ripped. whoever was here has searched it already. ",
+      "visitedBody": "there's some unknown liquid oozing off the plastic, but it's worth a look inside. ",
+      "visitTarget": "trash",
+      "loot": true,
+      "nextId": "leave",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "wood_stick",
+          "min": 1,
+          "max": 3,
+          "chance": 0.66
+        },
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 4,
+          "chance": 0.55
+        },
+        {
+          "id": "rope",
+          "min": 1,
+          "max": 3,
+          "chance": 0.5
+        },
+        {
+          "id": "medical_pill",
+          "min": 1,
+          "max": 2,
+          "chance": 0.45
+        },
+        {
+          "id": "shovel",
+          "min": 1,
+          "max": 1,
+          "chance": 0.33
+        },
+        {
+          "id": "rusty_knife",
+          "min": 1,
+          "max": 1,
+          "chance": 0.25
+        }
+      ]
+    }
+  }
+}

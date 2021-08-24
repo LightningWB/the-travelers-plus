@@ -1,0 +1,93 @@
+{
+  "id": "trapdoor",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a trapdoor",
+      "body": "the shovel strikes the ground, but instead of sliding through the ash or dully clanking on metal, the ground rumbles, a resounding hum echoing briefly before fading out. you dig out the surrounding area and reveal a square trapdoor, with a metal handle sticking up.",
+      "btns": [
+        {
+          "for": "ladder",
+          "text": "descend"
+        },
+        "leave"
+      ]
+    },
+    "ladder": {
+      "id": "ladder",
+      "title": "a ladder down",
+      "body": "  into the darkness the ladder descends, but it’s not long until you reach the bottom. suddenly, the lights go on, and you hear the metallic click of a weapon. a human male stands a couple meters away, terror in his eyes, pointing his shotgun straight at your chest. about him are dozens of shelves, stocked to the brim with canned goods and plastic gallons of water. there’s a bed on the floor behind him with a small television next to it. two doors are to the left. you put your hands up in a display of innocence, and the man whispers, his ragged gasp shaking with fear, “what are you?”  as you open your mouth to speak, the panic in his eyes grows, and he yells, “i won’t let them… they won’t do it to me too!” and without hesitation, he angles the barrel under his chin and pulls the trigger.",
+      "btns": [
+        {
+          "for": "bunker",
+          "text": "the blast"
+        }
+      ]
+    },
+    "bunker": {
+      "id": "bunker",
+      "title": "the doomsday bunker",
+      "body": "the percussive blast goes off, thundering through the bunker as the man’s blood paints the shelf and wall behind him. his body falls to the ground, the shotgun clattering away. after a moment to breathe, you step over the body and open the other two doors. the one closer to the bed is a closet filled with cans; most empty, but still plenty full of various foods. a dozen broken can openers litter the carpeted floor. in the other door is a tiny bathroom, with a shower and toilet. the television, when activated, starts playing an old movie. there’s a journal on a shelf next to the bed, now soaking with blood.",
+      "btns": [
+        {
+          "for": "journal",
+          "text": "the journal"
+        },
+        "leave"
+      ]
+    },
+    "journal": {
+      "id": "journal",
+      "title": "the blood-soaked journal",
+      "body": "most of the pages talk simply about the media he experienced on his television that day, repeatedly emphasizing how writing it down helped keep him from going insane. but every few weeks, a note is written about witnessing people walking around outside his bunker. thin, muscular people with gaunt faces in tattered clothes who walk from horizon to horizon without stopping. he repeatedly wrote how he’s terrified of them, and if one ever finds him, he would kill it without hesitation. after only a hundred pages, the blood has soaked too far through to read earlier in the man’s life.",
+      "btns": [
+        {
+          "for": "supplies",
+          "text": "loot area"
+        },
+        "leave"
+      ]
+    },
+    "supplies": {
+      "id": "supplies",
+      "title": "shelves of supplies",
+      "body": "among the cans of food and gallons of water are scraps worth looking at.",
+      "loot": true,
+      "nextId": "leave",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "cloth",
+          "min": 1,
+          "max": 13,
+          "chance": 1
+        },
+        {
+          "id": "shotgun_shell",
+          "min": 1,
+          "max": 3,
+          "chance": 1
+        },
+        {
+          "id": "shotgun",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        },
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 14,
+          "chance": 0.95
+        },
+        {
+          "id": "plastic",
+          "min": 1,
+          "max": 9,
+          "chance": 0.5
+        }
+      ]
+    }
+  }
+}

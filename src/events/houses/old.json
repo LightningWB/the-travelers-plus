@@ -1,0 +1,102 @@
+{
+  "id": "old",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "an old home",
+      "body": "the house stands strong, despite the world's decay. the roof, though coated in the soot that layers everything, has no holes. someone could even be still living here.",
+      "btns": [
+        {
+          "for": "living",
+          "text": "enter"
+        },
+        "leave"
+      ]
+    },
+    "living": {
+      "id": "living",
+      "title": "the living room",
+      "body": "passing through the threshold it becomes clear the family who once lived here is long gone. pictures of smiling people are partially covered by long-settled dust. there's footprints in the dust on the floor, though. someone came through here not too long ago.",
+      "btns": [
+        {
+          "for": "back",
+          "text": "the back room"
+        },
+        "leave"
+      ]
+    },
+    "back": {
+      "id": "back",
+      "title": "the back room",
+      "body": "there's a television hanging from the wall, and a video is displayed on it. the power source is indeterminable. the video is only a few seconds long, looping constantly, and features a human in a clean suit, standing behind a podium. he talks briefly before being cut off by the loop.<span class=\"doc\">... by them. children are a dangerous sink for valuable and limited resources, and cause the lower classes to suffer further when a baby is born. for many, a child is a curse, not a gift. due to the controversy behind ... </span>the video loops again. there's a closet in the corner of this room.  ",
+      "btns": [
+        {
+          "for": "closet",
+          "text": "the closet"
+        },
+        "leave"
+      ]
+    },
+    "closet": {
+      "id": "closet",
+      "title": "the closet",
+      "body": "there's a single cardboard box on the ground with some stuff inside.",
+      "btns": [
+        {
+          "for": "box",
+          "text": "search"
+        },
+        "leave"
+      ]
+    },
+    "box": {
+      "id": "box",
+      "title": "a cardboard box",
+      "body": "the box has been slightly folded with fresh creases. someone's looked inside already. ",
+      "visitedBody": "in spite of the dying world, the box is clean, and still might have something left.",
+      "visitTarget": "box",
+      "loot": true,
+      "nextId": "leave",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 4,
+          "chance": 0.8
+        },
+        {
+          "id": "cloth",
+          "min": 1,
+          "max": 4,
+          "chance": 0.5
+        },
+        {
+          "id": "soda_bottle",
+          "min": 1,
+          "max": 1,
+          "chance": 0.33
+        },
+        {
+          "id": "medical_pill",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        },
+        {
+          "id": "batttery",
+          "min": 1,
+          "max": 1,
+          "chance": 0.15
+        },
+        {
+          "id": "fire_extinguisher",
+          "min": 1,
+          "max": 1,
+          "chance": 0.05
+        }
+      ]
+    }
+  }
+}
