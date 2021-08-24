@@ -1,0 +1,119 @@
+{
+  "id": "low",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a low home",
+      "body": "the simple structure juts out of the landscape like a raw bone, short and worn by time. the door is chained shut, but the one window to the side is long shattered.",
+      "btns": [
+        {
+          "for": "office",
+          "text": "climb inside"
+        },
+        "leave"
+      ]
+    },
+    "office": {
+      "id": "office",
+      "title": "a home office",
+      "body": "the back wall has been ripped from the rest of the room, resting in a pile of debris where the rest of the house used to be. there's a computer in here on a desk, still plugged into the wall. somehow it still receives power, the monitor lit and awake.",
+      "btns": [
+        {
+          "for": "computer",
+          "text": "the computer"
+        },
+        "leave"
+      ]
+    },
+    "computer": {
+      "id": "computer",
+      "title": "the computer",
+      "body": "cotton has been ripped from the furniture and spread across the floor, and nearby lays the rotting carcass of a small animal. there's a tiny kitchen to the side, stripped of its pottery and utensils, and in the back is a single door.",
+      "btns": [
+        {
+          "for": "text",
+          "text": "found.txt"
+        },
+        {
+          "for": "drive",
+          "text": "connect drive",
+          "req": true,
+          "reqItems": [
+            {
+              "id": "flash_drive",
+              "title": "flash drive",
+              "count": 1
+            }
+          ],
+          "reqForAll": true,
+          "hide": true
+        },
+        "leave"
+      ]
+    },
+    "text": {
+      "id": "text",
+      "title": "a text file",
+      "body": "the notepad program opens up and reveals a quick message.<span class=\"doc\">hello, whoever ends up reading this. at some point someone cleared this computer but i thought i'd leave a message anyway. i've been seeing these people... strange people walking around, as though in a trance. they move quickly, but without effort; i've watched one walk from horizon to horizon without stopping for even a second. i hide when i see them. i'm out of food and water, probably gonna die soon. maybe i'm just hallucinating.  </span>the file's properties reveal it was written about thirty years ago. very recent, relatively.",
+      "btns": [
+        "leave"
+      ]
+    },
+    "drive": {
+      "id": "drive",
+      "title": "the drive's files",
+      "body": "the screen shows that the device contains three files. their filenames are random strings of letters and numbers.",
+      "btns": [
+        {
+          "for": "0xa89bd91c",
+          "text": "0xa89bd91c.txt"
+        },
+        {
+          "for": "0xd910aeeb",
+          "text": "0xd910aeeb.txt"
+        },
+        {
+          "for": "0x18b4cae7",
+          "text": "0x18b4cae7.txt"
+        }
+      ]
+    },
+    "0xa89bd91c": {
+      "id": "0xa89bd91c",
+      "title": "0xa89bd91c.txt",
+      "body": "the notepad program opens up and displays the file.<span class=\"doc\">the president of the united states to the assembly of joint chiefs, may 18th, 21██  the cia director got back to me earlier today. ████████ is going to war with ██████████, and we're expected to join in. leave it to ██████████ to get the last of their wars in while humans can still live. don't they realize their religion can't be possible by now? humanity will all be gone within a hundred years. forgive the lack of formality, but it hardly matters anymore anyway.  i have agreed to the authorization of nuclear bombardment across their nation. i know this means there is a high chance of ██████ retaliating on their behalf, but we have no further choice. if we don't act now, ████████ will launch at us when they know we won't act.  god help us if ██████ wages war. we'll wait for intel from the cia to see if we need to launch a preliminary attack on them. but we'll probably have to, and then it'll really be over for our species.  the great seal of the potus, ████████ ███   </span>the file ends there.",
+      "btns": [
+        {
+          "for": "drive",
+          "text": "back"
+        },
+        "leave"
+      ]
+    },
+    "0xd910aeeb": {
+      "id": "0xd910aeeb",
+      "title": "0xd910aeeb.txt",
+      "body": "the notepad program opens up and displays the file.<span class=\"doc\">chairman of the joint chiefs to the president of the united states, may 25th, 21██  we just got off a call with the cia director. ██████ is bombarding us tomorrow. ██████████ ██, ███ ████, ███ ███████, ███████, a few for every state. each an order of magnitude more powerful than the czar bomba. they're already in space by now, and we'll try to shoot them down, but detecting even one would be a miracle. if there's already hundreds up there, we're finished.  we recommend ordering a return bombardment just so no one wins. mutually-assured destruction, as all those philosophers used to talk about when we first made nuclear bombs. it's a shame we had to go out this way; not even six months since we knew humanity was doomed and we're already launching nukes at each other. once the radiation gets in the air, the rest of the planet is done too. we're officially extinct; not even a chance to find a cure now.  chairman ██████ █████████   </span>the file ends there.",
+      "btns": [
+        {
+          "for": "drive",
+          "text": "back"
+        },
+        "leave"
+      ]
+    },
+    "0x18b4cae7": {
+      "id": "0x18b4cae7",
+      "title": "0x18b4cae7.txt",
+      "body": "the notepad program opens up and displays the file.<span class=\"doc\">the president of the united states to the assembly of joint chiefs, may 25th, 21██  i've authorized the bombardment. they've been in the air since 0600. ██████ will be a wasteland before the evening, but so will we. by order of maximum security, i've retained flights out of █████ █████████████ ███████ to ██████, █████████ for ███████, ██████ █████████, ███████ ██████, the vice president, first lady, and other related maximum clearance personnel such as yourselves.  god forgive us for those we leave behind.  the great seal of the potus, ████████ ███   </span>the file ends there.",
+      "btns": [
+        {
+          "for": "drive",
+          "text": "back"
+        },
+        "leave"
+      ]
+    }
+  }
+}

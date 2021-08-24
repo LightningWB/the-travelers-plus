@@ -1,0 +1,124 @@
+{
+  "id": "pet",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a pet store",
+      "body": "a cracked building stands alone among a line of rubble, broken windows with peeling advertisements declaring this was a store for domestic animals. a dusty road emerges from the ash to lead up to what was once a bustling strip mall.",
+      "btns": [
+        {
+          "for": "inside",
+          "text": "enter"
+        },
+        "leave"
+      ]
+    },
+    "inside": {
+      "id": "inside",
+      "title": "inside",
+      "body": "the colorful walls have faded with time, the tiles cracked by whoever once made a stand here. barbed wire surrounds the entrance inside, but it's easy to pick through when there's no one actively defending it. a few starved corpses rest on the ground with rotted and rusted weapons over their chests, surrounded by empty canned goods.",
+      "btns": [
+        {
+          "for": "aisles",
+          "text": "the aisles"
+        },
+        "leave"
+      ]
+    },
+    "aisles": {
+      "id": "aisles",
+      "title": "the aisles",
+      "body": "the metal cages are open, the glass cages shattered; the remains of the animals once inside are no longer here. aisles dedicated to pet food are empty, but those with toys or bedding are still fully stocked.",
+      "btns": [
+        {
+          "for": "adoption",
+          "text": "the adoption center"
+        },
+        "leave"
+      ]
+    },
+    "adoption": {
+      "id": "adoption",
+      "title": "the adoption center",
+      "body": "glass walls with holes for small dogs and cats to breathe through are intact, despite the surrounding disarray. behind the door that leads through are two more corpses, a few years more fresh than the previous ones. tiny bones litter the floor around them, picked clean.",
+      "btns": [
+        {
+          "for": "stocking",
+          "text": "the stocking room"
+        },
+        "leave"
+      ]
+    },
+    "stocking": {
+      "id": "stocking",
+      "title": "the stocking room",
+      "body": "the dull and dark gray of the maintenance room contrasts the main store area. the shelves here reflect the state of the main area as well. the back garage door is open, the black tendrils of ash leaking in. there might be something worth taking.",
+      "btns": [
+        {
+          "for": "shelves",
+          "text": "look around"
+        },
+        "leave"
+      ]
+    },
+    "shelves": {
+      "id": "shelves",
+      "title": "the shelves",
+      "body": "a few cursory items are strewn about, some worth taking.",
+      "loot": true,
+      "nextId": "stocking",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 4,
+          "chance": 0.8
+        },
+        {
+          "id": "medical_pill",
+          "min": 1,
+          "max": 3,
+          "chance": 0.75
+        },
+        {
+          "id": "rope",
+          "min": 1,
+          "max": 4,
+          "chance": 0.45
+        },
+        {
+          "id": "cloth",
+          "min": 1,
+          "max": 5,
+          "chance": 0.45
+        },
+        {
+          "id": "soda_bottle",
+          "min": 1,
+          "max": 1,
+          "chance": 0.3
+        },
+        {
+          "id": "wire",
+          "min": 1,
+          "max": 4,
+          "chance": 0.2
+        },
+        {
+          "id": "battery",
+          "min": 1,
+          "max": 1,
+          "chance": 0.15
+        },
+        {
+          "id": "fire_extinguisher",
+          "min": 1,
+          "max": 1,
+          "chance": 0.1
+        }
+      ]
+    }
+  }
+}

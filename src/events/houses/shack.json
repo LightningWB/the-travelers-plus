@@ -1,0 +1,122 @@
+{
+  "id": "shack",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a run-down shack",
+      "body": "a short structure stands ahead, and a pile of rubble rests near it. seems like the house this belonged to was destroyed.",
+      "btns": [
+        {
+          "for": "rubble",
+          "text": "check rubble"
+        },
+        {
+          "for": "inside",
+          "text": "check shack"
+        },
+        "leave"
+      ]
+    },
+    "rubble": {
+      "id": "rubble",
+      "title": "a pile of rubble",
+      "body": "broken wood, shattered glass, and fiber insulation are flattened into the ground. some kind of great vertical pressure must have done this. picking through the rubble, you find a photo in a cracked frame of a man and woman, smiling and happy. the sun shines through a tall tree in the background, the world filled with beautiful color. looking around, you can't see any indication that the tree is still here.",
+      "btns": [
+        {
+          "for": "inside",
+          "text": "check shack"
+        },
+        "leave"
+      ]
+    },
+    "inside": {
+      "id": "inside",
+      "title": "inside the shack",
+      "body": "maybe there's some supplies inside.",
+      "loot": true,
+      "nextId": "leave",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "scrap_metal",
+          "min": 1,
+          "max": 2,
+          "chance": 0.65
+        },
+        {
+          "id": "rope",
+          "min": 1,
+          "max": 5,
+          "chance": 0.5
+        },
+        {
+          "id": "steel_shard",
+          "min": 1,
+          "max": 3,
+          "chance": 0.4
+        },
+        {
+          "id": "wire",
+          "min": 1,
+          "max": 4,
+          "chance": 0.4
+        },
+        {
+          "id": "plastic",
+          "min": 1,
+          "max": 2,
+          "chance": 0.25
+        },
+        {
+          "id": "cloth",
+          "min": 1,
+          "max": 4,
+          "chance": 0.25
+        },
+        {
+          "id": "shovel",
+          "min": 1,
+          "max": 1,
+          "chance": 0.2
+        },
+        {
+          "id": "battery",
+          "min": 1,
+          "max": 2,
+          "chance": 0.2
+        },
+        {
+          "id": "crowbar",
+          "min": 1,
+          "max": 1,
+          "chance": 0.1
+        },
+        {
+          "id": "machete",
+          "min": 1,
+          "max": 1,
+          "chance": 0.1
+        },
+        {
+          "id": "axe",
+          "min": 1,
+          "max": 1,
+          "chance": 0.05
+        },
+        {
+          "id": "blowtorch",
+          "min": 1,
+          "max": 1,
+          "chance": 0.05
+        },
+        {
+          "id": "",
+          "min": 1,
+          "max": 1,
+          "chance": 0.05
+        }
+      ]
+    }
+  }
+}

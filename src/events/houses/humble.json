@@ -1,0 +1,38 @@
+{
+  "id": "humble",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a humble residence",
+      "body": "a short structure, weathered from time, is barely noticeable among the dead trees in the wasteland. the knob has been broken off the front door, leaving it to swing freely in the wind.",
+      "btns": [
+        {
+          "for": "living-room",
+          "text": "enter"
+        },
+        "leave"
+      ]
+    },
+    "bedroom": {
+      "id": "bedroom",
+      "title": "in a noose",
+      "body": "a human corpse hangs from the ceiling by a rope around its neck, ripped clothes hanging off its rotted skin. there's a bed in here as well, and next to it a nightstand with a dead clock and a small note. it reads: <span class=\"doc\"> to whoever finds me, i'm sorry. i was weak. they took everything. they took our children from us. who could want to go on in a world like this? i just want to see the sky again. i'm out of food, and i can't even feed my dog. i'd rather take my own life before i grow hungry enough to consider eating her. if there's a light at the end of the tunnel, forgive me for running out of strength before i could find it. </span> there's nothing else in here.",
+      "btns": [
+        "leave"
+      ]
+    },
+    "living-room": {
+      "id": "living-room",
+      "title": "the living room",
+      "body": "cotton has been ripped from the furniture and spread across the floor, and nearby lays the rotting carcass of a small animal. there's a tiny kitchen to the side, stripped of its pottery and utensils, and in the back is a single door.",
+      "btns": [
+        {
+          "for": "bedroom",
+          "text": "the bedroom"
+        },
+        "leave"
+      ]
+    }
+  }
+}
