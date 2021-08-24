@@ -1,4 +1,4 @@
-const {emit, players, util, chunks} = require('./bullet');
+const {emit, players, util, generateTileAt} = require('./bullet');
 
 const DOUBLE_STEP_MULTIPLIER = 2;
 
