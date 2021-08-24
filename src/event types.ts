@@ -69,6 +69,10 @@ export type room = {// text room
 	 */
 	visitTarget?: string,
 	/**
+	 * event to be emitted when a player enters this room
+	 */
+	action?: string,
+	/**
 	 * all the buttons for this screen
 	 */
 	btns: btn[]
@@ -89,6 +93,10 @@ export type room = {// text room
 	 * description if its been visited already. if it is unspecified, no visited body is set
 	 */
 	visitedBody?: string,
+	/**
+	 * event to be emitted when a player enters this room
+	 */
+	 action?: string,
 	/**
 	 * make sure this is this to true to tell tt+ to set this as a looting screen
 	 */

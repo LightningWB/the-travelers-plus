@@ -118,6 +118,17 @@ function compileBtns(room)
 	});
 }
 
+function checkRoomAction(player)
+{
+	const room = getRoom(player);
+	if(!room) return;
+	if(room.action && room.action.includes('::'))
+	{
+		const splitUp =  room.action.split('::');
+		emit(splitUp[0], splitUp[1], player);
+	}
+}
+
 /**
  * @param {players.player} player 
  */
@@ -172,6 +183,7 @@ module.exports.movePlayerToEvent = function(player, type) {
 		};
 		player.public.state = 'event';
 		player.addPropToQueue('state');
+		checkRoomAction(player);
 		emit('travelers', 'calcPlayerEvent', player);
 	}
 }
@@ -380,6 +392,7 @@ module.exports.event_choice = function(packet, player) {
 						emit('travelers', 'renderPlayerItems', player);
 					}
 					player.private.eventData.room = targetBtn.for;
+					checkRoomAction(player);
 					emit('travelers', 'calcPlayerEvent', player);
 				}
 			}
@@ -397,13 +410,14 @@ module.exports.loot_next = function(packet, player) {
 		const activeRoom = getRoom(player);
 		if(activeRoom.loot)
 		{
-			player.private.eventData.room = activeRoom.nextId;
+			player.private.eventData.room = activeRoom.nextId || 'leave';
 			if(player.private.eventData.room === 'leave')
 			{
 				player.public.state = 'travel';
 				player.private.eventData = undefined;
 				player.addPropToQueue('state');
 			}
+			else checkRoomAction(player);
 			emit('travelers', 'calcPlayerEvent', player);
 			emit('travelers', 'renderItems', player);
 		}
