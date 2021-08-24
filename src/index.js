@@ -1,8 +1,12 @@
 const BASE_PRIORITY = 0;
 const thetravelers = require('./bullet');
-const { placeEvent, addEventTile } = require('./events');
 
 const plugin = thetravelers.makePlugin('the travelers plus');
+// storage stuff
+const storage = plugin.getStorage();
+module.exports.storage = storage;
+module.exports.saveStorage = () => plugin.setStorage(storage);
+
 // state checking
 require('./checks').registerStates(plugin);
 // admin utilities
