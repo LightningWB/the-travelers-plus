@@ -13,7 +13,9 @@ module.exports.tick = function(player)
 	const meX = player.public.x;
 	const meY = player.public.y;
 	const me = player;
-	player.temp.proximity = {};
+	if(player.temp.proximity === undefined) {
+		player.temp.proximity = {};
+	}
 	for(let x = chunkX - 1; x <= chunkX + 1; x++)
 	{
 		for(let y = chunkY - 1; y <= chunkY + 1; y++)

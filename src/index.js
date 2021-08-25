@@ -98,6 +98,12 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	plugin.on('equip_actions::radio::radio_setchannel', require('./equipment/radio').radio_setchannel, BASE_PRIORITY);
 	// nuke
 	plugin.on('equip_actions::nuke::detonate', require('./equipment/nuke').detonate, BASE_PRIORITY);
+// trees
+plugin.on('actions::gettree', require('./trees').gettree, BASE_PRIORITY);
+plugin.on('actions::break', require('./trees').break, BASE_PRIORITY);
+plugin.on('loadChunk', require('./trees').chunkLoad, BASE_PRIORITY);
+plugin.on('saveChunk', require('./trees').unloadChunk, BASE_PRIORITY);
+plugin.on('playerTick', require('./trees').playerTick, BASE_PRIORITY);
 // base
 require('./base').plugin(plugin);// give base access to the plugin for message popups
 plugin.on('travelers::eventLogUnsafe', require('./base').eventLog, BASE_PRIORITY);

@@ -52,13 +52,30 @@ const actionStates = {
 	reincarnate: DEATH
 };
 
+const allowedValues = {
+	break: {
+		option: 'string',
+		dir: ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
+	}
+}
+
 module.exports.registerStates = function(plugin) {
 	const keys = Object.keys(actionStates);
 	for(const key of keys)
 	{
 		const state = actionStates[key];
+		const allowedVals = allowedValues[key];
 		plugin.on('actions::' + key, (packet, player)=>{
 			if(player.public.state !== state)return false;
+			if(allowedVals) {
+				for(const id in allowedVals) {
+					if(packet[id] === undefined)return false;
+					if(Array.isArray(allowedVals[id])) {
+						if(!allowedVals[id].includes(packet[id]))return false;
+					}
+					else if(typeof packet[id] !== allowedVals[id])return false;
+				}
+			}
 		}, 100);
 	}
 }
