@@ -22,6 +22,7 @@ module.exports.tick = function(player)
 		{
 			// player chunk lists
 			const chunk = chunks.getChunkFromChunkCoords(x, y);
+			if (chunk && chunk.meta === undefined)chunk.meta = {};
 			if(chunk && chunk.meta.players === undefined)chunk.meta.players = [];
 			if(chunk && x === chunkX  && y === chunkY && !chunk.meta.players.includes(player.public.username))chunk.meta.players.push(player.public.username);
 			if(!chunks.isChunkCoordsLoaded(x, y))
