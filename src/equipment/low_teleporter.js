@@ -1,6 +1,6 @@
 const {emit, players, util, chunks, options, generateTileAt} = require('../bullet');
 
-const TP_DISTANCE = 10;
+const TP_DISTANCE = 100;
 const ITEM_COUNT = 1;
 const ITEM_ID = 'battery';
 
