@@ -146,7 +146,8 @@ module.exports.levelUp = function(player) {
  * @param {players.player} player 
  */
 module.exports.playerJoin = function(player) {
-	if(!player.public.skills)player.public.skills = defaultSkillValues;
+	// you have to clone here to stop everyone sharing a common skill set
+	if(!player.public.skills)player.public.skills = util.clone(defaultSkillValues);
 }
 
 /**
