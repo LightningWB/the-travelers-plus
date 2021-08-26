@@ -154,7 +154,7 @@ module.exports.playerJoin = function(player) {
  * @param {players.player} player 
  */
 module.exports.playerCreate = function(player) {
-	player.public.skills = defaultSkillValues;
+	player.public.skills = util.clone(defaultSkillValues);
 }
 
 module.exports.calcWeight = function(player) {
