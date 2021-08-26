@@ -16,6 +16,9 @@ module.exports.tick = function(player)
 	if(player.temp.proximity === undefined) {
 		player.temp.proximity = {};
 	}
+	if(player.temp.proximity.objs === undefined) {
+		player.temp.proximity.objs = [];
+	}
 	for(let x = chunkX - 1; x <= chunkX + 1; x++)
 	{
 		for(let y = chunkY - 1; y <= chunkY + 1; y++)
@@ -70,7 +73,7 @@ module.exports.tick = function(player)
 	}
 	if(proximity.length>0)
 	{
-		player.temp.proximity.objs = proximity;
+		player.temp.proximity.objs = player.temp.proximity.objs.concat(proximity);
 		player.addPropToQueue('proximity');
 	}
 }
