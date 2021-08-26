@@ -97,8 +97,8 @@ module.exports.reset_skills = function(_packet, player) {
 		xp: resetXp,
 		next_level_xp: resetNextLevelXp,
 		skill_points: resetLevel,
-		sp: currentSp,
-		hp: currentHp,
+		sp: Math.min(currentSp, defaultSkillValues.sp),
+		hp: Math.min(currentHp, defaultSkillValues.hp),
 		carry: currentCarry
 	}
 	player.addPropToQueue("skills");
