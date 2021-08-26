@@ -28,6 +28,7 @@ plugin.on('playerCreate', require('./stats').playerCreate, BASE_PRIORITY);
 plugin.on('playerConnect', require('./stats').playerJoin, BASE_PRIORITY);
 plugin.on('playerTick', require('./stats').tick, BASE_PRIORITY - 10);// this is bellow base priority to ensure object additions are applied first
 plugin.on('actions::skill_upgrade', require('./stats').skill_upgrade, BASE_PRIORITY);
+plugin.on('actions::reset_skills', require('./stats').reset_skills, BASE_PRIORITY);
 plugin.on('travelers::movePlayer', require('./stats').movePlayer, BASE_PRIORITY + 10);
 plugin.on('travelers::levelUpPlayer', require('./stats').levelUp, BASE_PRIORITY);
 plugin.on('travelers::calcWeight', require('./stats').calcWeight, BASE_PRIORITY);

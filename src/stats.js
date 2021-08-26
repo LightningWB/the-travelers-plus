@@ -1,15 +1,39 @@
 const {emit, players, util, chunks, options} = require('./bullet');
+const Crafting = require('./crafting');
+
+/**
+ * default skill points
+ */
+const defaultSkillValues = {
+	next_level_xp: 60,
+	level: 0,
+	xp: 0,
+	carry: 0,
+	dmg: 10,
+	hp: 100,
+	max_carry: 200,
+	max_hp: 100,
+	max_sp: 30,
+	skill_points: 0,
+	sp: 30
+};
 
 /**
  * amount to upgrade skill points by
  */
-const skillValues = {
+const skillUpgradeValues = {
 	hp: 8,
 	sp: 2,
 	dmg: 1,
 	carry: 25
 };
 
+/**
+ * returns the number of xp needed to level up
+ * (2x^2.75 + 20x + 20) * 3
+ * @param {Number} l 
+ * @returns xp
+ */
 function xpForLevel(l)
 {
 	return Math.ceil((2 * Math.pow(l, 2.75)) + (20 * l) + 20) * 3;
@@ -46,14 +70,41 @@ module.exports.skill_upgrade = function(packet, player) {
 		const totalPoints = Math.abs(packet.hp) + Math.abs(packet.sp) + Math.abs(packet.dmg) + Math.abs(packet.carry);
 		if(totalPoints <= player.public.skills.skill_points)
 		{
-			player.public.skills.max_hp += packet.hp * skillValues.hp;
-			player.public.skills.max_sp += packet.sp * skillValues.sp;
-			player.public.skills.dmg += packet.dmg * skillValues.dmg;
-			player.public.skills.max_carry += packet.carry * skillValues.carry;
+			player.public.skills.max_hp += packet.hp * skillUpgradeValues.hp;
+			player.public.skills.max_sp += packet.sp * skillUpgradeValues.sp;
+			player.public.skills.dmg += packet.dmg * skillUpgradeValues.dmg;
+			player.public.skills.max_carry += packet.carry * skillUpgradeValues.carry;
 			player.public.skills.skill_points -= totalPoints;
 			player.addPropToQueue('skills');
 		}
 	}
+}
+
+/**
+ * @param {object} packet
+ * @param {players.player} player 
+ */
+module.exports.reset_skills = function(_packet, player) {
+	// drop player level by 10% and recalculate xp
+	const resetLevel = Math.ceil((player.public.skills.level + 1) * 0.9) - 1;
+	const resetXp = xpForLevel(resetLevel - 1);
+	const resetNextLevelXp = xpForLevel(resetLevel);
+	
+	const { sp: currentSp, hp: currentHp, carry: currentCarry } = player.public.skills;
+	player.public.skills = {
+		...defaultSkillValues,
+		level: resetLevel,
+		xp: resetXp,
+		next_level_xp: resetNextLevelXp,
+		skill_points: resetLevel,
+		sp: Math.min(currentSp, defaultSkillValues.sp),
+		hp: Math.min(currentHp, defaultSkillValues.hp),
+		carry: currentCarry
+	}
+	player.addPropToQueue("skills");
+
+	// reset player crafting recipes with new level
+	Crafting.connect(player);
 }
 
 /**
@@ -95,38 +146,15 @@ module.exports.levelUp = function(player) {
  * @param {players.player} player 
  */
 module.exports.playerJoin = function(player) {
-	if(!player.public.skills)player.public.skills = {
-		next_level_xp: 60,
-		level: 0,
-		xp: 0,
-		carry: 0,
-		dmg: 10,
-		hp: 100,
-		max_carry: 200,
-		max_hp: 100,
-		max_sp: 30,
-		skill_points: 0,
-		sp: 30
-	};
+	// you have to clone here to stop everyone sharing a common skill set
+	if(!player.public.skills)player.public.skills = util.clone(defaultSkillValues);
 }
 
 /**
  * @param {players.player} player 
  */
 module.exports.playerCreate = function(player) {
-	player.public.skills = {
-		next_level_xp: 60,
-		level: 0,
-		xp: 0,
-		carry: 0,
-		dmg: 10,
-		hp: 100,
-		max_carry: 200,
-		max_hp: 100,
-		max_sp: 30,
-		skill_points: 0,
-		sp: 30
-	};
+	player.public.skills = util.clone(defaultSkillValues);
 }
 
 module.exports.calcWeight = function(player) {

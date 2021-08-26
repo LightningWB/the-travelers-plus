@@ -24,6 +24,11 @@ module.exports.tick = function(player)
 			const chunk = chunks.getChunkFromChunkCoords(x, y);
 			if(chunk && chunk.meta.players === undefined)chunk.meta.players = [];
 			if(chunk && x === chunkX  && y === chunkY && !chunk.meta.players.includes(player.public.username))chunk.meta.players.push(player.public.username);
+			if(chunk && x !== chunkX && y !== chunkY && chunk.meta.players.includes(player.public.username))
+			{
+				const playerIndex = chunk.meta.players.findIndex((playerInChunk) => playerInChunk === player.public.username);
+				chunk.meta.players.splice(playerIndex, 1);
+			}
 			if(!chunks.isChunkCoordsLoaded(x, y))
 			{
 				chunks.loadChunk(x, y);
