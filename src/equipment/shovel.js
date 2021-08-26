@@ -1,6 +1,27 @@
 const {emit, players, util, chunks, options, generateTileAt} = require('../bullet');
 const { placeEvent } = require('../events');
-const { isValidHole } = require('../holes');
+const { isValidHole, isMetalHole } = require('../holes');
+
+const METALS = ['scrap_metal', 'steel_shard', 'copper_ore'];
+const BONUS_LOOT = [
+	{
+		name: 'cloth',
+		chance: .25,
+		min: 1,
+		max: 3
+	},
+	{
+		name: 'plastic',
+		chance: .05,
+		min: 1,
+		max: 2
+	},
+	{
+		name: 'bullet',
+		chance: .001,
+		min: 1,
+		max: 1
+	}]
 
 module.exports.dig = function(player) {
 	const {x , y} = player.public;
@@ -10,7 +31,28 @@ module.exports.dig = function(player) {
 		if(obj.public.char !== 'o')return;
 		else obj.private.visible = undefined;
 	}
-	else placeEvent(x, y, 'o', 'hole', 'hole');
+	else {
+		placeEvent(x, y, 'o', 'hole', 'hole');
+		if(isMetalHole(x, y)) {
+			const lootFull = chunks.getObject(x, y).private.eventData.loot;
+			lootFull.main = {};
+			const loot = lootFull.main;
+			const metal = METALS[Math.floor(Math.random() * METALS.length)];
+			const metalCount = Math.floor(Math.random() * (3) + 2);
+			let bonus, bonusCount;
+			for(const bonusLoot of BONUS_LOOT) {
+				if(Math.random() < bonusLoot.chance) {
+					bonus = bonusLoot.name;
+					bonusCount = Math.floor(Math.random() * (bonusLoot.max - bonusLoot.min) + bonusLoot.min);
+					break;
+				}
+			}
+			loot[metal] = metalCount;
+			if(bonus) {
+				loot[bonus] = bonusCount;
+			}
+		}
+	}
 	emit('travelers', 'movePlayerToEvent', player);
 }
 

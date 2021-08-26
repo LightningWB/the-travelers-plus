@@ -75,3 +75,17 @@ module.exports.unloadChunk = function(chunk) {
 		}
 	}
 }
+
+/**
+ * @param {number} x
+ * @param {number} y 
+ * @returns {boolean} isMetal
+ */
+module.exports.isMetalHole = function(x, y) {
+	const hole = chunks.getObject(x, y);
+	if(hole && hole.private.eventData && hole.private.eventData.type === 'hole' && hole.private.visible === false) {
+		return true;
+	}
+	const num = (x % 5) * (Math.abs(y) % 10);
+	return num === 2 || num === 6 || num === 9;
+}

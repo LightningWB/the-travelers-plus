@@ -207,7 +207,7 @@ module.exports.calcPlayerEvent = function(player) {
 		{
 			let visited = true;
 			let items = {};
-			if(!eventObj.visitedRooms.includes(activeRoom.id))
+			if(!eventObj.loot[activeRoom.id])
 			{
 				visited = false;// hasn't been visited so use non visited description
 				emit('travelers', 'generateLoot', activeRoom, eventObj.loot[activeRoom.id] = {});
