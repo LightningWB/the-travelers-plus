@@ -124,6 +124,10 @@ plugin.on('chunkSave', require('./chunks').save, BASE_PRIORITY);
 plugin.on('gameTickPre', require('./chunks').gameTickPre, BASE_PRIORITY);
 plugin.on('loadChunk', require('./chunks').chunkLoad, BASE_PRIORITY + 100);
 plugin.on('saveChunk', require('./chunks').chunkUnload, BASE_PRIORITY);
+// death
+plugin.on('playerConnect', require('./death').playerConnect, BASE_PRIORITY);
+plugin.on('actions::suicide', require('./death').suicide, BASE_PRIORITY);
+plugin.on('actions::reincarnate', require('./death').reincarnate, BASE_PRIORITY);
 
 // loading data
 thetravelers.emit('travelers', 'addGameItems', require('./itemData.json'));
