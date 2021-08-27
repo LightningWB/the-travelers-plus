@@ -1,3 +1,4 @@
+const { xssReplace } = require('./base');
 const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
 
 /**
@@ -17,6 +18,24 @@ const remove = player => {
 	return filter;
 }
 
+const playerData = n => players.getPlayerByUsername(n);
+
+const online = n => players.isPlayerOnline(n);
+
+const renderPlayerList = loc => {
+	const ps = getPlayersInInteraction(loc).map(p => {
+		return {
+			username: p,
+			in_battle: false,
+			online: players.isPlayerOnline(p)
+		}
+	});
+	getPlayersInInteraction(loc).filter(online).map(playerData).forEach(p => {
+		p.temp.int_here = ps;
+		p.addPropToQueue('int_here');
+	});
+}
+
 /**
  * @param {players.player} player 
  */
@@ -31,9 +50,21 @@ module.exports.movePlayer = function(player) {
 		const activeChunk = chunks.getChunk(x, y);
 		const playersToBeMoved = activeChunk.meta.players.filter(name => shouldBeMoved(players.getPlayerByUsername(name)));
 		if(playersToBeMoved.length > 0) {
+			// move them to interactions
 			playersToBeMoved.filter(name => players.getPlayerByUsername(name).public.state === 'travel').forEach(name => emit('travelers', 'playerJoinInteraction', players.getPlayerByUsername(name)));
 			emit('travelers', 'playerJoinInteraction', player);
+			// now update everyone's player list
+			renderPlayerList(player.public);
 		}
+	}
+}
+
+/**
+ * @param {players.player} player 
+ */
+module.exports.playerConnect = function(player) {
+	if(player.public.state === 'int') {
+		renderPlayerList(player.public);
 	}
 }
 
@@ -54,16 +85,7 @@ module.exports.playerJoinInteraction = function(player) {
 	player.public.state = 'int';
 	player.cache.intLeaveTimeout = 5;
 	if(players.isPlayerOnline(player.public.username)) {
-		const ps = getPlayersInInteraction(player.public).filter(remove(player)).map(p => {
-			const player = players.getPlayerByUsername(p);
-			return {
-				username: p,
-				in_battle: false,
-				online: players.isPlayerOnline(p)
-			}
-		});
-		player.temp.int_here = ps;
-		player.addPropToQueue('state', 'int_here');
+		player.addPropToQueue('state');
 	}
 }
 
@@ -74,4 +96,22 @@ module.exports.leave_int = function(packet, player) {
 	if(player.cache.intLeaveTimeout)return false;
 	player.public.state = 'travel';
 	player.addPropToQueue('state');
+}
+
+/**
+ * @param {players.player} player 
+ */
+module.exports.chat = function(packet, player) {
+	if(typeof packet.message !== 'string' || packet.message.length > 200)return false;
+	getPlayersInInteraction(player.public).filter(online).forEach(name => {
+		const p = players.getOnlinePlayer(name);
+		if(p.temp.int_messages === undefined) {
+			p.temp.int_messages = [];
+		}
+		p.temp.int_messages.push({
+			text: xssReplace(packet.message),
+			from: player.public.username
+		});
+		p.addPropToQueue('int_messages');
+	})
 }

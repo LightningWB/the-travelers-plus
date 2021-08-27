@@ -70,3 +70,17 @@ module.exports.eventLogEscape = function(message, player) {
 	};
 	emit('travelers', 'eventLogUnsafe', message.replace( /[&<>'"/\\\n]/g, char => xssReplace[char]).replace(/&#92;n/g, '<br />'), player);
 }
+
+module.exports.xssReplace = str => {
+	const xssReplace = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'\'': '&#39;',
+		'"': '&quot;',
+		'/': '&#x2F;',
+		"\\": '&#92;',
+		"\n": '&#92;n'
+	};
+	return str.replace( /[&<>'"/\\\n]/g, char => xssReplace[char]).replace(/&#92;n/g, '<br />');
+}
