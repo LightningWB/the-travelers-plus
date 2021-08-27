@@ -1,6 +1,9 @@
 const {players, generateTileAt, chunks, emit, util} = require('./bullet');
 const { giveItemToPlayer, renderItems } = require('./supplies');
 
+let currentTime = 0;
+const RESET_INTERVAL = 3600 * 24;// every 24 hours at 1 tps like the travelers
+
 /**
  * @param {object} packet 
  * @param {players.player} player 
@@ -68,5 +71,17 @@ module.exports.playerTick = function(player) {
 		}
 		player.temp.proximity.stumps = stumps;
 		player.addPropToQueue('proximity');
+	}
+}
+
+module.exports.tick = function() {
+	currentTime++;
+	if(currentTime % RESET_INTERVAL == 0) {// reset stumps
+		for(const chunkId of chunks.getLoadedChunks()) {
+			const x = parseInt(chunkId.split('|')[0]);
+			const y = parseInt(chunkId.split('|')[1]);
+			const chunk = chunks.getChunkFromChunkCoords(x, y);
+			chunk.meta.stumps = [];
+		}
 	}
 }
