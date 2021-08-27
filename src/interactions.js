@@ -40,7 +40,7 @@ const renderPlayerList = loc => {
  * @param {players.player} player 
  */
 module.exports.movePlayer = function(player) {
-	if(player.public.state === 'travel') {
+	if(player.public.state === 'travel' && player.cache.travelData.dir !== '') {
  		const {x, y} = player.public;
 		 /**
 		  * checks if a player can be brought into an event
