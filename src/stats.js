@@ -1,5 +1,4 @@
 const {emit, players, util, chunks, options} = require('./bullet');
-const Crafting = require('./crafting');
 
 /**
  * default skill points
@@ -104,7 +103,7 @@ module.exports.reset_skills = function(_packet, player) {
 	player.addPropToQueue("skills");
 
 	// reset player crafting recipes with new level
-	Crafting.connect(player);
+	emit('travelers', 'renderCrafting', player);
 }
 
 /**
