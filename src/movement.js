@@ -87,4 +87,6 @@ module.exports.move = function(player) {
  */
 module.exports.stopPlayerMovement = function(player) {
 	player.cache.travelData = null;
+	player.temp.server_stop = true;
+	player.addPropToQueue('server_stop');
 }
