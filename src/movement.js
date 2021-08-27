@@ -64,7 +64,9 @@ module.exports.tick = function(player) {
 module.exports.move = function(player) {
 	if(player.cache.travelData)
 	{
-		const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, player.cache.doubleStep ? DOUBLE_STEP_MULTIPLIER: 1);
+		const val = util.out(1, 'int');
+		emit('travelers', 'getMovementSpeed', player, val)
+		const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, (player.cache.doubleStep ? DOUBLE_STEP_MULTIPLIER: 1) * val.get());
 		player.cache.doubleStep = false;
         
         const tile = generateTileAt(x, y);
