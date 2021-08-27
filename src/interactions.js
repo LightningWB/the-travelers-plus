@@ -21,6 +21,7 @@ const remove = player => {
 const playerData = n => players.getPlayerByUsername(n);
 
 const online = n => players.isPlayerOnline(n);
+const offline = n => !players.isPlayerOnline(n);
 
 const renderPlayerList = loc => {
 	const ps = getPlayersInInteraction(loc).map(p => {
@@ -66,6 +67,7 @@ module.exports.playerConnect = function(player) {
 	if(player.public.state === 'int') {
 		renderPlayerList(player.public);
 	}
+	delete player.public.offline_msgs;
 }
 
 /**
@@ -114,4 +116,21 @@ module.exports.chat = function(packet, player) {
 		});
 		p.addPropToQueue('int_messages');
 	})
+}
+
+/**
+ * @param {players.player} player 
+ */
+module.exports.leaveMessage = function(packet, player) {
+	if(typeof packet.username === 'string' && typeof packet.msg === 'string') {
+		if(!players.isPlayerOnline(packet.username)) {
+			const targetPlayer = players.getPlayerByUsername(packet.username);
+			if(targetPlayer.public.state === 'int' && targetPlayer.public.x === player.public.x && targetPlayer.public.y === player.public.y && packet.msg.length <= 200) {
+				if(targetPlayer.public.offline_msgs === undefined) {
+					targetPlayer.public.offline_msgs = [];
+				}
+				targetPlayer.public.offline_msgs.push(xssReplace(packet.msg));
+			}
+		}
+	}
 }

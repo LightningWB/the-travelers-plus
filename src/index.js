@@ -39,6 +39,7 @@ plugin.on('travelers::movePlayer', require('./interactions').movePlayer, BASE_PR
 plugin.on('travelers::playerJoinInteraction', require('./interactions').playerJoinInteraction, BASE_PRIORITY);
 plugin.on('actions::leave_int', require('./interactions').leave_int, BASE_PRIORITY);
 plugin.on('actions::chat', require('./interactions').chat, BASE_PRIORITY);
+plugin.on('actions::int_leavemsg', require('./interactions').leaveMessage, BASE_PRIORITY);
 plugin.on('playerReady', require('./interactions').playerConnect, BASE_PRIORITY);
 plugin.on('playerTick', require('./interactions').playerTick, BASE_PRIORITY);
 // events
