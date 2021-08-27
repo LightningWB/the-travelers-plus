@@ -1,0 +1,385 @@
+{
+  "id": "governing",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a governing city",
+      "body": "rather than towering skyscrapers, the city ahead is comprised of massive structures that stay low to the ground. separated by many long fields and pits in the earth that must have once been lakes, the old buildings are supported by numerous columns, with highly detailed decorations sculpted into every inch of the stone they're built from. none are more than a few stories tall, but they bear an ancient strength, resisting the powerful winds that would wither a more modern tower. the path ahead leads to one of the great stone edifices, punctured by a tunnel straight through the center, continuing toward the sprawling fields beyond. there's a flicker of movement behind one of the many windows, but after focusing on it for a few minutes, nothing further happens.",
+      "btns": [
+        {
+          "for": "stone",
+          "text": "the tunnel"
+        },
+        "leave"
+      ]
+    },
+    "stone": {
+      "id": "stone",
+      "title": "strong stone",
+      "body": "the tunnel is decorated by sculptures of ancient humans in disorderly robes, its walls carved with flowers and nature. the ash hasn't reached too far into this tunnel, preserving a lot of the decor. at the center of the tunnel are two staircases leading high into the building. the one on the left is broken and covered in debris, but the one on the right is intact.",
+      "btns": [
+        {
+          "for": "staircase",
+          "text": "the staircase"
+        }
+      ]
+    },
+    "staircase": {
+      "id": "staircase",
+      "title": "the staircase",
+      "body": "the steps lead up about two stories before flattening at a hallway. it continues briefly before arriving at a metal office door that has been sottered shut along its edge.",
+      "btns": [
+        {
+          "for": "offices",
+          "text": "melt down edges",
+          "req": true,
+          "reqItems": [
+            {
+              "id": "blowtorch",
+              "title": "powered blowtorch",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    "offices": {
+      "id": "offices",
+      "title": "a hall of offices",
+      "body": "doors line the corridor after it turns to the right, each one open and revealing their own empty office, all the furniture and supplies moved out entirely to leave only small square rooms. a few of the offices on the left side of the corridor have glass windows, caked with ash, but still revealing what would have once been a nice view of the rest of the city. at the end of the hallway is a heavy metal door, painted with yellow and black hazard stipes. a keycard reader is next to it, a green light on it blinking slowly, and a sign says \"access limited to security group b\". ",
+      "btns": [
+        {
+          "for": "hazard",
+          "text": "swipe",
+          "req": true,
+          "reqItems": [
+            {
+              "id": "keycard_b",
+              "title": "keycard type b",
+              "count": 1
+            }
+          ],
+          "reqForAll": true
+        }
+      ]
+    },
+    "hazard": {
+      "id": "hazard",
+      "title": "the hazard door",
+      "body": "you swipe the card, and the door slides to the left into the wall. as you enter the newly revealed room, a weak voice commands, \"stop\". to the left, in front of a wooden door that just opened, a gaunt human man stands, his face old and his hair gray; he's pointing a small handgun at you. one corner of the room is filled to the ceiling with canned goods and pallets with gallons of water, engulfing a large wooden desk at the center of the far wall. the only other door in the room is the one the man emerged from, and he commands again, his voice a little stronger now, \"leave now, right now, or i'll shoot you.\"",
+      "btns": [
+        {
+          "for": "threaten",
+          "text": "brandish pistol",
+          "req": true,
+          "reqItems": [
+            {
+              "id": "pistol",
+              "title": "pistol",
+              "count": 1
+            }
+          ],
+          "reqForAll": true,
+          "hide": true
+        },
+        {
+          "for": "attack",
+          "text": "attack"
+        }
+      ]
+    },
+    "threaten": {
+      "id": "threaten",
+      "title": "to threaten",
+      "body": "unfazed, you slip the pistol from your backpack and point it at the man's head. terror flashes through his eyes, and he drops his weapon, mumbling \"it's empty, it's empty.\" he stares at you, his face pleading, his hands over his head. \"please don't kill me.\"",
+      "btns": [
+        {
+          "for": "old",
+          "text": "ask who he is"
+        }
+      ]
+    },
+    "old": {
+      "id": "old",
+      "title": "the old man",
+      "body": "\"okay. my name is joseph,\" the old man says quietly, a stern look hitting his face. \"i've been here probably a few decades now. who are you?\"",
+      "btns": [
+        {
+          "for": "old-2",
+          "text": "answer honestly"
+        }
+      ]
+    },
+    "old-2": {
+      "id": "old-2",
+      "title": "the old man",
+      "body": "you lower your weapon, but keep it ready. \"i don't know,\" you say. \"i woke up in the ash outside and started walking. i don't have any memories. i don't need food or water. i just travel the world.\" the old man stares for a second before responding. \"so you are one of them? i've seen your lot going across the world out my window. they never stop walking. didn't think you were human, to be honest.\" you shrug. \"i don't remember my past either,\" the old man continues. \"the first thing i remember is a flash of light and thunder, like a bomb going off. then i was in here. there were a few notes left around, in my handwriting, so i must have already been here a while. stocked up the food and water, apparently. left myself a gun with no bullets. now i've just been living and waiting for something to happen here. not brave enough to kill myself, i guess.\" he grimaces.",
+      "btns": [
+        {
+          "for": "strewn",
+          "text": "loot area"
+        }
+      ]
+    },
+    "strewn": {
+      "id": "strewn",
+      "title": "strewn valuables",
+      "body": "you start to walk around the room, inspecting his possessions and keeping your weapon trained on him. \"may i take some things before i go?\" you ask. \"sure,\" the old man sighs with a defeated shrug, \"i just need the food and water. take whatever else you want.\"",
+      "loot": true,
+      "nextId": "farewell",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "keycard_d",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        },
+        {
+          "id": "pistol",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        },
+        {
+          "id": "steel_shard",
+          "min": 1,
+          "max": 7,
+          "chance": 0.85
+        },
+        {
+          "id": "rope",
+          "min": 1,
+          "max": 4,
+          "chance": 0.8
+        },
+        {
+          "id": "cloth",
+          "min": 1,
+          "max": 5,
+          "chance": 0.75
+        },
+        {
+          "id": "bp_low_teleporter",
+          "min": 1,
+          "max": 1,
+          "chance": 0.5
+        },
+        {
+          "id": "bp_high_teleporter",
+          "min": 1,
+          "max": 1,
+          "chance": 0.05
+        }
+      ]
+    },
+    "farewell": {
+      "id": "farewell",
+      "title": "farewell",
+      "body": "\"nice to meet you,\" you say, \"but i need to leave.\" the old man nods quickly in return. \"i'll be keeping this door locked from now on\", he says quietly. \"don't know if the others of your kind will be so amicable. it was nice to talk to another person.\"",
+      "btns": [
+        {
+          "for": "downstairs",
+          "text": "leave room"
+        }
+      ]
+    },
+    "downstairs": {
+      "id": "downstairs",
+      "title": "back downstairs",
+      "body": "you turn and leave, and after a moment, the heavy door slides shut, the green light on the keycard reader switching to red. nowhere to go now but back to the tunnel.",
+      "btns": [
+        {
+          "for": "concrete",
+          "text": "the end of the tunnel"
+        },
+        "leave"
+      ]
+    },
+    "attack": {
+      "id": "attack",
+      "title": "attack",
+      "body": "without hesitation, you rush at the old man, and fear flashes through his eyes, but he doesn't fire. just before you are near enough to tackle him, he drops the handgun and whips a rusted dagger from behind his back, plunging it into your chest just as you meet him. the world spins, and he pushes you to the ground, sitting on top of you and twisting the knife. his face is sad; he does not relish in his kill. the dim light fades away, and death welcomes you.",
+      "btns": [
+        {
+          "for": "",
+          "text": "death"
+        },
+        "leave"
+      ]
+    },
+    "concrete": {
+      "id": "concrete",
+      "title": "a concrete path",
+      "body": "the tunnel ends, its concrete path continuing forward in a tour around the nearby monuments. it winds and turns before arriving at a short hill, at the peak of which a tall obelisk stands, made of large white bricks. its base is covered in graffiti",
+      "btns": [
+        {
+          "for": "winding",
+          "text": "continue"
+        },
+        "leave"
+      ]
+    },
+    "winding": {
+      "id": "winding",
+      "title": "the winding path",
+      "body": "the tunnel ends, its concrete path continuing forward in a tour around the nearby monuments. it winds and turns before arriving at a short hill, at the peak of which a tall obelisk stands, made of large white bricks. its base is covered in graffiti.",
+      "btns": [
+        {
+          "for": "treasury",
+          "text": "continue"
+        },
+        "leave"
+      ]
+    },
+    "treasury": {
+      "id": "treasury",
+      "title": "the treasury",
+      "body": "the path continues until you end at a building which declares itself to the government treasury. it's a dozen meters tall, and lined with tall stone columns. the shallow steps lead up to glass doors.",
+      "btns": [
+        {
+          "for": "lobby",
+          "text": "enter"
+        },
+        {
+          "for": "end",
+          "text": "continue down path"
+        },
+        "leave"
+      ]
+    },
+    "lobby": {
+      "id": "lobby",
+      "title": "the treasury's lobby",
+      "body": "the lobby is wide and tall, its ceiling far above and its floor made of reflective tiles. there's a government symbol painted onto the tiles, and metal detectors at the entrace. caution tape blocks most of the paths from here, guarding collapsed stone and brick from the ceiling. there's a desk at the entrance, and two closets seem accessible.",
+      "btns": [
+        {
+          "for": "desk",
+          "text": "the desk"
+        },
+        {
+          "for": "wooden",
+          "text": "the wooden closet"
+        },
+        {
+          "for": "metal",
+          "text": "the metal closet door"
+        },
+        {
+          "for": "end",
+          "text": "back outside"
+        }
+      ]
+    },
+    "desk": {
+      "id": "desk",
+      "title": "the desk",
+      "body": "there's a few items in the drawers worth looking at.",
+      "loot": true,
+      "nextId": "lobby",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "plastic",
+          "min": 1,
+          "max": 3,
+          "chance": 1
+        },
+        {
+          "id": "cloth",
+          "min": 1,
+          "max": 3,
+          "chance": 1
+        },
+        {
+          "id": "medical_pill",
+          "min": 1,
+          "max": 2,
+          "chance": 0.75
+        }
+      ]
+    },
+    "wooden": {
+      "id": "wooden",
+      "title": "the wooden closet",
+      "body": "a few tools still rest inside.",
+      "loot": true,
+      "nextId": "lobby",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "cloth",
+          "min": 1,
+          "max": 4,
+          "chance": 0.85
+        },
+        {
+          "id": "rope",
+          "min": 1,
+          "max": 4,
+          "chance": 0.8
+        },
+        {
+          "id": "plastic",
+          "min": 1,
+          "max": 3,
+          "chance": 0.75
+        },
+        {
+          "id": "steel_shard",
+          "min": 1,
+          "max": 5,
+          "chance": 0.55
+        },
+        {
+          "id": "shovel",
+          "min": 1,
+          "max": 1,
+          "chance": 0.25
+        }
+      ]
+    },
+    "metal": {
+      "id": "metal",
+      "title": "the metal closet door",
+      "body": "the door is locked solidly; only a keyhole is exposed on this side.",
+      "btns": [
+        {
+          "for": "maintenance",
+          "text": "open with maintenance key",
+          "req": true,
+          "reqItems": [
+            {
+              "id": "maintenance_key",
+              "title": "maintenance key",
+              "count": 1
+            }
+          ],
+          "reqConsume": true
+        },
+        {
+          "for": "lobby",
+          "text": "back to lobby"
+        }
+      ]
+    },
+    "maintenance": {
+      "id": "maintenance",
+      "title": "a maintenance closet",
+      "body": "the key breaks into the door as you open it; when you leave, you won't be able to enter again. this closet is bigger than usual, with more room for valuables.  [LOOT TABLE NOT ADDED]",
+      "loot": true,
+      "nextId": "lobby",
+      "size": 10,
+      "lootTable": []
+    },
+    "end": {
+      "id": "end",
+      "title": "the path's end",
+      "body": "the concrete continues past the treasury until it fades under the ash, in the direction of what seems to have once been a large town adjacent to the collection of government monuments. now it's a long and blackened field of debris, every last building burnt to the ground. there's nothing left to do here.",
+      "btns": [
+        "leave"
+      ]
+    }
+  }
+}

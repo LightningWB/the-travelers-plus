@@ -1,0 +1,1002 @@
+{
+  "id": "withered",
+  "weight": "1",
+  "rooms": {
+    "main": {
+      "id": "main",
+      "title": "a withered city",
+      "body": "sprawling skyscrapers tower overhead, triumphed only by the massive sinkhole that has swallowed every road in sight. smaller buildings have collapsed into it, spilling rubble everywhere, while the bigger ones' support beams are exposed to the open air. the hole is long and wide, encompassing most of the city from where you stand, but it doesn't seem to be too deep. as you walk forward, you can see a path is made through some cracked roads laying over the debris toward an underground tunnel.",
+      "btns": [
+        {
+          "for": "tunnel",
+          "text": "the tunnel"
+        },
+        "leave"
+      ]
+    },
+    "tunnel": {
+      "id": "tunnel",
+      "title": "the tunnel",
+      "body": "you can see a murky liquid gently trickling out of the tunnel as you approach it, the towers rising higher overhead. the tunnel is rectangular, with an indent at the bottom to let the liquid leak out. it's the entry to a sewage system, its sparse fluorescent lights somehow still glowing despite the destruction.",
+      "btns": [
+        {
+          "for": "dark-tunnels",
+          "text": "enter sewage system"
+        },
+        "leave"
+      ]
+    },
+    "dark-tunnels": {
+      "id": "dark-tunnels",
+      "title": "dark tunnels",
+      "body": "despite being activated, the fluorescent bulbs do not give off much light. it's just enough to see the branching paths of the system, the dark tunnels breaking off in three different directions.",
+      "btns": [
+        {
+          "for": "west-path",
+          "text": "go west"
+        },
+        {
+          "for": "",
+          "text": "go north"
+        },
+        {
+          "for": "",
+          "text": "go east"
+        },
+        "leave"
+      ]
+    },
+    "west-path": {
+      "id": "west-path",
+      "title": "the west path",
+      "body": "you begin down the path facing west, the sewage gently trickling in the middle of the path. a large pipe sticks out of the wall over the path, and you brush it as you pass, but you accidentally dislodge it from the wall, causing the tunnel to groan loudly. after a moment, the ceiling caves in, and you dash forward just as a huge pile of rubble splashes down behind you, blocking the way back. ",
+      "btns": [
+        {
+          "for": "intersection",
+          "text": "continue"
+        }
+      ]
+    },
+    "intersection": {
+      "id": "intersection",
+      "title": "an intersection",
+      "body": "two paths branch out from here, the long bulbs weakly fending off the darkness.",
+      "btns": [
+        {
+          "for": "intersection-2",
+          "text": "north",
+          "hide": true
+        },
+        {
+          "for": "stench",
+          "text": "west"
+        }
+      ]
+    },
+    "heavy": {
+      "id": "heavy",
+      "title": "heavy atmosphere",
+      "body": "the scent hangs strong in the air.",
+      "btns": [
+        {
+          "for": "grate",
+          "text": "north"
+        },
+        {
+          "for": "stench",
+          "text": "east"
+        },
+        {
+          "for": "rotting",
+          "text": "west"
+        }
+      ]
+    },
+    "rotting": {
+      "id": "rotting",
+      "title": "a rotting body",
+      "body": "the stink of the corpse is heaviest here. his backpack is open, supplies free to take. there's a message written on the wall, in dried blood: \"stop following me\"  [LOOT TABLE NOT MADE]",
+      "loot": true,
+      "nextId": "heavy",
+      "size": 10,
+      "lootTable": []
+    },
+    "stench": {
+      "id": "stench",
+      "title": "a growing stench",
+      "body": "for some reason, a strange smell has begun to tinge the air.",
+      "btns": [
+        {
+          "for": "intersection",
+          "text": "east"
+        },
+        {
+          "for": "green",
+          "text": "south"
+        },
+        {
+          "for": "heavy",
+          "text": "west"
+        }
+      ]
+    },
+    "green": {
+      "id": "green",
+      "title": "a green brick wall",
+      "body": "the path ends abruptly.",
+      "btns": [
+        {
+          "for": "stench",
+          "text": "north"
+        }
+      ]
+    },
+    "grate": {
+      "id": "grate",
+      "title": "a steel grate",
+      "body": "steel, rusted but sturdy, blocks the path. the liquid flows freely through it.",
+      "btns": [
+        {
+          "for": "heavy",
+          "text": "south"
+        }
+      ]
+    },
+    "intersection-2": {
+      "id": "intersection-2",
+      "title": "another intersection",
+      "body": "the bulb over this area has shattered, casting a shadow into the sewage, its glass poking above the liquid.",
+      "btns": [
+        {
+          "for": "four",
+          "text": "northeast"
+        },
+        {
+          "for": "intersection",
+          "text": "south"
+        },
+        {
+          "for": "debris",
+          "text": "east"
+        }
+      ]
+    },
+    "debris": {
+      "id": "debris",
+      "title": "debris",
+      "body": "the path is blocked by a collapsed ceiling, the water gently lapping onto the rubble.",
+      "btns": [
+        {
+          "for": "intersection-2",
+          "text": "west"
+        }
+      ]
+    },
+    "four": {
+      "id": "four",
+      "title": "four paths",
+      "body": "the sewer system is starting to feel more like a maze.",
+      "btns": [
+        {
+          "for": "intersection-2",
+          "text": "southeast"
+        },
+        {
+          "for": "grate-2",
+          "text": "south"
+        },
+        {
+          "for": "green-light",
+          "text": "west"
+        },
+        {
+          "for": "drain",
+          "text": "northwest"
+        }
+      ]
+    },
+    "grate-2": {
+      "id": "grate-2",
+      "title": "a steel grate",
+      "body": "steel, rusted but sturdy, blocks the path. the liquid comes through it, flowing freely. a strange scent wafts in from this direction as well.",
+      "btns": [
+        {
+          "for": "four",
+          "text": "north"
+        }
+      ]
+    },
+    "green-light": {
+      "id": "green-light",
+      "title": "green light",
+      "body": "the fluorescent bulbs must have been replaced at some point. instead of a cold blue, these new tubes shine an eerie green.",
+      "btns": [
+        {
+          "for": "drain",
+          "text": "north"
+        },
+        {
+          "for": "four",
+          "text": "east"
+        },
+        {
+          "for": "nothing",
+          "text": "west"
+        }
+      ]
+    },
+    "drain": {
+      "id": "drain",
+      "title": "a small drain",
+      "body": "a few parallel holes in the floor catch some liquid as it laps lightly over their edges.",
+      "btns": [
+        {
+          "for": "four",
+          "text": "southeast"
+        },
+        {
+          "for": "green-light",
+          "text": "south"
+        },
+        {
+          "for": "faded",
+          "text": "west"
+        }
+      ]
+    },
+    "nothing": {
+      "id": "nothing",
+      "title": "nothing unique",
+      "body": "this intersection has nothing interesting about it.",
+      "btns": [
+        {
+          "for": "faded",
+          "text": "north"
+        },
+        {
+          "for": "green-light",
+          "text": "east"
+        },
+        {
+          "for": "end",
+          "text": "west"
+        }
+      ]
+    },
+    "end": {
+      "id": "end",
+      "title": "a dead end",
+      "body": "the lights fade as you arrive at the end of this tunnel, ending at a moist brick wall.",
+      "btns": [
+        {
+          "for": "nothing",
+          "text": "east"
+        }
+      ]
+    },
+    "faded": {
+      "id": "faded",
+      "title": "faded lights",
+      "body": "a few of the lights overhead have shattered, and the path going north is dark.",
+      "btns": [
+        {
+          "for": "dark",
+          "text": "north"
+        },
+        {
+          "for": "drain",
+          "text": "east"
+        },
+        {
+          "for": "rats",
+          "text": "southeast"
+        },
+        {
+          "for": "nothing",
+          "text": "south"
+        }
+      ]
+    },
+    "rats": {
+      "id": "rats",
+      "title": "rats",
+      "body": "a few twisted corpses of rat skeletons lay atop each other in a pile. the path is blocked by debris.",
+      "btns": [
+        {
+          "for": "faded",
+          "text": "northwest"
+        }
+      ]
+    },
+    "dark": {
+      "id": "dark",
+      "title": "dark tunnels",
+      "body": "only the reaching light from the south tunnel illuminates this area.",
+      "btns": [
+        {
+          "for": "toolbox",
+          "text": "north"
+        },
+        {
+          "for": "heavy-2",
+          "text": "east"
+        },
+        {
+          "for": "faded",
+          "text": "south"
+        }
+      ]
+    },
+    "toolbox": {
+      "id": "toolbox",
+      "title": "a toolbox",
+      "body": "there might be a few useful things left. [LOOT TABLE NOT MADE]",
+      "loot": true,
+      "nextId": "dark",
+      "size": 10,
+      "lootTable": []
+    },
+    "heavy-2": {
+      "id": "heavy-2",
+      "title": "heavy darkness",
+      "body": "northeast is pitch black; southeast is light with the warm glow if an incandescent bulb.",
+      "btns": [
+        {
+          "for": "ladder",
+          "text": "northeast"
+        },
+        {
+          "for": "tall",
+          "text": "southeast"
+        },
+        {
+          "for": "dark",
+          "text": "west"
+        }
+      ]
+    },
+    "tall": {
+      "id": "tall",
+      "title": "a tall room",
+      "body": "sewage splashes from a pipe far above, illuminated brightly by yellow bulbs in the high ceiling. a web of reflections dances along the wall; a pool of liquid dominates this room, and in the corner is a wooden box of supplies. [LOOT TABLE NOT MADE]",
+      "loot": true,
+      "nextId": "heavy-2",
+      "size": 10,
+      "lootTable": []
+    },
+    "ladder": {
+      "id": "ladder",
+      "title": "a ladder",
+      "body": "the deepness of the dark ends abruptly, and you finally can feel a ladder bolted to the wall. a slight glow leaks over the top of the piled bricks, fairly high up. you begin to climb, the ladder creaking at every rung, its sound echoing through the tunnels. you clamber to the top, and just as you get to your feet, the rubble beneath you collapses, and you tumble into the area ahead, rolling down a long slope of debris before finally skidding to a stop. tiny pebbles skitter after you as you stand up and gain your bearings. the tunnel goes on straight from here, the next intersection brightly lit.",
+      "btns": [
+        {
+          "for": "bright",
+          "text": "continue east"
+        }
+      ]
+    },
+    "bright": {
+      "id": "bright",
+      "title": "a bright intersection",
+      "body": "a single incandescent bulb shines brightly out of the ceiling, washing the blue-green bricks warmly. the tunnel west is dark.",
+      "btns": [
+        {
+          "for": "flickering",
+          "text": "north"
+        },
+        {
+          "for": "new-cardinal",
+          "text": "east"
+        },
+        {
+          "for": "slope",
+          "text": "west"
+        }
+      ]
+    },
+    "slope": {
+      "id": "slope",
+      "title": "a slope of debris",
+      "body": "the path curves sharply upward, an unsurpassable mound of rubble dominating the way. something might be at the top, but there's no way to get there.",
+      "btns": [
+        {
+          "for": "bright",
+          "text": "east"
+        }
+      ]
+    },
+    "flickering": {
+      "id": "flickering",
+      "title": "flickering light",
+      "body": "the bulb lighting this intersection is flickering wildly.",
+      "btns": [
+        {
+          "for": "hole",
+          "text": "north"
+        },
+        {
+          "for": "corner",
+          "text": "east"
+        },
+        {
+          "for": "bright",
+          "text": "south"
+        }
+      ]
+    },
+    "hole": {
+      "id": "hole",
+      "title": "a gaping hole",
+      "body": "the path is separated by a massive hole in the floor, sucking all the light and sewage into it like the maw of a massive beast. the distant echo of water splashing somewhere far below resounds ominously.",
+      "btns": [
+        {
+          "for": "flickering",
+          "text": "back south"
+        }
+      ]
+    },
+    "corner": {
+      "id": "corner",
+      "title": "a corner in the tunnel",
+      "body": "nowhere to go but straight.",
+      "btns": [
+        {
+          "for": "new-cardinal",
+          "text": "south"
+        },
+        {
+          "for": "flickering",
+          "text": "west"
+        }
+      ]
+    },
+    "new-cardinal": {
+      "id": "new-cardinal",
+      "title": "cardinal directions",
+      "body": "the path divides four ways here, each way nearly identical. the corners meet to form a perfect square. the east path dips down slightly, obscuring the next intersection.",
+      "btns": [
+        {
+          "for": "corner",
+          "text": "north"
+        },
+        {
+          "for": "bitter",
+          "text": "east"
+        },
+        {
+          "for": "more",
+          "text": "south"
+        },
+        {
+          "for": "bright",
+          "text": "west"
+        }
+      ]
+    },
+    "more": {
+      "id": "more",
+      "title": "more paths",
+      "body": "two new ways to go.",
+      "btns": [
+        {
+          "for": "new-cardinal",
+          "text": "north"
+        },
+        {
+          "for": "hum",
+          "text": "east"
+        },
+        {
+          "for": "intersecting",
+          "text": "south"
+        }
+      ]
+    },
+    "intersecting": {
+      "id": "intersecting",
+      "title": "intersecting paths",
+      "body": "there's two directions to go from here. the lights overhead keep the dark away, but don't bring any comfort with their cold blue washing the walls.",
+      "btns": [
+        {
+          "for": "more",
+          "text": "north"
+        },
+        {
+          "for": "pipe",
+          "text": "west"
+        }
+      ]
+    },
+    "pipe": {
+      "id": "pipe",
+      "title": "a large pipe",
+      "body": "the tunnel's shape turns circular, extending forward until you arrive at a round steel gate. you can see through into a tall room, filled with the warm glow of a bright yellow bulb. there's a path far below leading somewhere else, and a wooden box in the corner.",
+      "btns": [
+        {
+          "for": "intersecting",
+          "text": "east"
+        }
+      ]
+    },
+    "hum": {
+      "id": "hum",
+      "title": "a low hum",
+      "body": "the constant buzz of the fluorescent lights is joined by a low hum coming from the east sewer.",
+      "btns": [
+        {
+          "for": "mist",
+          "text": "north"
+        },
+        {
+          "for": "square",
+          "text": "east"
+        },
+        {
+          "for": "more",
+          "text": "west"
+        }
+      ]
+    },
+    "square": {
+      "id": "square",
+      "title": "a square hole",
+      "body": "jutting out of the flowing sewage, the hole leads straight down, covered by a welded steel grate. the hum echoes out of this tube, and peering down between the bars, you can see a pulsating purple glow illuminating the darker area below. the path here continues ahead.",
+      "btns": [
+        {
+          "for": "darker",
+          "text": "east"
+        },
+        {
+          "for": "hum",
+          "text": "west"
+        }
+      ]
+    },
+    "darker": {
+      "id": "darker",
+      "title": "a darker intersection",
+      "body": "one of the bulbs overhead have died, allowing a soft and unnatural hum to permeate the area. the north path curves left out of view.",
+      "btns": [
+        {
+          "for": "dripping",
+          "text": "north"
+        },
+        {
+          "for": "end-2",
+          "text": "east"
+        },
+        {
+          "for": "square",
+          "text": "west"
+        }
+      ]
+    },
+    "dripping": {
+      "id": "dripping",
+      "title": "dripping water",
+      "body": "from the crack in the ceiling, a small stream of liquid splashes into the sewage flowing by.",
+      "btns": [
+        {
+          "for": "blendings",
+          "text": "north"
+        },
+        {
+          "for": "darker",
+          "text": "east"
+        },
+        {
+          "for": "mist",
+          "text": "west"
+        }
+      ]
+    },
+    "end-2": {
+      "id": "end-2",
+      "title": "dead end",
+      "body": "water gently spills out of a grate in the ceiling into a deeper pool at the end of the tunnel.",
+      "btns": [
+        {
+          "for": "frigid",
+          "text": "west"
+        }
+      ]
+    },
+    "mist": {
+      "id": "mist",
+      "title": "fine mist",
+      "body": "a slight fog permeates this intersection, making it difficult to see down each path.",
+      "btns": [
+        {
+          "for": "three",
+          "text": "north"
+        },
+        {
+          "for": "dripping",
+          "text": "east"
+        },
+        {
+          "for": "hum",
+          "text": "south"
+        }
+      ]
+    },
+    "blendings": {
+      "id": "blendings",
+      "title": "blending tunnels",
+      "body": "the path splits into four, each way identical to the last.",
+      "btns": [
+        {
+          "for": "awkward",
+          "text": "north"
+        },
+        {
+          "for": "bricks",
+          "text": "east"
+        },
+        {
+          "for": "mist",
+          "text": "south"
+        },
+        {
+          "for": "three",
+          "text": "west"
+        }
+      ]
+    },
+    "awkward": {
+      "id": "awkward",
+      "title": "an awkward intersection",
+      "body": "one tunnel splits off at a strange angle. the west path curves downward, below your view.",
+      "btns": [
+        {
+          "for": "musty",
+          "text": "north"
+        },
+        {
+          "for": "grate-3",
+          "text": "northeast"
+        },
+        {
+          "for": "blendings",
+          "text": "south"
+        },
+        {
+          "for": "bitter",
+          "text": "west"
+        }
+      ]
+    },
+    "grate-3": {
+      "id": "grate-3",
+      "title": "a weak rusty grate",
+      "body": "the tunnel is blocked by worn iron bars; with a powerful enough tool, it might be possible to break through.",
+      "btns": [
+        {
+          "for": "awkward",
+          "text": "southwest"
+        },
+        {
+          "for": "box",
+          "text": "melt bars",
+          "req": true,
+          "reqItems": [
+            {
+              "id": "blowtorch",
+              "title": "powered blowtorch",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    "box": {
+      "id": "box",
+      "title": "the maintenance box",
+      "body": "sticking out of the wall at eye level is a metal cube, the lock on its door rusted away and leaving it wide open. [LOOT TABLE NOT MADE]",
+      "loot": true,
+      "nextId": "grate-3",
+      "size": 10,
+      "lootTable": [
+		  {
+			  "id": "keycard_c",
+			  "min": 1,
+			  "max": 1,
+			  "chance": 1
+		  }
+	  ]
+    },
+    "bricks": {
+      "id": "bricks",
+      "title": "green bricks",
+      "body": "a solid wall ends the tunnel.",
+      "btns": [
+        {
+          "for": "blendings",
+          "text": "west"
+        }
+      ]
+    },
+    "three": {
+      "id": "three",
+      "title": "three more paths",
+      "body": "the north path slopes down gently, the water flowing along with it, descending toward an unseen area.",
+      "btns": [
+        {
+          "for": "bitter",
+          "text": "north"
+        },
+        {
+          "for": "blendings",
+          "text": "east"
+        },
+        {
+          "for": "mist",
+          "text": "south"
+        }
+      ]
+    },
+    "bitter": {
+      "id": "bitter",
+      "title": "bitter air",
+      "body": "after descending for several minutes, you arrive at the bottom of this intersection. liquid runs quickly from all directions, pouring into a drain at the center of this area. the water from the north path is more gray than the others, and the atmosphere is far colder.",
+      "btns": [
+        {
+          "for": "dark-water",
+          "text": "north"
+        },
+        {
+          "for": "awkward",
+          "text": "east"
+        },
+        {
+          "for": "three",
+          "text": "south"
+        },
+        {
+          "for": "new-cardinal",
+          "text": "west"
+        }
+      ]
+    },
+    "musty": {
+      "id": "musty",
+      "title": "musty air",
+      "body": "the paths diverge again, the air now warmer.",
+      "btns": [
+        {
+          "for": "glowing",
+          "text": "north"
+        },
+        {
+          "for": "awkward",
+          "text": "south"
+        },
+        {
+          "for": "dark-water",
+          "text": "west"
+        }
+      ]
+    },
+    "dark-water": {
+      "id": "dark-water",
+      "title": "dark water",
+      "body": "ash flows into the liquid passing by, coming from the north path. the south path bends down, taking the ash with it.",
+      "btns": [
+        {
+          "for": "out",
+          "text": "north"
+        },
+        {
+          "for": "musty",
+          "text": "east"
+        },
+        {
+          "for": "bitter",
+          "text": "south"
+        }
+      ]
+    },
+    "out": {
+      "id": "out",
+      "title": "a way out",
+      "body": "the north path extends upward and into the open, revealing the ashen sky beyond.",
+      "btns": [
+        {
+          "for": "atmosphere",
+          "text": "north"
+        },
+        {
+          "for": "dark-water",
+          "text": "south"
+        }
+      ]
+    },
+    "glowing": {
+      "id": "glowing",
+      "title": "glowing rubble",
+      "body": "the path ends in collapsed debris, but through the gaps in the rock and brick you can see dim beams of atmospheric light.",
+      "btns": [
+        {
+          "for": "musty",
+          "text": "south"
+        }
+      ]
+    },
+    "atmosphere": {
+      "id": "atmosphere",
+      "title": "atmosphere",
+      "body": "the gentle falling ash settles on your face, greeting you as you escape the final tunnel of the sewer system. the skyscrapers stand tall behind you, their bases exposed by the massive sinkhole. there's no other place to go but away, or back down.",
+      "btns": [
+        {
+          "for": "out",
+          "text": "south"
+        },
+        "leave"
+      ]
+    },
+    "north-path": {
+      "id": "north-path",
+      "title": "the north path",
+      "body": "you continue straight through the tunnel to the path leading north. the path suddenly juts upward at a hard angle, but there's still enough grip to climb it. after a few minutes, the peak is just ahead, but the tunnel emits a great rumble, the ground beneath your feet shaking violently. you dash forward as the bricks begin to fall away, swallowed by the suddenly expanding sinkhole. you reach the top of the slope and stumble forward where it's level, splashing into the sewage just as the bricks stop collapsing away behind you. you peer down the slope and into the massive gash that has ripped the sewer open, the liquid draining past your feet into it. after several seconds, the first soft slash echoes out of it.",
+      "btns": [
+        {
+          "for": "intersecting",
+          "text": "continue"
+        }
+      ]
+    },
+    "east-path": {
+      "id": "east-path",
+      "title": "the east path",
+      "body": "the tunnel bends down, the water flowing freely with it. it gradually becomes steeper, the air growing colder, and the smooth cement floor growing more slick. after a few more steps, your feet slip out from beneath you, sending you crashing to the floor and sliding for several seconds down the tube until it levels again, your body finally skidding to a stop. the ground is so slick with condensation that there would be no way back up.",
+      "btns": [
+        {
+          "for": "frigid",
+          "text": "continue"
+        }
+      ]
+    },
+    "frigid": {
+      "id": "frigid",
+      "title": "a frigid intersection",
+      "body": "the tunnel diverges in three directions, the bitter light of the fluorescent tubes makes the sewer feel colder. a low-pitched hum comes from the north path.",
+      "btns": [
+        {
+          "for": "cube",
+          "text": "north"
+        },
+        {
+          "for": "end-2",
+          "text": "east"
+        },
+        {
+          "for": "discolored",
+          "text": "south"
+        }
+      ]
+    },
+    "cube": {
+      "id": "cube",
+      "title": "a strange cube",
+      "body": "a perfect cube, cut from some unknown material, juts out from the dead end ahead. it glows purple, its hue shifting slightly as your view of it changes angles, and it hums loudly.",
+      "loot": true,
+      "nextId": "frigid",
+      "size": 10,
+      "lootTable": [
+        {
+          "id": "alien_fragment",
+          "min": 1,
+          "max": 1,
+          "chance": 1
+        }
+      ]
+    },
+    "discolored": {
+      "id": "discolored",
+      "title": "discolored liquid",
+      "body": "the sewage here is tinted gray.",
+      "btns": [
+        {
+          "for": "frigid",
+          "text": "north"
+        },
+        {
+          "for": "backpack",
+          "text": "east"
+        },
+        {
+          "for": "daylight",
+          "text": "south"
+        }
+      ]
+    },
+    "backpack": {
+      "id": "backpack",
+      "title": "an abandoned backpack",
+      "body": "half submerged in the murky liquid is a backpack, open and inviting. [LOOT TABLE NOT MADE]",
+      "loot": true,
+      "nextId": "discolored",
+      "size": 10,
+      "lootTable": [
+		  {
+            "id": "medical_pill",
+            "min": 1,
+            "max": 3,
+            "chance": 0.8
+		  },
+		  {
+            "id": "wood_stick",
+            "min": 1,
+            "max": 3,
+            "chance": 0.75
+		  },
+		  {
+            "id": "scrap_metal",
+            "min": 1,
+            "max": 3,
+            "chance": 0.66
+		  },
+		  {
+            "id": "cloth",
+            "min": 1,
+            "max": 2,
+            "chance": 0.6
+		  },
+		  {
+            "id": "steel_shard",
+            "min": 1,
+            "max": 1,
+            "chance": 0.45
+		  },
+		  {
+            "id": "bp_low_teleporter",
+            "min": 1,
+            "max": 1,
+            "chance": 0.25
+		  }
+	  ]
+    },
+    "daylight": {
+      "id": "daylight",
+      "title": "dim daylight",
+      "body": "the west path curves away, but the walls reflect the dim light of the outer atmosphere. the water spilling in from that direction is thick with ash.",
+      "btns": [
+        {
+          "for": "discolored",
+          "text": "north"
+        },
+        {
+          "for": "piled",
+          "text": "south"
+        },
+        {
+          "for": "out-2",
+          "text": "west"
+        }
+      ]
+    },
+    "out-2": {
+      "id": "out-2",
+      "title": "outside",
+      "body": "the tunnel curves upward and into the open air, at the edge of a road leading out of the city. the sinkhole has just barely permitted this exit to exist; it's surrounded neatly by tall piles of rock and brick. the road disappears under the sand in the distance, the wasteland welcoming you back.",
+      "btns": [
+        {
+          "for": "daylight",
+          "text": "east"
+        },
+        "leave"
+      ]
+    },
+    "piled": {
+      "id": "piled",
+      "title": "piled brick and rock",
+      "body": "the path ends with a mound of debris reaching the ceiling. water trickles softly somewhere between the cracks.",
+      "btns": [
+        {
+          "for": "daylight",
+          "text": "north"
+        }
+      ]
+    }
+  }
+}

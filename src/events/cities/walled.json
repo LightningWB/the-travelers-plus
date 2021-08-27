@@ -119,20 +119,49 @@
 					"id": "scrap_metal",
 					"min": 1,
 					"max": 6,
-					"note": "TODO: LOOT TABLES HERE",
-					"chance": 1
+					"chance": 0.95
 				},
 				{
 					"id": "wire",
 					"min": 1,
-					"max": 2,
-					"chance": 1
+					"max": 5,
+					"chance": 0.5
+				},
+				{
+					"id": "bp_low_teleporter",
+					"min": 1,
+					"max": 1,
+					"chance": 0.45
 				},
 				{
 					"id": "circuit_board",
 					"min": 1,
+					"max": 2,
+					"chance": 0.4
+				},
+				{
+					"id": "battery",
+					"min": 1,
+					"max": 3,
+					"chance": 0.4
+				},
+				{
+					"id": "bp_metal_detector",
+					"min": 1,
 					"max": 1,
-					"chance": 1
+					"chance": 0.33
+				},
+				{
+					"id": "copper_coil",
+					"min": 1,
+					"max": 2,
+					"chance": 0.25
+				},
+				{
+					"id": "bp_high_teleporter",
+					"min": 1,
+					"max": 1,
+					"chance": 0.05
 				}
 			],
 			"nextId": "catwalk",
@@ -247,35 +276,76 @@
 			"loot": true,
 			"lootTable": [
 				{
+					"id": "rope",
+					"min": 1,
+					"max": 3,
+					"chance": 1
+				},
+				{
+					"id": "wood_stick",
+					"min": 1,
+					"max": 5,
+					"chance": 1
+				},
+				{
 					"id": "scrap_metal",
 					"min": 1,
 					"max": 6,
-					"note": "TODO: LOOT TABLES HERE",
 					"chance": 1
 				},
 				{
 					"id": "wire",
 					"min": 1,
 					"max": 4,
-					"chance": 1
+					"chance": 0.8
 				},
 				{
-					"id": "wood_stick",
+					"id": "steel_shard",
 					"min": 1,
-					"max": 2,
-					"chance": 1
-				},
-				{
-					"id": "rope",
-					"min": 1,
-					"max": 2,
-					"chance": 1
+					"max": 3,
+					"chance": 0.8
 				},
 				{
 					"id": "circuit_board",
 					"min": 1,
 					"max": 2,
-					"chance": 1
+					"chance": 0.66
+				},
+				{
+					"id": "rusty_knife",
+					"min": 1,
+					"max": 1,
+					"chance": 0.33
+				},
+				{
+					"id": "battery",
+					"min": 1,
+					"max": 1,
+					"chance": 0.25
+				},
+				{
+					"id": "shovel",
+					"min": 1,
+					"max": 1,
+					"chance": 0.2
+				},
+				{
+					"id": "fire_extinguisher",
+					"min": 1,
+					"max": 1,
+					"chance": 0.15
+				},
+				{
+					"id": "machete",
+					"min": 1,
+					"max": 1,
+					"chance": 0.05
+				},
+				{
+					"id": "crowbar",
+					"min": 1,
+					"max": 1,
+					"chance": 0.05
 				}
 			],
 			"nextId": "mainArea",
@@ -360,20 +430,25 @@
 					"id": "wood_stick",
 					"min": 1,
 					"max": 6,
-					"note": "TODO: LOOT TABLES HERE",
 					"chance": 1
 				},
 				{
 					"id": "scrap_metal",
 					"min": 1,
-					"max": 4,
-					"chance": 1
+					"max": 7,
+					"chance": 0.9
 				},
 				{
 					"id": "plastic",
 					"min": 1,
 					"max": 4,
-					"chance": 0.5
+					"chance": 0.4
+				},
+				{
+					"id": "shotgun_shell",
+					"min": 1,
+					"max": 3,
+					"chance": 0.05
 				}
 			],
 			"nextId": "darkRoom",

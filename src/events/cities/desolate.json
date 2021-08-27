@@ -214,13 +214,19 @@
 					"id": "rope",
 					"min": 1,
 					"max": 3,
-					"chance": 0.45
+					"chance": 0.5
 				},
 				{
 					"id": "medical_pill",
 					"min": 1,
 					"max": 1,
 					"chance": 0.333333
+				},
+				{
+					"id": "bp_low_teleporter",
+					"min": 1,
+					"max": 1,
+					"chance": 0.33
 				},
 				{
 					"id": "bp_metal_detector",
@@ -232,13 +238,13 @@
 					"id": "shotgun_shell",
 					"min": 1,
 					"max": 2,
-					"chance": 0.01
+					"chance": 0.05
 				},
 				{
-					"id": "bp_low_teleporter",
+					"id": "bp_high_teleporter",
 					"min": 1,
 					"max": 1,
-					"chance": 0.01
+					"chance": 0.05
 				}
 				
 			],
