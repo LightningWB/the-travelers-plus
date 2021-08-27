@@ -23,6 +23,8 @@ plugin.on('actions::doublestep', require('./movement').doubleStep, BASE_PRIORITY
 // time
 plugin.on('gameTickPre', require('./time').gameTickPre, BASE_PRIORITY);
 plugin.on('playerTick', require('./time').playerTick, BASE_PRIORITY);
+plugin.on('travelers::getTime', require('./time').getTime, BASE_PRIORITY);
+plugin.on('travelers::setTime', require('./time').setTime, BASE_PRIORITY);
 // stats
 plugin.on('playerCreate', require('./stats').playerCreate, BASE_PRIORITY);
 plugin.on('playerConnect', require('./stats').playerJoin, BASE_PRIORITY);
