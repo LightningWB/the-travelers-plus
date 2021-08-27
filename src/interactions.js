@@ -23,6 +23,8 @@ const playerData = n => players.getPlayerByUsername(n);
 const online = n => players.isPlayerOnline(n);
 const offline = n => !players.isPlayerOnline(n);
 
+const canSee = (player, targetPlayer) => player && targetPlayer && targetPlayer.public.state === 'int' && targetPlayer.public.x === player.public.x && targetPlayer.public.y === player.public.y;
+
 const renderPlayerList = loc => {
 	const ps = getPlayersInInteraction(loc).map(p => {
 		return {
@@ -63,11 +65,29 @@ module.exports.movePlayer = function(player) {
 /**
  * @param {players.player} player 
  */
-module.exports.playerConnect = function(player) {
+module.exports.playerReady = function(player) {
 	if(player.public.state === 'int') {
 		renderPlayerList(player.public);
 	}
-	delete player.public.offline_msgs;
+}
+
+/**
+ * @param {players.player} player 
+ */
+module.exports.disconnect = function(player) {
+	if(player.public.state === 'int') {
+		renderPlayerList(player.public);
+	}
+}
+
+/**
+ * @param {players.player} player 
+ */
+module.exports.playerConnect = function(player) {
+	if(player.private.offline_msgs) {
+		player.temp.offline_msgs = Object.values(player.private.offline_msgs);
+		delete player.private.offline_msgs;
+	}
 }
 
 /**
@@ -126,11 +146,32 @@ module.exports.leaveMessage = function(packet, player) {
 		if(!players.isPlayerOnline(packet.username)) {
 			const targetPlayer = players.getPlayerByUsername(packet.username);
 			if(targetPlayer.public.state === 'int' && targetPlayer.public.x === player.public.x && targetPlayer.public.y === player.public.y && packet.msg.length <= 200) {
-				if(targetPlayer.public.offline_msgs === undefined) {
-					targetPlayer.public.offline_msgs = [];
+				if(targetPlayer.private.offline_msgs === undefined) {
+					targetPlayer.private.offline_msgs = {};
 				}
-				targetPlayer.public.offline_msgs.push(xssReplace(packet.msg));
+				targetPlayer.private.offline_msgs[player.public.username] = xssReplace(packet.msg);
 			}
 		}
+	}
+}
+
+/**
+ * @param {players.player} player 
+ */
+module.exports.getMessage = function(packet, player) {
+	const targetPlayer = players.getPlayerByUsername(packet.username);
+	if(canSee(player, targetPlayer) && offline(packet.username)) {
+		player.temp.int_gotmsg = targetPlayer.private.offline_msgs[player.public.username];
+		player.addPropToQueue('int_gotmsg');
+	}
+}
+
+/**
+ * @param {players.player} player 
+ */
+ module.exports.removeMessage = function(packet, player) {
+	const targetPlayer = players.getPlayerByUsername(packet.username);
+	if(canSee(player, targetPlayer) && offline(packet.username)) {
+		delete targetPlayer.private.offline_msgs[player.public.username];
 	}
 }
