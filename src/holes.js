@@ -1,4 +1,5 @@
 const { chunks } = require('./bullet');
+const noise = require('./libs/noise');
 const DELETE_ITEMS = ['wood_stick', 'scrap_metal', 'steel_shard', 'copper_ore'];
 const BONUS_ITEMS = ['plastic', 'bullet', 'cloth'];
 
@@ -76,6 +77,8 @@ module.exports.unloadChunk = function(chunk) {
 	}
 }
 
+const metalNoise = noise(Math.random());
+
 /**
  * @param {number} x
  * @param {number} y 
@@ -86,6 +89,5 @@ module.exports.isMetalHole = function(x, y) {
 	if(hole && hole.private.eventData && hole.private.eventData.type === 'hole' && hole.private.visible === false) {
 		return true;
 	}
-	const num = (x % 5) * (Math.abs(y) % 10);
-	return num === 2 || num === 6 || num === 9;
+	return metalNoise.simplex2(x * 1000, y * 1000) < -.6;// chance is 20% so double because noise can be negative
 }
