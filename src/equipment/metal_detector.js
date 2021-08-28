@@ -10,7 +10,7 @@ module.exports.dig_with_shovel = function(player) {
 }
 
 module.exports.movePlayer = function(player) {
-	if(player.public.equipped === 'metal_detector') {
+	if(player.public.equipped === 'metal_detector' && player.cache.travelData.dir !== '') {
 		if(isMetalHole(player.public.x, player.public.y)) {
 			emit('travelers', 'eventLog', 'the metal detector pings. (' + player.public.x + ', ' + player.public.y + ')', player);
 		}

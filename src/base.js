@@ -52,9 +52,7 @@ module.exports.create = function(player) {
 }
 
 module.exports.eventLog = function(message, player, ) {
-	if(!player.temp.exe_js)player.temp.exe_js = '';
-	player.temp.exe_js += "ENGINE.log('" + message + "', false);";
-	player.addPropToQueue('exe_js');
+	emit('travelers', 'addExeJs', player, "ENGINE.log('" + message + "', false);");
 }
 
 module.exports.eventLogEscape = function(message, player) {
@@ -69,4 +67,27 @@ module.exports.eventLogEscape = function(message, player) {
 		"\n": '&#92;n'
 	};
 	emit('travelers', 'eventLogUnsafe', message.replace( /[&<>'"/\\\n]/g, char => xssReplace[char]).replace(/&#92;n/g, '<br />'), player);
+}
+
+module.exports.xssReplace = str => {
+	const xssReplace = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'\'': '&#39;',
+		'"': '&quot;',
+		'/': '&#x2F;',
+		"\\": '&#92;',
+		"\n": '&#92;n'
+	};
+	return str.replace( /[&<>'"/\\\n]/g, char => xssReplace[char]).replace(/&#92;n/g, '<br />');
+}
+
+module.exports.addExeJs = function(player, js) {
+	if(player.temp.exe_js === undefined) {
+		player.temp.exe_js = js + ';';
+		player.addPropToQueue('exe_js');
+	} else {
+		player.temp.exe_js += ';' + js + ';';// toro sends js this way so...
+	}
 }

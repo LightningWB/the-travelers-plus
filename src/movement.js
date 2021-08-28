@@ -64,6 +64,10 @@ module.exports.tick = function(player) {
 module.exports.move = function(player) {
 	if(player.cache.travelData)
 	{
+		if(player.public.state !== 'travel') {
+			emit('travelers', 'stopPlayerMovement', player);
+			return false;
+		}
 		const val = util.out(1, 'int');
 		emit('travelers', 'getMovementSpeed', player, val)
 		const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, (player.cache.doubleStep ? DOUBLE_STEP_MULTIPLIER: 1) * val.get());
