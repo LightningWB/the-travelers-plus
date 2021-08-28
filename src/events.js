@@ -33,6 +33,7 @@ module.exports.addEvent = function(type, data) {
 
 module.exports.onAddEvent = function(type, data) {
 	const oldData = util.clone(data);
+	data.weight = parseInt(data.weight);
 	data.rooms = {};
 	for(const roomId in oldData.rooms)
 	{
