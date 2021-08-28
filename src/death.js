@@ -1,11 +1,5 @@
 const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
 
-module.exports.playerConnect = function(player) {
-  player.temp.death_x = player.public.x;
-  player.temp.death_y = player.public.y;
-  player.addPropToQueue('*');
-}
-
 module.exports.kill = function(player) {
 	if (player.public.deaths === undefined)player.public.deaths = 0;
 	++player.public.deaths;
