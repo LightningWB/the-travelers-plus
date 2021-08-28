@@ -69,6 +69,14 @@ module.exports.movePlayer = function(player) {
 module.exports.playerReady = function(player) {
 	if(player.public.state === 'int') {
 		renderPlayerList(player.public);
+		// stop other player looting
+		getPlayersInInteraction(player.public).filter(online).map(playerData).forEach(p => {
+			if(p.private.lootingPlayer === player.public.username) {
+				emit('travelers', 'addExeJs', p, 'INT.doneLooting();');
+				emit('travelers', 'renderItems', p);
+				delete p.private.lootingPlayer;
+			}
+		});
 	}
 }
 
