@@ -5,7 +5,6 @@ module.exports.kill = function(player) {
 	if (player.public.deaths === undefined)player.public.deaths = 0;
 	++player.public.deaths;
 	player.public.state = 'death';
-	player.temp.effects_removed = true;
 	delete player.public.equipped;
 	player.public.death_x = player.public.x;// use public to also say after a relog
 	player.public.death_y = player.public.y;
@@ -23,6 +22,7 @@ module.exports.kill = function(player) {
 	player.private.supplies = {};
 	
 	if(players.isPlayerOnline(player.public.username)) {
+		player.temp.effects_removed = true;
 		player.addPropToQueue('craft_queue');
 		emit('travelers','addExeJs', player, 'ENGINE.console.innerHTML = \'\';ENGINE.logMsgs = [];');
 		player.addPropToQueue('deaths', 'state', 'effects_removed', 'death_x', 'death_y');

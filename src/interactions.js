@@ -214,3 +214,20 @@ module.exports.next = function(packet, player) {
 		emit('travelers', 'renderItems', player);
 	}
 }
+
+module.exports.killOffline = function(packet, player) {
+	if(typeof packet.username === 'string' && offline(packet.username)) {
+		const victim = players.getPlayerByUsername(packet.username);
+		emit('travelers', 'killPlayer', victim);
+		renderPlayerList(player.public);
+		const killMsg = {
+			victim: packet.username,
+			killer: player.public.username
+		};
+		getPlayersInInteraction(player.public).filter(online).forEach(p => {
+			const pl = players.getOnlinePlayer(p);
+			pl.temp.int_killer = killMsg;
+			pl.addPropToQueue('int_killer')
+		});
+	}
+}

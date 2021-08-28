@@ -46,6 +46,7 @@ plugin.on('actions::int_getmsg', require('./interactions').getMessage, BASE_PRIO
 plugin.on('actions::int_removemsg', require('./interactions').removeMessage, BASE_PRIORITY);
 plugin.on('actions::int_lootoffline', require('./interactions').lootOffline, BASE_PRIORITY);// looting
 plugin.on('actions::int_next', require('./interactions').next, BASE_PRIORITY);
+plugin.on('actions::int_killoffline', require('./interactions').killOffline, BASE_PRIORITY);
 plugin.on('playerReady', require('./interactions').playerReady, BASE_PRIORITY);
 plugin.on('playerConnect', require('./interactions').playerConnect, BASE_PRIORITY);
 plugin.on('disconnect', require('./interactions').disconnect, BASE_PRIORITY);
