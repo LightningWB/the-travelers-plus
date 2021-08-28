@@ -1,4 +1,4 @@
-const {emit, players, util, generateTileAt} = require('./bullet');
+const {emit, players, util, generateTileAt, chunks} = require('./bullet');
 
 const DOUBLE_STEP_MULTIPLIER = 2;
 
@@ -65,19 +65,24 @@ module.exports.move = function(player) {
 	if(player.cache.travelData)
 	{
 		const val = util.out(1, 'int');
-		emit('travelers', 'getMovementSpeed', player, val)
-		const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, (player.cache.doubleStep ? DOUBLE_STEP_MULTIPLIER: 1) * val.get());
+		emit('travelers', 'getMovementSpeed', player, val);
+		let distance = (player.cache.doubleStep ? DOUBLE_STEP_MULTIPLIER: 1) * val.get();
 		player.cache.doubleStep = false;
-        
-        const tile = generateTileAt(x, y);
-        const onWater = tile === "w";
-        const onBorder = tile === "░";
-        if (!onWater && !onBorder)
-        {
-            player.public.x = x;
-            player.public.y = y;
-            player.addPropToQueue('x', 'y');
-        }
+		while(distance > 0) {
+			const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, 1);
+			
+			const tile = generateTileAt(x, y);
+			const onWater = tile === "w";
+			const onBorder = tile === "░";
+			const obj = chunks.getObject(x, y);
+			if (!onWater && !onBorder && !(obj && obj.private.walkOn === false))
+			{
+				player.public.x = x;
+				player.public.y = y;
+			} else break;
+			distance--;
+		}
+		player.addPropToQueue('x', 'y');
 	}
 	else return false;
 }

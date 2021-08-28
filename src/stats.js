@@ -175,7 +175,7 @@ module.exports.admin = function(plugin) {
 		if(splitUp.length !== 2)return 'Invalid Parameters';
 		splitUp[1] = Number(splitUp[1]);
 		if(typeof splitUp[0] !== 'string' || typeof splitUp[1] !== 'number')return 'Invalid Parameters';
-		if(splitUp[1] > 10000000)return 'Do you really need more than 10 million xp';
+		if(splitUp[1] > 100000000)return 'Do you really need more than 100 million xp';
 		if(!players.isPlayerOnline(splitUp[0]))return 'Invalid username or the player is offline';
 		const player = players.getOnlinePlayer(splitUp[0]);
 		player.public.skills.xp += splitUp[1] * m;

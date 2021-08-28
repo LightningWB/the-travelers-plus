@@ -31,7 +31,7 @@ module.exports.addStructure = function(data) {
 		}
 	}
 	PLACING_TO_ID[data.placingItem] = data.id;
-	STRUCTURE_DATA[data.id] = util.mergeObject(data, defaultData);
+	STRUCTURE_DATA[data.id] = util.mergeObject(defaultData, data);
 }
 
 /**
@@ -42,9 +42,10 @@ function addPublicDataToObject(obj) {
 	const structureData = STRUCTURE_DATA[structureId];
 	if(structureData) {
 		obj.public.char = structureData.char;
-		obj.public.walk_over = structureData.standOver;
+		obj.public.walk_over = structureData.standOver;// walk_over means show your player in front of an object client side
 		obj.public.is_door = structureData.isDoor;
 		obj.public.is_breakable = structureData.isBreakable;
+		obj.private.walkOn = structureData.walkOver;
 	}
 }
 
@@ -57,6 +58,7 @@ module.exports.chunkUnload = function(chunk) {
 					delete obj.public.walk_over;
 					delete obj.public.is_door;
 					delete obj.public.is_breakable;
+					delete obj.private.walkOn
 				}
 			}
 		}
