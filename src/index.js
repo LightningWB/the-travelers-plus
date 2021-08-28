@@ -74,6 +74,15 @@ plugin.on('actions::craft', require('./crafting').craft, BASE_PRIORITY);
 plugin.on('actions::craft_cancelall', require('./crafting').cancelAll, BASE_PRIORITY);
 plugin.on('actions::craft_cancelone', require('./crafting').cancelOne, BASE_PRIORITY);
 plugin.on('actions::learn', require('./crafting').learn, BASE_PRIORITY);
+// building
+plugin.on('travelers::createStructure', require('./building').createStructure, BASE_PRIORITY);
+plugin.on('travelers::placeStructure', require('./building').placeStructure, BASE_PRIORITY);
+plugin.on('travelers::breakStructure', require('./building').breakStructure, BASE_PRIORITY);
+plugin.on('actions::build', require('./building').build, BASE_PRIORITY);
+plugin.on('actions::break', require('./building').break, BASE_PRIORITY);
+plugin.on('actions::cancel_break', require('./building').cancel_break, BASE_PRIORITY);
+plugin.on('playerConnect', require('./building').playerConnect, BASE_PRIORITY);
+plugin.on('playerTick', require('./building').tick, BASE_PRIORITY + 10);// apply first so other stuff can see structures
 // equipment
 plugin.on('actions::equip', require('./equipment').equip, BASE_PRIORITY);
 plugin.on('actions::dequip', require('./equipment').dequip, BASE_PRIORITY);
@@ -104,6 +113,9 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	plugin.on('equip_actions::radio::radio_setchannel', require('./equipment/radio').radio_setchannel, BASE_PRIORITY);
 	// nuke
 	plugin.on('equip_actions::nuke::detonate', require('./equipment/nuke').detonate, BASE_PRIORITY);
+	// reality anchor
+	plugin.on('travelers::structurePlaced::reality_anchor', require('./equipment/reality_anchor').placed, BASE_PRIORITY);
+	plugin.on('travelers::structureBroke::reality_anchor', require('./equipment/reality_anchor').broke, BASE_PRIORITY);
 // trees
 plugin.on('actions::gettree', require('./trees').gettree, BASE_PRIORITY);
 plugin.on('actions::break', require('./trees').break, BASE_PRIORITY);
