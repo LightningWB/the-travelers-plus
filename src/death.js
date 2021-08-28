@@ -29,6 +29,22 @@ module.exports.kill = function(player) {
 	}
 }
 
+module.exports.loot_next = function(_packet, player) {
+	const eventObj = chunks.getObject(player.public.x, player.public.y);
+	if(eventObj && eventObj.private.eventData && eventObj.private.eventData.type === 'body') {
+		const items = eventObj.private.eventData.loot.main;
+		let count = 0;
+		for(const id in items) {
+			if(typeof items[id] === 'number' && !isNaN(items[id])) {
+				count += items[id];
+			}
+		}
+		if(count <= 0) {
+			chunks.removeObject(player.public.x, player.public.y);
+		}
+	}
+}
+
 module.exports.suicide = function(_packet, player) {
 	emit('travelers', 'killPlayer', player);
 }
