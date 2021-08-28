@@ -123,8 +123,8 @@ module.exports.playerTick = function(player) {
  */
 module.exports.playerJoinInteraction = function(player) {
 	player.public.state = 'int';
-	player.cache.intLeaveTimeout = 5;
 	if(players.isPlayerOnline(player.public.username)) {
+		player.cache.intLeaveTimeout = 5;
 		player.addPropToQueue('state');
 	}
 }

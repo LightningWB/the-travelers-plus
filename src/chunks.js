@@ -3,6 +3,19 @@ const { chunks, emit, triggerEvent, players, SAVE_INTERVAL } = require('./bullet
 let turn = 0;
 let activeChunks = [];
 
+const checkChunkPlayers = (chunk, chunkX, chunkY) => {
+	if(chunk && chunk.meta.players === undefined)chunk.meta.players = [];
+	for(const name of chunk.meta.players) {
+		const player = players.getPlayerByUsername(name);
+		const {x, y} = player.public;
+		if(chunk && x !== chunkX && y !== chunkY && chunk.meta.players.includes(player.public.username))
+		{
+			const playerIndex = chunk.meta.players.findIndex((playerInChunk) => playerInChunk === player.public.username);
+			chunk.meta.players.splice(playerIndex, 1);
+		}
+	}
+}
+
 /**
  * @param {import('../../player').playerData} player 
  */
@@ -32,13 +45,8 @@ module.exports.tick = function(player)
 			}
 			// player chunk lists
 			const chunk = chunks.getChunkFromChunkCoords(x, y);
-			if(chunk && chunk.meta.players === undefined)chunk.meta.players = [];
+			checkChunkPlayers(chunk);
 			if(chunk && x === chunkX  && y === chunkY && !chunk.meta.players.includes(player.public.username))chunk.meta.players.push(player.public.username);
-			if(chunk && x !== chunkX && y !== chunkY && chunk.meta.players.includes(player.public.username))
-			{
-				const playerIndex = chunk.meta.players.findIndex((playerInChunk) => playerInChunk === player.public.username);
-				chunk.meta.players.splice(playerIndex, 1);
-			}
 			const ps = [];
 			if(chunk) for(const username of chunk.meta.players)
 			{
@@ -46,6 +54,7 @@ module.exports.tick = function(player)
 				{
 					const player = players.getPlayerByUsername(username);
 					if(
+						player.public.state !== 'death' &&
 						(player.public.x > meX - 16 && player.public.x < meX + 16) &&// x values
 						(player.public.y > meY - 16 && player.public.y < meY + 16)// y values
 					){
