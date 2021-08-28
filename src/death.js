@@ -5,6 +5,7 @@ module.exports.kill = function(player) {
 	++player.public.deaths;
 	player.public.state = 'death';
 	player.temp.effects_removed = true;
+	delete player.public.equipped;
 	player.public.death_x = player.public.x;// use public to also say after a relog
 	player.public.death_y = player.public.y;
 	
@@ -27,5 +28,7 @@ module.exports.reincarnate = function(_packet, player) {
   delete player.public.death_x;
   delete player.public.death_y;
   emit('actions', 'reset_skills', null, player);
+  emit('travelers', 'renderItems', player);
+  emit('travelers', 'calcWeight', player);
   player.addPropToQueue('*');
 }
