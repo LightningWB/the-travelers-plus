@@ -14,6 +14,12 @@ const checkChunkPlayers = (chunk, chunkX, chunkY) => {
 			chunk.meta.players.splice(playerIndex, 1);
 		}
 	}
+	for(const name of chunk.meta.players) {
+		while(chunk.meta.players.lastIndexOf(name) !== chunk.meta.players.indexOf(name)) {
+			const playerIndex = chunk.meta.players.lastIndexOf(name);
+			chunk.meta.players.splice(playerIndex, 1);
+		}
+	}
 }
 
 /**
