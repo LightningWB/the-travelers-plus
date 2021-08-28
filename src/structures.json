@@ -1,0 +1,10 @@
+[
+	{
+		"id": "wood_block",
+		"placingItem": "wood_block",
+		"char": "+",
+		"isBreakable": true,
+		"breakTime": 50,
+		"walkOver": false
+	}
+]

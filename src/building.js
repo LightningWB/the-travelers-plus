@@ -1,7 +1,33 @@
 const { chunks, emit, triggerEvent, players, SAVE_INTERVAL, util } = require('./bullet')
 const getItem = require('./supplies').item;
 
-// TODO: get structure data somewhere (is_door, is_breakable, etc)
+/**
+ * @type {import('./building').fullData}
+ */
+const STRUCTURE_DATA = {};
+
+module.exports.addStructure(data) {
+	/**
+	 * @type {import('./building').structureData}
+	 */
+	const defaultData = {
+		isDoor: false,
+		isBreakable: false,
+		standOver: false,
+		walkOver: true
+	};
+	const requiredFields = [
+		['char', 'string'],
+		['placingItem', 'string'],
+		['id', 'string']
+	];
+	for(const required of requiredFields) {
+		if(typeof data[required[0]] !== required[1]) {
+			throw 'Invalid type for ' + required[0];
+		}
+	}
+	STRUCTURE_DATA[id] = util.mergeObject(data, defaultData);
+}
 
 /**
  * sends breaking info to player on connection
