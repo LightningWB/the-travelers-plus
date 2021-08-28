@@ -59,7 +59,8 @@ module.exports.chunkUnload = function(chunk) {
 					delete obj.public.walk_over;
 					delete obj.public.is_door;
 					delete obj.public.is_breakable;
-					delete obj.private.walkOn
+					delete obj.private.walkOn;
+          delete obj.public.break_time;
 				}
 			}
 		}
