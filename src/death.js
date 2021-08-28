@@ -6,16 +6,20 @@ module.exports.playerConnect = function(player) {
   player.addPropToQueue('*');
 }
 
-module.exports.suicide = function(_packet, player) {
-  if (player.private.deaths === undefined)player.private.deaths = 0;
-  ++player.private.deaths;
-  player.public.state = 'death';
-  player.temp.effects_removed = true;
-  player.temp.death_x = player.public.x;
-  player.temp.death_y = player.public.y;
-  player.temp.exe_js = 'ENGINE.console.innerHTML = \'\';ENGINE.logMsgs = [];';
+module.exports.kill = function(player) {
+	if (player.public.deaths === undefined)player.public.deaths = 0;
+	++player.public.deaths;
+	player.public.state = 'death';
+	player.temp.effects_removed = true;
+	player.public.death_x = player.public.x;// use public to also say after a relog
+	player.public.death_y = player.public.y;
+	emit('travelers','addExeJs', player, 'ENGINE.console.innerHTML = \'\';ENGINE.logMsgs = [];');
+	
+	player.addPropToQueue('deaths', 'state', 'effects_removed', 'death_x', 'death_y');
+}
 
-  player.addPropToQueue('deaths', 'state', 'effects_removed', 'death_x', 'death_y', 'exe_js');
+module.exports.suicide = function(_packet, player) {
+	emit('travelers', 'killPlayer', player);
 }
 
 module.exports.reincarnate = function(_packet, player) {
@@ -24,6 +28,8 @@ module.exports.reincarnate = function(_packet, player) {
   player.public.x = val.get().x;
 	player.public.y = val.get().y;
   player.public.state = 'travel';
+  delete player.public.death_x;
+  delete player.public.death_y;
   emit('actions', 'reset_skills', null, player);
   player.addPropToQueue('*');
 }
