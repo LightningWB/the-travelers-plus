@@ -126,6 +126,7 @@ plugin.on('loadChunk', require('./chunks').chunkLoad, BASE_PRIORITY + 100);
 plugin.on('saveChunk', require('./chunks').chunkUnload, BASE_PRIORITY);
 // death
 plugin.on('playerConnect', require('./death').playerConnect, BASE_PRIORITY);
+plugin.on('travelers::killPlayer', require('./death').kill, BASE_PRIORITY);
 plugin.on('actions::suicide', require('./death').suicide, BASE_PRIORITY);
 plugin.on('actions::reincarnate', require('./death').reincarnate, BASE_PRIORITY);
 
