@@ -75,8 +75,8 @@ plugin.on('actions::craft_cancelall', require('./crafting').cancelAll, BASE_PRIO
 plugin.on('actions::craft_cancelone', require('./crafting').cancelOne, BASE_PRIORITY);
 plugin.on('actions::learn', require('./crafting').learn, BASE_PRIORITY);
 // building
+plugin.on('travelers::addStructureData', require('./building').addStructure, BASE_PRIORITY);
 plugin.on('travelers::movePlayer', require('./building').cancelBreak, BASE_PRIORITY);
-plugin.on('travelers::createStructure', require('./building').createStructure, BASE_PRIORITY);
 plugin.on('travelers::placeStructure', require('./building').placeStructure, BASE_PRIORITY);
 plugin.on('travelers::breakStructure', require('./building').breakStructure, BASE_PRIORITY);
 plugin.on('actions::build', require('./building').build, BASE_PRIORITY);
@@ -84,6 +84,8 @@ plugin.on('actions::break', require('./building').break, BASE_PRIORITY);
 plugin.on('actions::cancel_break', require('./building').cancel_break, BASE_PRIORITY);
 plugin.on('playerConnect', require('./building').playerConnect, BASE_PRIORITY);
 plugin.on('playerTick', require('./building').tick, BASE_PRIORITY + 10);// apply first so other stuff can see structures
+plugin.on('loadChunk', require('./building').chunkLoad, BASE_PRIORITY);
+plugin.on('saveChunk', require('./building').chunkUnload, BASE_PRIORITY);
 // equipment
 plugin.on('actions::equip', require('./equipment').equip, BASE_PRIORITY);
 plugin.on('actions::dequip', require('./equipment').dequip, BASE_PRIORITY);
@@ -155,3 +157,5 @@ thetravelers.emit('travelers', 'addEvent', 'hole', require('./events/other/hole.
 		}
 	}
 })();
+// load structure data
+require('./structures.json').forEach(s => thetravelers.emit('travelers', 'addStructureData', s));

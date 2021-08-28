@@ -5,6 +5,7 @@ const getItem = require('./supplies').item;
  * @type {import('./building').fullData}
  */
 const STRUCTURE_DATA = {};
+const PLACING_TO_ID = {};
 
 module.exports.addStructure = function(data) {
 	/**
@@ -21,12 +22,57 @@ module.exports.addStructure = function(data) {
 		['placingItem', 'string'],
 		['id', 'string']
 	];
+	if(data.isBreakable) {
+		requiredFields.push(['breakTime', 'number']);
+	}
 	for(const required of requiredFields) {
 		if(typeof data[required[0]] !== required[1]) {
 			throw 'Invalid type for ' + required[0];
 		}
 	}
-	STRUCTURE_DATA[id] = util.mergeObject(data, defaultData);
+	PLACING_TO_ID[data.placingItem] = data.id;
+	STRUCTURE_DATA[data.id] = util.mergeObject(data, defaultData);
+}
+
+/**
+ * @param {object} obj 
+ */
+function addPublicDataToObject(obj) {
+	const structureId = obj.private.structureId;
+	const structureData = STRUCTURE_DATA[structureId];
+	if(structureData) {
+		obj.public.char = structureData.char;
+		obj.public.walk_over = structureData.standOver;
+		obj.public.is_door = structureData.isDoor;
+		obj.public.is_breakable = structureData.isBreakable;
+	}
+}
+
+module.exports.chunkUnload = function(chunk) {
+	for(const key in chunk) {
+		if(key !== 'meta') {
+			for(const obj of chunk[key]) {
+				if(obj.private && obj.private.structureId) {// these props get loaded up on runtime to allow changing every fence's texture or something
+					delete obj.public.char;
+					delete obj.public.walk_over;
+					delete obj.public.is_door;
+					delete obj.public.is_breakable;
+				}
+			}
+		}
+	}
+}
+
+module.exports.chunkLoad = function(chunk) {
+	for(const key in chunk) {
+		if(key !== 'meta') {
+			for(const obj of chunk[key]) {
+				if(obj.private.structureId) {
+					addPublicDataToObject(obj);
+				}
+			}
+		}
+	}
 }
 
 /**
@@ -54,10 +100,7 @@ module.exports.tick = function(player) {
     // removes item from player and places it
     const { id, x, y } = player.temp.placeStructure;
     emit('travelers', 'takePlayerItem', id, 1, player);
-    const structure = {};
-    emit('travelers', 'createStructure', x, y, id, structure);
-    if(Object.keys(structure).length === 0)return;
-    emit('travelers', 'placeStructure', structure, player);
+    emit('travelers', 'placeStructure', player.temp.placeStructure, player);
   }
   else if(player.private.breakStructure !== undefined)
   {
@@ -165,29 +208,21 @@ module.exports.cancelBreak = function(player) {
 }
 
 /**
- * creates a structure object from an itemId.
- * @param {Number} x 
- * @param {Number} y 
- * @param {string} itemId 
- */
-module.exports.createStructure = function(x, y, itemId, structurePtr) {
-  const item = getItem(itemId);
-  if(Object.keys(item).length < 1 || !item.build)return ;
-  structurePtr.public = {};
-  Object.assign(structurePtr.public, {x, y, char: item.icon, is_door: false, is_breakable: true, walk_over: false});
-  structurePtr.private = {id:item.name};
-}
-
-/**
  * 
  * @param {any} structure 
  * @param {players.player} player 
  * @returns 
  */
-module.exports.placeStructure = function(structure, player) {
-  if(chunks.getObject(structure.public.x, structure.public.y) !== undefined)return;
-  emit('travelers', 'structurePlaced::' + structure.private.id, structure, player);
-  chunks.addObject(structure.public.x, structure.public.y, structure.public, structure.private);
+module.exports.placeStructure = function(data, player) {
+	const structureData = STRUCTURE_DATA[PLACING_TO_ID[data.id]];
+	if(chunks.isObjectHere(data.x, data.y))return;
+	const privateData = {
+		structureId: structureData.id
+	};
+	chunks.addObject(data.x, data.y, {}, privateData);
+	const obj = chunks.getObject(data.x, data.y);
+	addPublicDataToObject(obj)
+	emit('travelers', 'structurePlaced::' + structureData.id, obj, player);
 }
 
 /**
