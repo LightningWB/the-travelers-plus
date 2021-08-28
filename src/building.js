@@ -46,6 +46,7 @@ function addPublicDataToObject(obj) {
 		obj.public.is_door = structureData.isDoor;
 		obj.public.is_breakable = structureData.isBreakable;
 		obj.private.walkOn = structureData.walkOver;
+    obj.public.break_time = structureData.breakTime;
 	}
 }
 
@@ -110,7 +111,7 @@ module.exports.tick = function(player) {
     if(player.private.breakStructure.time > 0)
     {
       player.temp.break_time = player.private.breakStructure.time;
-      player.private.breakStructure.time -= player.private.breakStructure.speed;
+      --player.private.breakStructure.time;
     }else
     {
       player.temp.break_time = -1;
@@ -177,17 +178,21 @@ module.exports.break = function(packet, player) {
   }
   
   // get break speed
-  // TODO: break with different tools
-  let breakSpeed = 1;
+  let breakTime = structure.public.break_time;
   let breakItem = 'hands'
   if(packet.option !== breakItem)
   {
-    // Change break speed
+    const tool = getItem(packet.option);
+    if (tool.break_ratio !== undefined)
+    {
+      breakItem = packet.option;
+      // tool.break_ratio% faster
+      breakTime = Math.round(structure.public.break_time * (1 - tool.break_ratio / 100));
+    }
   }
 
   // set up breaking data
-  const item = getItem(structure.private.id);
-  player.private.breakStructure = {x: breakX, y: breakY, item: breakItem, time: item.break_time, speed: breakSpeed};
+  player.private.breakStructure = {x: breakX, y: breakY, item: breakItem, time: breakTime};
 }
 
 /**
