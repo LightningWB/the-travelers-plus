@@ -19,8 +19,10 @@ module.exports.suicide = function(_packet, player) {
 }
 
 module.exports.reincarnate = function(_packet, player) {
-  player.public.x = util.rand(-500, 500);
-	player.public.y = util.rand(-500, 500);
+  const val = util.out({x:util.rand(-500, 500), y:util.rand(-500, 500)}, 'object');
+  emit('travelers', 'getSpawnLocation', player, val);
+  player.public.x = val.get().x;
+	player.public.y = val.get().y;
   player.public.state = 'travel';
   emit('actions', 'reset_skills', null, player);
   player.addPropToQueue('*');
