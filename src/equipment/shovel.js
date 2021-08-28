@@ -69,7 +69,7 @@ module.exports.fill = function(player) {
 module.exports.loot_next = function(packet, player) {
 	const {x, y} = player.public;
 	const obj = chunks.getObject(x, y);
-	if(obj.private && obj.private.eventData && obj.private.eventData.type === 'hole' && obj.private.eventData.loot && obj.private.eventData.loot.main)
+	if(obj && obj.private && obj.private.eventData && obj.private.eventData.type === 'hole' && obj.private.eventData.loot && obj.private.eventData.loot.main)
 	{
 		const loot = obj.private.eventData.loot.main;
 		let itemCount = 0;

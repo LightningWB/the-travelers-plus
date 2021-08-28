@@ -34,6 +34,8 @@ plugin.on('actions::reset_skills', require('./stats').reset_skills, BASE_PRIORIT
 plugin.on('travelers::movePlayer', require('./stats').movePlayer, BASE_PRIORITY + 10);
 plugin.on('travelers::levelUpPlayer', require('./stats').levelUp, BASE_PRIORITY);
 plugin.on('travelers::calcWeight', require('./stats').calcWeight, BASE_PRIORITY);
+plugin.on('travelers::resetSkills', require('./stats').travelersResetSkills, BASE_PRIORITY);
+plugin.on('travelers::resetLevel', require('./stats').resetLevel, BASE_PRIORITY);
 // events
 plugin.on('travelers::movePlayer', require('./events').movePlayer, BASE_PRIORITY - 10);
 plugin.on('travelers::calcPlayerEvent', require('./events').calcPlayerEvent, BASE_PRIORITY);

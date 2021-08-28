@@ -1,6 +1,7 @@
 const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
 
 module.exports.kill = function(player) {
+	emit('travelers', 'resetLevel', player);
 	if (player.public.deaths === undefined)player.public.deaths = 0;
 	++player.public.deaths;
 	player.public.state = 'death';
@@ -57,7 +58,7 @@ module.exports.reincarnate = function(_packet, player) {
   player.public.state = 'travel';
   delete player.public.death_x;
   delete player.public.death_y;
-  emit('actions', 'reset_skills', null, player);
+  emit('travelers', 'resetSkills', player);
   emit('travelers', 'renderItems', player);
   emit('travelers', 'calcWeight', player);
   player.addPropToQueue('*');
