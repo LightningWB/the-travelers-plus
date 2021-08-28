@@ -128,6 +128,17 @@ module.exports.cancel_break = function(_packet, player) {
 }
 
 /**
+ * cancels player breaking on the server side
+ * @param {players.player} player 
+ */
+module.exports.cancelBreak = function(player) {
+  player.private.breakStructure = undefined;
+  player.temp.break_time = -1; // To clear the timer on the client
+  player.addPropToQueue("break_time");
+
+}
+
+/**
  * creates a structure object from an itemId.
  * @param {Number} x 
  * @param {Number} y 
