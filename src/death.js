@@ -18,13 +18,12 @@ module.exports.kill = function(player) {
 		'body'
 	);
 	const eventObj = chunks.getObject(player.public.x, player.public.y);
-	player.public.craft_queue = undefined;
-	player.addPropToQueue('craft_queue');
-	require('./crafting').cancelAll(null, player);
+	require('./crafting').cancelAll(null, player, false);
 	eventObj.private.eventData.loot = {main: util.clone(player.private.supplies)};
 	player.private.supplies = {};
-
+	
 	if(players.isPlayerOnline(player.public.username)) {
+		player.addPropToQueue('craft_queue');
 		emit('travelers','addExeJs', player, 'ENGINE.console.innerHTML = \'\';ENGINE.logMsgs = [];');
 		player.addPropToQueue('deaths', 'state', 'effects_removed', 'death_x', 'death_y');
 	}
