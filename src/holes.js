@@ -15,6 +15,9 @@ function isValidHole_0(obj)
 {
 	if(typeof obj.private !== 'object' || typeof obj.private.eventData !== 'object' || typeof obj.private.eventData.loot !== 'object')return false;
 	const loot = obj.private.eventData.loot.main;
+	if(!loot) {
+		return false;
+	}
 	const keys = Object.keys(loot).filter(e=>loot[e]);
 	if(keys.length === 0)return false;
 	if(keys.length > 2)return true;
