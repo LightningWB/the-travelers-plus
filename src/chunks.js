@@ -8,6 +8,9 @@ let activeChunks = [];
  */
 module.exports.tick = function(player)
 {
+	if(player.public.state === 'death') {// dead players don't need chunks loaded
+		return;
+	}
 	// loading chunks
 	const {x: chunkX, y: chunkY} = chunks.toChunkCoords(player.public.x, player.public.y);
 	const meX = player.public.x;
@@ -23,6 +26,10 @@ module.exports.tick = function(player)
 	{
 		for(let y = chunkY - 1; y <= chunkY + 1; y++)
 		{
+			if(!chunks.isChunkCoordsLoaded(x, y))
+			{
+				chunks.loadChunk(x, y);
+			}
 			// player chunk lists
 			const chunk = chunks.getChunkFromChunkCoords(x, y);
 			if(chunk && chunk.meta.players === undefined)chunk.meta.players = [];
@@ -31,10 +38,6 @@ module.exports.tick = function(player)
 			{
 				const playerIndex = chunk.meta.players.findIndex((playerInChunk) => playerInChunk === player.public.username);
 				chunk.meta.players.splice(playerIndex, 1);
-			}
-			if(!chunks.isChunkCoordsLoaded(x, y))
-			{
-				chunks.loadChunk(x, y);
 			}
 			const ps = [];
 			if(chunk) for(const username of chunk.meta.players)

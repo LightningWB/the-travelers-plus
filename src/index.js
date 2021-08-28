@@ -34,6 +34,8 @@ plugin.on('actions::reset_skills', require('./stats').reset_skills, BASE_PRIORIT
 plugin.on('travelers::movePlayer', require('./stats').movePlayer, BASE_PRIORITY + 10);
 plugin.on('travelers::levelUpPlayer', require('./stats').levelUp, BASE_PRIORITY);
 plugin.on('travelers::calcWeight', require('./stats').calcWeight, BASE_PRIORITY);
+plugin.on('travelers::resetSkills', require('./stats').travelersResetSkills, BASE_PRIORITY);
+plugin.on('travelers::resetLevel', require('./stats').resetLevel, BASE_PRIORITY);
 // interactions
 plugin.on('travelers::movePlayer', require('./interactions').movePlayer, BASE_PRIORITY - 10);
 plugin.on('travelers::playerJoinInteraction', require('./interactions').playerJoinInteraction, BASE_PRIORITY);
@@ -141,6 +143,11 @@ plugin.on('chunkSave', require('./chunks').save, BASE_PRIORITY);
 plugin.on('gameTickPre', require('./chunks').gameTickPre, BASE_PRIORITY);
 plugin.on('loadChunk', require('./chunks').chunkLoad, BASE_PRIORITY + 100);
 plugin.on('saveChunk', require('./chunks').chunkUnload, BASE_PRIORITY);
+// death
+plugin.on('travelers::killPlayer', require('./death').kill, BASE_PRIORITY);
+plugin.on('actions::suicide', require('./death').suicide, BASE_PRIORITY);
+plugin.on('actions::reincarnate', require('./death').reincarnate, BASE_PRIORITY);
+plugin.on('actions::loot_next', require('./death').loot_next, BASE_PRIORITY);
 
 // loading data
 thetravelers.emit('travelers', 'addGameItems', require('./itemData.json'));
