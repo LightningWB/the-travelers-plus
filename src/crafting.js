@@ -68,7 +68,7 @@ module.exports.tick = function(player) {
 }
 
 module.exports.cancelAll = function(packet, player) {
-	if(player.public.craft_queue && player.public.state === 'travel')
+	if(player.public.craft_queue)
 	{
 		for(const id in player.public.craft_queue)
 		{

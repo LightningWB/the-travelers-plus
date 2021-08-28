@@ -43,6 +43,9 @@ module.exports.chunkLoad = function(chunk) {
 }
 
 module.exports.playerTick = function(player) {
+	if(player.public.state === 'death') {
+		return;
+	}
 	const {x: chunkX, y: chunkY} = chunks.toChunkCoords(player.public.x, player.public.y);
 	const meX = player.public.x;
 	const meY = player.public.y;

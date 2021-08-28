@@ -9,6 +9,20 @@ module.exports.kill = function(player) {
 	player.public.death_x = player.public.x;// use public to also say after a relog
 	player.public.death_y = player.public.y;
 	
+	emit('travelers', 'addEventTile',
+		player.public.x,
+		player.public.y,
+		'@',
+		'body',
+		'body'
+	);
+	const eventObj = chunks.getObject(player.public.x, player.public.y);
+	player.public.craft_queue = undefined;
+	player.addPropToQueue('craft_queue');
+	require('./crafting').cancelAll(null, player);
+	eventObj.private.eventData.loot = {main: util.clone(player.private.supplies)};
+	player.private.supplies = {};
+
 	if(players.isPlayerOnline(player.public.username)) {
 		emit('travelers','addExeJs', player, 'ENGINE.console.innerHTML = \'\';ENGINE.logMsgs = [];');
 		player.addPropToQueue('deaths', 'state', 'effects_removed', 'death_x', 'death_y');
