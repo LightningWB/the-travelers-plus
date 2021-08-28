@@ -18,6 +18,19 @@ function hash(str)
 	return result;
 }
 
+function addData(storage) {
+	const result = {};
+	for(const key of Object.keys(storage)) {
+		result[key] = {
+			count: storage[key],
+			data: getItem(key)
+		}
+	}
+	return result;
+}
+
+module.exports.addData = addData;
+
 /**
  * @type {import('./events').eventTotal}
  */
@@ -204,6 +217,9 @@ module.exports.calcPlayerEvent = function(player) {
 			player.addPropToQueue('state');
 			return;
 		}
+		if(!eventObj.visitedRooms) {
+			eventObj.visitedRooms = [];
+		}
 		if(activeRoom.loot)// looting screen
 		{
 			let visited = true;
@@ -212,7 +228,8 @@ module.exports.calcPlayerEvent = function(player) {
 			{
 				visited = false;// hasn't been visited so use non visited description
 				emit('travelers', 'generateLoot', activeRoom, eventObj.loot[activeRoom.id] = {});
-				items = eventObj.loot[activeRoom.id];
+				
+				items = addData(eventObj.loot[activeRoom.id]);
 			}
 			else for(const item in eventObj.loot[activeRoom.id])
 			{
@@ -335,12 +352,9 @@ module.exports.generateLoot = function(room, items) {
 			{
 				const item = {};
 				emit('travelers', 'getItem', tableItem.id, item);
-				items[tableItem.id] = {
-					count: 0,
-					data: item
-				};
+				items[tableItem.id] = 0;
 			}
-			items[tableItem.id].count += amount;
+			items[tableItem.id] += amount;
 
 		}
 	}
@@ -509,6 +523,51 @@ module.exports.loot_exchange = function(packet, player) {
 	}
 }
 
+function lootAll(packet, player, storage) {
+	let opWeight = 0;
+	const loot = storage;
+	const compiled = {};
+	for(const itemId in loot)
+	{
+		if(typeof loot[itemId] === 'number' && loot[itemId] > 0)
+		{
+			const item = getItem(itemId);
+			const weight = item.weight;
+			let pWeight = player.public.skills.carry;
+			let changed = 0;
+			while(pWeight + weight < player.public.skills.max_carry && loot[itemId] - changed > 0)
+			{
+				pWeight += weight;
+				changed++;
+			}
+			loot[itemId] -= changed;
+			giveItemToPlayer(itemId, changed, player);
+			opWeight += weight * loot[itemId];
+			if(loot[itemId] === 0)loot[itemId] = undefined;
+			else compiled[itemId] = {count: loot[itemId], data: item};
+		}
+	}
+	emit('travelers', 'renderItems', player, false);
+	player.sendMidCycleCall({loot_change: {
+		takeall: true,
+		was_you: true,
+		your_new: player.temp.supplies,
+		your_weight: player.public.skills.carry,
+		opp_weight: opWeight,
+		opp_new: compiled
+	}});
+}
+
+module.exports.int_takeall = function(packet, player) {
+	if(typeof player.private.lootingPlayer === 'string') {
+		if(!players.isPlayerOnline(player.private.lootingPlayer)) {
+			const targetPlayer = players.getPlayerByUsername(player.private.lootingPlayer)
+			if(!targetPlayer) return false;
+			lootAll(packet, player, targetPlayer.private.supplies);
+		}
+	}
+}
+
 /**
  * @param {object} packet 
  * @param {players.player} player 
@@ -520,37 +579,7 @@ module.exports.loot_all = function(packet, player) {
 		if(eventObj && eventObj.type === player.private.eventData.type && eventObj.id === player.private.eventData.id)
 		{
 			const loot = eventObj.loot[player.private.eventData.room];
-			let opWeight = 0;
-			const compiled = {};
-			for(const itemId in loot)
-			{
-				if(typeof loot[itemId] === 'number')
-				{
-					const item = getItem(itemId);
-					const weight = item.weight;
-					let pWeight = player.public.skills.carry;
-					let changed = 0;
-					while(pWeight + weight < player.public.skills.max_carry && loot[itemId] - changed > 0)
-					{
-						pWeight += weight;
-						changed++;
-					}
-					loot[itemId] -= changed;
-					giveItemToPlayer(itemId, changed, player);
-					opWeight += weight * loot[itemId];
-					if(loot[itemId] === 0)loot[itemId] = undefined;
-					else compiled[itemId] = {count: loot[itemId], data: item};
-				}
-			}
-			emit('travelers', 'renderItems', player, false);
-			player.sendMidCycleCall({loot_change: {
-				takeall: true,
-				was_you: true,
-				your_new: player.temp.supplies,
-				your_weight: player.public.skills.carry,
-				opp_weight: opWeight,
-				opp_new: compiled
-			}});
+			lootAll(packet, player, loot);
 		}
 	}
 }

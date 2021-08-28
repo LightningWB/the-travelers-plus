@@ -52,9 +52,7 @@ module.exports.create = function(player) {
 }
 
 module.exports.eventLog = function(message, player, ) {
-	if(!player.temp.exe_js)player.temp.exe_js = '';
-	player.temp.exe_js += "ENGINE.log('" + message + "', false);";
-	player.addPropToQueue('exe_js');
+	emit('travelers', 'addExeJs', "ENGINE.log('" + message + "', false);");
 }
 
 module.exports.eventLogEscape = function(message, player) {
@@ -83,4 +81,13 @@ module.exports.xssReplace = str => {
 		"\n": '&#92;n'
 	};
 	return str.replace( /[&<>'"/\\\n]/g, char => xssReplace[char]).replace(/&#92;n/g, '<br />');
+}
+
+module.exports.addExeJs = function(player, js) {
+	if(player.temp.exe_js === undefined) {
+		player.temp.exe_js = js + ';';
+		player.addPropToQueue('exe_js');
+	} else {
+		player.temp.exe_js += ';' + js + ';';// toro sends js this way so...
+	}
 }

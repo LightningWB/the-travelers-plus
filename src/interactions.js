@@ -1,5 +1,6 @@
 const { xssReplace } = require('./base');
 const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
+const { addData } = require('./events');
 
 /**
  * @param {{x: number, y: number}} location any object that has an "x" and "y" property
@@ -88,6 +89,15 @@ module.exports.playerConnect = function(player) {
 		player.temp.offline_msgs = Object.values(player.private.offline_msgs);
 		delete player.private.offline_msgs;
 	}
+	if(player.private.lootingPlayer) {
+		const victim = players.getPlayerByUsername(player.private.lootingPlayer);
+		player.temp.int_offlineloot = {
+			username: player.private.lootingPlayer,
+			loot: addData(victim.private.supplies),
+			limit: victim.public.skills.max_carry
+		};
+		player.addPropToQueue('int_offlineloot');
+	}
 }
 
 /**
@@ -173,5 +183,26 @@ module.exports.getMessage = function(packet, player) {
 	const targetPlayer = players.getPlayerByUsername(packet.username);
 	if(canSee(player, targetPlayer) && offline(packet.username)) {
 		delete targetPlayer.private.offline_msgs[player.public.username];
+	}
+}
+
+module.exports.lootOffline = function(packet, player) {
+	if(typeof packet.username === 'string' && offline(packet.username)) {
+		player.private.lootingPlayer = packet.username;
+		const victim = players.getPlayerByUsername(packet.username);
+		player.temp.int_offlineloot = {
+			username: packet.username,
+			loot: addData(victim.private.supplies),
+			limit: victim.public.skills.max_carry
+		};
+		player.addPropToQueue('int_offlineloot');
+	}
+}
+
+module.exports.next = function(packet, player) {
+	if(player.private.lootingPlayer) {
+		delete player.private.lootingPlayer;
+		emit('travelers', 'addExeJs', player, 'INT.doneLooting();');
+		emit('travelers', 'renderItems', player);
 	}
 }

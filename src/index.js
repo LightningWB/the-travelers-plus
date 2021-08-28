@@ -38,10 +38,12 @@ plugin.on('travelers::calcWeight', require('./stats').calcWeight, BASE_PRIORITY)
 plugin.on('travelers::movePlayer', require('./interactions').movePlayer, BASE_PRIORITY - 10);
 plugin.on('travelers::playerJoinInteraction', require('./interactions').playerJoinInteraction, BASE_PRIORITY);
 plugin.on('actions::leave_int', require('./interactions').leave_int, BASE_PRIORITY);
-plugin.on('actions::chat', require('./interactions').chat, BASE_PRIORITY);
+plugin.on('actions::chat', require('./interactions').chat, BASE_PRIORITY);// communication
 plugin.on('actions::int_leavemsg', require('./interactions').leaveMessage, BASE_PRIORITY);
 plugin.on('actions::int_getmsg', require('./interactions').getMessage, BASE_PRIORITY);
 plugin.on('actions::int_removemsg', require('./interactions').removeMessage, BASE_PRIORITY);
+plugin.on('actions::int_lootoffline', require('./interactions').lootOffline, BASE_PRIORITY);// looting
+plugin.on('actions::int_next', require('./interactions').next, BASE_PRIORITY);
 plugin.on('playerReady', require('./interactions').playerReady, BASE_PRIORITY);
 plugin.on('playerConnect', require('./interactions').playerConnect, BASE_PRIORITY);
 plugin.on('disconnect', require('./interactions').disconnect, BASE_PRIORITY);
@@ -57,6 +59,7 @@ plugin.on('travelers::generateLoot', require('./events').generateLoot, BASE_PRIO
 plugin.on('actions::loot_next', require('./events').loot_next, BASE_PRIORITY);
 plugin.on('actions::loot_exchange', require('./events').loot_exchange, BASE_PRIORITY);
 plugin.on('actions::loot_takeall', require('./events').loot_all, BASE_PRIORITY);
+plugin.on('actions::int_takeall', require('./events').int_takeall, BASE_PRIORITY);
 plugin.on('actions::event_choice', require('./events').event_choice, BASE_PRIORITY);
 plugin.on('actions::reenter', require('./events').reEnter, BASE_PRIORITY);
 plugin.on('playerConnect', require('./events').loadPlayer, BASE_PRIORITY + 10);
@@ -127,6 +130,7 @@ plugin.on('gameTickPre', require('./trees').tick, BASE_PRIORITY);
 require('./base').plugin(plugin);// give base access to the plugin for message popups
 plugin.on('travelers::eventLogUnsafe', require('./base').eventLog, BASE_PRIORITY);
 plugin.on('travelers::eventLog', require('./base').eventLogEscape, BASE_PRIORITY);
+plugin.on('travelers::addExeJs', require('./base').addExeJs, BASE_PRIORITY);
 plugin.on('playerReady', require('./base').join, BASE_PRIORITY);
 plugin.on('playerCreate', require('./base').create, BASE_PRIORITY);
 // chunks
