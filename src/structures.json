@@ -4,7 +4,39 @@
 		"placingItem": "wood_block",
 		"char": "+",
 		"isBreakable": true,
-		"breakTime": 50,
+		"breakTime": 10800,
+		"walkOver": false
+	},
+	{
+		"id": "scrap_block",
+		"placingItem": "scrap_block",
+		"char": "#",
+		"isBreakable": true,
+		"breakTime": 21600,
+		"walkOver": false
+	},
+	{
+		"id": "steel_block",
+		"placingItem": "steel_block",
+		"char": "<b>#</b>",
+		"isBreakable": true,
+		"breakTime": 57600,
+		"walkOver": false
+	},
+	{
+		"id": "wood_block",
+		"placingItem": "wood_block",
+		"char": "+",
+		"isBreakable": true,
+		"breakTime": 10800,
+		"walkOver": false
+	},
+	{
+		"id": "reality_anchor",
+		"placingItem": "reality_anchor",
+		"char": "┬",
+		"isBreakable": true,
+		"breakTime": 7200,
 		"walkOver": false
 	}
 ]

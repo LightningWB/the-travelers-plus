@@ -100,6 +100,7 @@ module.exports.tick = function(player) {
     // removes item from player and places it
     const { id, x, y } = player.temp.placeStructure;
     emit('travelers', 'takePlayerItem', id, 1, player);
+	emit('travelers', 'renderItems', player);
     emit('travelers', 'placeStructure', player.temp.placeStructure, player);
   }
   else if(player.private.breakStructure !== undefined)
@@ -215,7 +216,10 @@ module.exports.cancelBreak = function(player) {
  */
 module.exports.placeStructure = function(data, player) {
 	const structureData = STRUCTURE_DATA[PLACING_TO_ID[data.id]];
-	if(chunks.isObjectHere(data.x, data.y))return;
+	if(chunks.isObjectHere(data.x, data.y)) {
+		emit('travelers', 'eventLog', 'unable to place object here.', player)
+		return;
+	}
 	const privateData = {
 		structureId: structureData.id
 	};
