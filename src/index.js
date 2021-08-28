@@ -58,6 +58,7 @@ plugin.on('travelers::addEventTile', require('./events').addEventTile, BASE_PRIO
 plugin.on('travelers::generateLoot', require('./events').generateLoot, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./events').loot_next, BASE_PRIORITY);
 plugin.on('actions::loot_exchange', require('./events').loot_exchange, BASE_PRIORITY);
+plugin.on('actions::int_exchange', require('./events').int_exchange, BASE_PRIORITY);
 plugin.on('actions::loot_takeall', require('./events').loot_all, BASE_PRIORITY);
 plugin.on('actions::int_takeall', require('./events').int_takeall, BASE_PRIORITY);
 plugin.on('actions::event_choice', require('./events').event_choice, BASE_PRIORITY);

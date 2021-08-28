@@ -52,7 +52,7 @@ module.exports.create = function(player) {
 }
 
 module.exports.eventLog = function(message, player, ) {
-	emit('travelers', 'addExeJs', "ENGINE.log('" + message + "', false);");
+	emit('travelers', 'addExeJs', player, "ENGINE.log('" + message + "', false);");
 }
 
 module.exports.eventLogEscape = function(message, player) {
