@@ -6,7 +6,7 @@ const getItem = require('./supplies').item;
  */
 const STRUCTURE_DATA = {};
 
-module.exports.addStructure(data) {
+module.exports.addStructure = function(data) {
 	/**
 	 * @type {import('./building').structureData}
 	 */
