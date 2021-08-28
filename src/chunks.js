@@ -127,7 +127,7 @@ module.exports.chunkLoad = function(chunk) {
 }
 
 module.exports.chunkUnload = function(chunk) {
-	if(chunk.meta.players.length === 0)
+	if(chunk.meta.players && chunk.meta.players.length === 0)
 	{
 		delete chunk.meta.players;
 	}

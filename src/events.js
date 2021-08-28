@@ -18,6 +18,19 @@ function hash(str)
 	return result;
 }
 
+function addData(storage) {
+	const result = {};
+	for(const key of Object.keys(storage)) {
+		result[key] = {
+			count: storage[key],
+			data: getItem(key)
+		}
+	}
+	return result;
+}
+
+module.exports.addData = addData;
+
 /**
  * @type {import('./events').eventTotal}
  */
@@ -33,6 +46,7 @@ module.exports.addEvent = function(type, data) {
 
 module.exports.onAddEvent = function(type, data) {
 	const oldData = util.clone(data);
+	data.weight = parseInt(data.weight);
 	data.rooms = {};
 	for(const roomId in oldData.rooms)
 	{
@@ -203,6 +217,9 @@ module.exports.calcPlayerEvent = function(player) {
 			player.addPropToQueue('state');
 			return;
 		}
+		if(!eventObj.visitedRooms) {
+			eventObj.visitedRooms = [];
+		}
 		if(activeRoom.loot)// looting screen
 		{
 			let visited = true;
@@ -211,7 +228,8 @@ module.exports.calcPlayerEvent = function(player) {
 			{
 				visited = false;// hasn't been visited so use non visited description
 				emit('travelers', 'generateLoot', activeRoom, eventObj.loot[activeRoom.id] = {});
-				items = eventObj.loot[activeRoom.id];
+				
+				items = addData(eventObj.loot[activeRoom.id]);
 			}
 			else for(const item in eventObj.loot[activeRoom.id])
 			{
@@ -334,12 +352,9 @@ module.exports.generateLoot = function(room, items) {
 			{
 				const item = {};
 				emit('travelers', 'getItem', tableItem.id, item);
-				items[tableItem.id] = {
-					count: 0,
-					data: item
-				};
+				items[tableItem.id] = 0;
 			}
-			items[tableItem.id].count += amount;
+			items[tableItem.id] += amount;
 
 		}
 	}
@@ -424,6 +439,86 @@ module.exports.loot_next = function(packet, player) {
 	}
 }
 
+function lootExchange(packet, player, storage, size) {
+	const loot = storage;
+	packet.amount = Math.abs(packet.amount);
+	// taking items
+	if(packet.which)
+	{
+		if(loot[packet.item] && packet.amount !== 0)
+		{
+			if(loot[packet.item].count < packet.amount)packet.amount = loot[packet.item].count;
+			let d = {};
+			emit('travelers', 'getItem', packet.item, d);
+			let takingWeight = packet.amount * d.weight;
+			let availableWeight = player.public.skills.max_carry - player.public.skills.carry;
+			while(takingWeight > availableWeight && packet.amount > 0)
+			{
+				packet.amount--;
+				takingWeight = packet.amount * d.weight;
+			}
+			if(packet.amount <= 0)return;
+			emit('travelers', 'givePlayerItem', packet.item, packet.amount, player);
+			emit('travelers', 'removeItem', packet.item, packet.amount, loot);
+			player.sendMidCycleCall({loot_change: {
+				amount: packet.amount,
+				item_id: packet.item,
+				was_you: true,
+				which: true,
+				item_data: d
+			}});
+		}
+		emit('travelers', 'calcWeight', player);
+	}
+	// giving items
+	else if(!packet.which)
+	{
+		// check they can give it
+		if(player.private.supplies[packet.item] && player.private.supplies[packet.item] >= packet.amount && packet.amount !== 0)
+		{
+			if(player.private.supplies[packet.item] && player.private.supplies[packet.item].count < packet.amount)packet.amount = player.private.supplies[packet.item];
+			let d = {};
+			emit('travelers', 'getItem', packet.item, d);
+			let currentWeight = 0;
+			for(const item in loot)
+			{
+				currentWeight += loot[item] * d.weight;
+			}
+			let givingWeight = packet.amount * d.weight;
+			let availableWeight = (size || 200) - currentWeight;
+			while(givingWeight > availableWeight && packet.amount > 0)
+			{
+				packet.amount--;
+				givingWeight = packet.amount * d.weight;
+			}
+			if(packet.amount <= 0)return;
+			emit('travelers', 'givePlayerItem', packet.item, packet.amount * -1, player);
+			emit('travelers', 'addItem', packet.item, packet.amount, loot);
+			player.sendMidCycleCall({loot_change: {
+				amount: packet.amount,
+				item_id: packet.item,
+				was_you: true,
+				which: false,
+				item_data: d
+			}});
+			if(player.public.equipped === packet.item && (player.private.supplies[packet.item] === undefined || player.private.supplies[packet.item] < 1))
+			{
+				player.addPropToQueue('equipped');
+				player.public.equipped = undefined;
+			}
+		}
+	}
+	emit('travelers', 'calcWeight', player);
+}
+
+module.exports.int_exchange = function(packet, player) {
+	if(typeof packet.item === 'string' && typeof packet.amount === 'number' && typeof packet.which === 'boolean' && typeof player.private.lootingPlayer === 'string')
+	{
+		const p = players.getPlayerByUsername(player.private.lootingPlayer);
+		lootExchange(packet, player, p.private.supplies, p.public.skills.max_carry);
+	}
+}
+
 /**
  * @param {object} packet 
  * @param {players.player} player 
@@ -431,79 +526,57 @@ module.exports.loot_next = function(packet, player) {
 module.exports.loot_exchange = function(packet, player) {
 	if(player.public.state === 'looting' && typeof packet.item === 'string' && typeof packet.amount === 'number' && typeof packet.which === 'boolean')
 	{
-		packet.amount = Math.abs(packet.amount);
 		const eventObj = getEvent(player.public.x, player.public.y);
 		const activeRoom = getRoom(player);
 		if(eventObj && eventObj.type === player.private.eventData.type && eventObj.id === player.private.eventData.id)
 		{
 			const loot = eventObj.loot[player.private.eventData.room];
-			// taking items
-			if(packet.which)
+			lootExchange(packet, player, loot, activeRoom.size);
+		}
+	}
+}
+
+function lootAll(packet, player, storage) {
+	let opWeight = 0;
+	const loot = storage;
+	const compiled = {};
+	for(const itemId in loot)
+	{
+		if(typeof loot[itemId] === 'number' && loot[itemId] > 0)
+		{
+			const item = getItem(itemId);
+			const weight = item.weight;
+			let pWeight = player.public.skills.carry;
+			let changed = 0;
+			while(pWeight + weight < player.public.skills.max_carry && loot[itemId] - changed > 0)
 			{
-				if(loot[packet.item] && packet.amount !== 0)
-				{
-					if(loot[packet.item].count < packet.amount)packet.amount = loot[packet.item].count;
-					let d = {};
-					emit('travelers', 'getItem', packet.item, d);
-					let takingWeight = packet.amount * d.weight;
-					let availableWeight = player.public.skills.max_carry - player.public.skills.carry;
-					while(takingWeight > availableWeight && packet.amount > 0)
-					{
-						packet.amount--;
-						takingWeight = packet.amount * d.weight;
-					}
-					if(packet.amount <= 0)return;
-					emit('travelers', 'givePlayerItem', packet.item, packet.amount, player);
-					emit('travelers', 'removeItem', packet.item, packet.amount, loot);
-					player.sendMidCycleCall({loot_change: {
-						amount: packet.amount,
-						item_id: packet.item,
-						was_you: true,
-						which: true,
-						item_data: d
-					}});
-				}
-				emit('travelers', 'calcWeight', player);
+				pWeight += weight;
+				changed++;
 			}
-			// giving items
-			else if(!packet.which)
-			{
-				// check they can give it
-				if(player.private.supplies[packet.item] && player.private.supplies[packet.item] >= packet.amount && packet.amount !== 0)
-				{
-					if(player.private.supplies[packet.item] && player.private.supplies[packet.item].count < packet.amount)packet.amount = player.private.supplies[packet.item];
-					let d = {};
-					emit('travelers', 'getItem', packet.item, d);
-					let currentWeight = 0;
-					for(const item in loot)
-					{
-						currentWeight += loot[item] * d.weight;
-					}
-					let givingWeight = packet.amount * d.weight;
-					let availableWeight = (activeRoom.size || 200) - currentWeight;
-					while(givingWeight > availableWeight && packet.amount > 0)
-					{
-						packet.amount--;
-						givingWeight = packet.amount * d.weight;
-					}
-					if(packet.amount <= 0)return;
-					emit('travelers', 'givePlayerItem', packet.item, packet.amount * -1, player);
-					emit('travelers', 'addItem', packet.item, packet.amount, loot);
-					player.sendMidCycleCall({loot_change: {
-						amount: packet.amount,
-						item_id: packet.item,
-						was_you: true,
-						which: false,
-						item_data: d
-					}});
-					if(player.public.equipped === packet.item && (player.private.supplies[packet.item] === undefined || player.private.supplies[packet.item] < 1))
-					{
-						player.addPropToQueue('equipped');
-						player.public.equipped = undefined;
-					}
-				}
-			}
-			emit('travelers', 'calcWeight', player);
+			loot[itemId] -= changed;
+			giveItemToPlayer(itemId, changed, player);
+			opWeight += weight * loot[itemId];
+			if(loot[itemId] === 0)loot[itemId] = undefined;
+			else compiled[itemId] = {count: loot[itemId], data: item};
+		}
+	}
+	emit('travelers', 'renderItems', player, false);
+	player.sendMidCycleCall({loot_change: {
+		takeall: true,
+		was_you: true,
+		your_new: player.temp.supplies,
+		your_weight: player.public.skills.carry,
+		opp_weight: opWeight,
+		opp_new: compiled
+	}});
+}
+
+module.exports.int_takeall = function(packet, player) {
+	if(typeof player.private.lootingPlayer === 'string') {
+		if(!players.isPlayerOnline(player.private.lootingPlayer)) {
+			const targetPlayer = players.getPlayerByUsername(player.private.lootingPlayer)
+			if(!targetPlayer) return false;
+			lootAll(packet, player, targetPlayer.private.supplies);
 		}
 	}
 }
@@ -519,37 +592,7 @@ module.exports.loot_all = function(packet, player) {
 		if(eventObj && eventObj.type === player.private.eventData.type && eventObj.id === player.private.eventData.id)
 		{
 			const loot = eventObj.loot[player.private.eventData.room];
-			let opWeight = 0;
-			const compiled = {};
-			for(const itemId in loot)
-			{
-				if(typeof loot[itemId] === 'number')
-				{
-					const item = getItem(itemId);
-					const weight = item.weight;
-					let pWeight = player.public.skills.carry;
-					let changed = 0;
-					while(pWeight + weight < player.public.skills.max_carry && loot[itemId] - changed > 0)
-					{
-						pWeight += weight;
-						changed++;
-					}
-					loot[itemId] -= changed;
-					giveItemToPlayer(itemId, changed, player);
-					opWeight += weight * loot[itemId];
-					if(loot[itemId] === 0)loot[itemId] = undefined;
-					else compiled[itemId] = {count: loot[itemId], data: item};
-				}
-			}
-			emit('travelers', 'renderItems', player, false);
-			player.sendMidCycleCall({loot_change: {
-				takeall: true,
-				was_you: true,
-				your_new: player.temp.supplies,
-				your_weight: player.public.skills.carry,
-				opp_weight: opWeight,
-				opp_new: compiled
-			}});
+			lootAll(packet, player, loot);
 		}
 	}
 }
