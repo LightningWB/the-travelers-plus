@@ -7,9 +7,11 @@ module.exports.kill = function(player) {
 	player.temp.effects_removed = true;
 	player.public.death_x = player.public.x;// use public to also say after a relog
 	player.public.death_y = player.public.y;
-	emit('travelers','addExeJs', player, 'ENGINE.console.innerHTML = \'\';ENGINE.logMsgs = [];');
 	
-	player.addPropToQueue('deaths', 'state', 'effects_removed', 'death_x', 'death_y');
+	if(players.isPlayerOnline(player.public.username)) {
+		emit('travelers','addExeJs', player, 'ENGINE.console.innerHTML = \'\';ENGINE.logMsgs = [];');
+		player.addPropToQueue('deaths', 'state', 'effects_removed', 'death_x', 'death_y');
+	}
 }
 
 module.exports.suicide = function(_packet, player) {
