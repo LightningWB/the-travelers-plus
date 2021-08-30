@@ -605,6 +605,7 @@ function lootAll(packet, player, storage) {
 			}
 			loot[itemId] -= changed;
 			giveItemToPlayer(itemId, changed, player);
+			player.public.skills.carry += changed * weight;
 			opWeight += weight * loot[itemId];
 			if(loot[itemId] === 0)loot[itemId] = undefined;
 			else compiled[itemId] = {count: loot[itemId], data: item};

@@ -161,6 +161,7 @@ module.exports.levelUp = function(player) {
 module.exports.playerJoin = function(player) {
 	// you have to clone here to stop everyone sharing a common skill set
 	if(!player.public.skills)player.public.skills = util.clone(defaultSkillValues);
+	emit('travelers', 'calcWeight', player);
 }
 
 /**
