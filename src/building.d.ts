@@ -17,7 +17,7 @@ export declare type structureData = {
 	 */
 	isBreakable?: boolean,
 	/**
-	 * default to 1 if `isBreakable`
+	 * required if `isBreakable`
 	 */
 	breakTime?: number,
 	/**
