@@ -36,6 +36,7 @@ plugin.on('travelers::levelUpPlayer', require('./stats').levelUp, BASE_PRIORITY)
 plugin.on('travelers::calcWeight', require('./stats').calcWeight, BASE_PRIORITY);
 plugin.on('travelers::resetSkills', require('./stats').travelersResetSkills, BASE_PRIORITY);
 plugin.on('travelers::resetLevel', require('./stats').resetLevel, BASE_PRIORITY);
+plugin.on('travelers::givePlayerXp', require('./stats').givePlayerXp, BASE_PRIORITY);
 // interactions
 plugin.on('travelers::movePlayer', require('./interactions').movePlayer, BASE_PRIORITY - 10);
 plugin.on('travelers::playerJoinInteraction', require('./interactions').playerJoinInteraction, BASE_PRIORITY);
@@ -52,13 +53,15 @@ plugin.on('playerConnect', require('./interactions').playerConnect, BASE_PRIORIT
 plugin.on('disconnect', require('./interactions').disconnect, BASE_PRIORITY);
 plugin.on('playerTick', require('./interactions').playerTick, BASE_PRIORITY);
 // events
-plugin.on('travelers::movePlayer', require('./events').movePlayer, BASE_PRIORITY - 10);
+plugin.on('travelers::onPlayerStep', require('./events').movePlayer, BASE_PRIORITY - 10);
 plugin.on('travelers::calcPlayerEvent', require('./events').calcPlayerEvent, BASE_PRIORITY);
 plugin.on('travelers::movePlayerToEvent', require('./events').movePlayerToEvent, BASE_PRIORITY);
 plugin.on('travelers::addEvent', require('./events').addEvent, BASE_PRIORITY);
 plugin.on('travelers::addEvent', require('./events').onAddEvent, BASE_PRIORITY - 10);
 plugin.on('travelers::addEventTile', require('./events').addEventTile, BASE_PRIORITY);
 plugin.on('travelers::generateLoot', require('./events').generateLoot, BASE_PRIORITY);
+plugin.on('travelers::setReward', require('./events').setReward, BASE_PRIORITY);
+plugin.on('travelers::getRewards', require('./events').getRewards, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./events').loot_next, BASE_PRIORITY);
 plugin.on('actions::loot_exchange', require('./events').loot_exchange, BASE_PRIORITY);
 plugin.on('actions::int_exchange', require('./events').int_exchange, BASE_PRIORITY);

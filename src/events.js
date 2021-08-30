@@ -11,6 +11,11 @@ const expiry = {// time in seconds
 	city: 60 * 60 * 24 * 7
 };
 
+const XP_REWARDS = {
+	house: 25,
+	city: 100
+};
+
 // to save player in correct room
 const hashTable = {};
 
@@ -86,6 +91,14 @@ module.exports.onAddEvent = function(type, data) {
 			data.rooms[newId].visitTarget = hash(data.rooms[newId].visitTarget);
 		}
 	}
+}
+
+module.exports.setReward = function(type, value) {
+	XP_REWARDS[type] = value;
+}
+
+module.exports.getRewards = function(val) {
+	val.set(util.clone(XP_REWARDS));
 }
 
 /**
@@ -393,6 +406,13 @@ module.exports.event_choice = function(packet, player) {
 		{
 			if(packet.option === '__leave__')
 			{
+				const obj = chunks.getObject(player.public.x, player.public.y);
+				if(obj) {
+					if(obj.private.visited === false && obj.private.eventData && XP_REWARDS[obj.private.eventData.type]) {
+						emit('travelers', 'givePlayerXp', player, util.out(XP_REWARDS[obj.private.eventData.type]));
+						obj.private.visited = true;
+					}
+				}
 				player.public.state = 'travel';
 				player.private.eventData = undefined;
 				player.addPropToQueue('state');
@@ -445,6 +465,13 @@ module.exports.loot_next = function(packet, player) {
 			player.private.eventData.room = activeRoom.nextId || 'leave';
 			if(player.private.eventData.room === 'leave')
 			{
+				const obj = chunks.getObject(player.public.x, player.public.y);
+				if(obj) {
+					if(obj.private.visited === false && obj.private.eventData && XP_REWARDS[obj.private.eventData.type]) {
+						emit('travelers', 'givePlayerXp', player, util.out(XP_REWARDS[obj.private.eventData.type]));
+						obj.private.visited = true;
+					}
+				}
 				player.public.state = 'travel';
 				player.private.eventData = undefined;
 				player.addPropToQueue('state');
@@ -617,20 +644,23 @@ module.exports.loot_all = function(packet, player) {
 /**
  * @param {players.player} player 
  */
-module.exports.movePlayer = function(player) {
+module.exports.movePlayer = function(player, cancel) {
 	if(player.cache.travelData.dir === '')return;
 	const tile = generateTileAt(player.public.x, player.public.y);
 	if(getEvent(player.public.x, player.public.y) && chunks.getObject(player.public.x, player.public.y).private.visible !== false)
 	{
 		emit('travelers', 'movePlayerToEvent', player, 'any');
+		cancel.set(true);
 	}
 	else if(tile === 'H')
 	{
 		emit('travelers', 'movePlayerToEvent', player, 'house');
+		cancel.set(true);
 	}
 	else if(tile === 'C')
 	{
 		emit('travelers', 'movePlayerToEvent', player, 'city');
+		cancel.set(true);
 	}
 }
 
@@ -758,7 +788,8 @@ module.exports.addEventTile = function(x, y, char, id, type)
 				type: type,
 				id: id,
 				visitedRooms: []
-			}
+			},
+			visited: false
 		});
 	}
 	else

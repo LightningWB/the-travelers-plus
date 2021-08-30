@@ -99,6 +99,9 @@ module.exports.move = function(player) {
 			player.public.x = x;
 			player.public.y = y;
 			distance--;
+			const val = util.out(false, 'boolean');
+			emit('travelers', 'onPlayerStep', player, val);
+			if(val.get())break;
 		}
 		if(initialDistance === distance) return false;// no movement happened
 		player.addPropToQueue('x', 'y');

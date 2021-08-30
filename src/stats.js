@@ -200,3 +200,9 @@ module.exports.admin = function(plugin) {
 	plugin.addAdminText('givePlayerXP', 'Username:Amount', 'Give XP', (d)=>mod(d, 1));
 	plugin.addAdminText('takePlayerXP', 'Username:Amount', 'Remove XP', (d)=>mod(d, -1));
 }
+
+module.exports.givePlayerXp = function(player, amount) {
+	player.public.skills.xp += amount.get();
+	player.temp.gained_xp = amount.get();
+	player.addPropToQueue('skills', 'gained_xp');
+}
