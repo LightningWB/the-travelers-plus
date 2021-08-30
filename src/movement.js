@@ -1,4 +1,4 @@
-const {emit, players, util, generateTileAt} = require('./bullet');
+const {emit, players, util, generateTileAt, chunks} = require('./bullet');
 
 const DOUBLE_STEP_MULTIPLIER = 2;
 
@@ -69,19 +69,39 @@ module.exports.move = function(player) {
 			return false;
 		}
 		const val = util.out(1, 'int');
-		emit('travelers', 'getMovementSpeed', player, val)
-		const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, (player.cache.doubleStep ? DOUBLE_STEP_MULTIPLIER: 1) * val.get());
+		emit('travelers', 'getMovementSpeed', player, val);
+		let distance = (player.cache.doubleStep ? DOUBLE_STEP_MULTIPLIER: 1) * val.get();
+		const initialDistance = distance;
 		player.cache.doubleStep = false;
-        
-        const tile = generateTileAt(x, y);
-        const onWater = tile === "w";
-        const onBorder = tile === "░";
-        if (!onWater && !onBorder)
-        {
-            player.public.x = x;
-            player.public.y = y;
-            player.addPropToQueue('x', 'y');
-        }
+		while(distance > 0) {
+			const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, 1);
+			
+			const obj = chunks.getObject(x, y);
+			
+			const tile = generateTileAt(x, y);
+			const onWater = tile === "w";
+			const onBorder = tile === "░";
+			if(obj) {
+				const val = util.out(true, 'boolean');
+				emit('travelers', 'canPlayerMoveOn', player, obj, val);
+				if(!val.get()) {
+					break;
+				}
+			}
+			else if (onWater || onBorder)// only check tile if their isn't an object
+			{
+				const val = util.out(false, 'boolean');
+				emit('travelers', 'canPlayerMoveOnTile', player, tile, val);
+				if(!val.get()) {
+					break;
+				}
+			}
+			player.public.x = x;
+			player.public.y = y;
+			distance--;
+		}
+		if(initialDistance === distance) return false;// no movement happened
+		player.addPropToQueue('x', 'y');
 	}
 	else return false;
 }

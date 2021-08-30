@@ -1,0 +1,92 @@
+[
+	{
+		"id": "wood_block",
+		"placingItem": "wood_block",
+		"char": "+",
+		"isBreakable": true,
+		"breakTime": 10800,
+		"walkOver": false
+	},
+	{
+		"id": "scrap_block",
+		"placingItem": "scrap_block",
+		"char": "#",
+		"isBreakable": true,
+		"breakTime": 21600,
+		"walkOver": false
+	},
+	{
+		"id": "steel_block",
+		"placingItem": "steel_block",
+		"char": "<b>#</b>",
+		"isBreakable": true,
+		"breakTime": 57600,
+		"walkOver": false
+	},
+	{
+		"id": "wood_door",
+		"placingItem": "wood_door",
+		"char": "D",
+		"isBreakable": true,
+		"breakTime": 10800,
+		"isDoor": true
+	},
+	{
+		"id": "scrap_door",
+		"placingItem": "scrap_door",
+		"char": "<b>D</b>",
+		"isBreakable": true,
+		"breakTime": 21600,
+		"isDoor": true
+	},
+	{
+		"id": "steel_door",
+		"placingItem": "steel_door",
+		"char": "$",
+		"isBreakable": true,
+		"breakTime": 57600,
+		"isDoor": true
+	},
+	{
+		"id": "reality_anchor",
+		"placingItem": "reality_anchor",
+		"char": "┬",
+		"isBreakable": true,
+		"breakTime": 7200,
+		"walkOver": false
+	},
+	{
+		"id": "small_chest",
+		"placingItem": "small_chest",
+		"char": "◻",
+		"isBreakable": true,
+		"breakTime": 300,
+		"eventId": "smallBox",
+		"eventType": "storageUnit"
+	},
+	{
+		"id": "large_chest",
+		"placingItem": "large_chest",
+		"char": "▭",
+		"isBreakable": true,
+		"breakTime": 600,
+		"eventId": "largeBox",
+		"eventType": "storageUnit"
+	},
+	{
+		"id": "sign_block",
+		"placingItem": "sign_block",
+		"char": "¶",
+		"isBreakable": true,
+		"breakTime": 180,
+		"eventId": "sign",
+		"eventType": "sign"
+	},
+	{
+		"id": "ocean_platform",
+		"placingItem": "ocean_platform",
+		"char": "Θ",
+		"isBreakable": true,
+		"breakTime": 10
+	}
+]

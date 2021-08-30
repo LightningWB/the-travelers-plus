@@ -1,0 +1,11 @@
+{
+	"id": "sign",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "a rickety sign",
+			"body": "it says:<span class=\"doc\">MESSAGE</span>"
+		}
+	}
+}

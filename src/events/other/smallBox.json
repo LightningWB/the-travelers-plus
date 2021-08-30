@@ -1,0 +1,15 @@
+{
+	"id": "smallBox",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "small storage unit",
+			"body": "space to spare.",
+			"loot": true,
+			"lootTable": [],
+			"nextId": "leave",
+			"size": 750
+		}
+	}
+}

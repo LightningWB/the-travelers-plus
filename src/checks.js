@@ -25,6 +25,7 @@ const actionStates = {
 	cancel_break: TRAVEL,
 	break: TRAVEL,
 	reenter: TRAVEL,
+	build: TRAVEL,
 	// event
 	event_choice: EVENT,
 	// looting
@@ -56,6 +57,9 @@ const allowedValues = {
 	break: {
 		option: 'string',
 		dir: ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
+	},
+	build: {
+		option: 'string'
 	}
 }
 
