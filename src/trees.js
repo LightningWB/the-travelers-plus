@@ -84,7 +84,9 @@ module.exports.tick = function() {
 			const x = parseInt(chunkId.split('|')[0]);
 			const y = parseInt(chunkId.split('|')[1]);
 			const chunk = chunks.getChunkFromChunkCoords(x, y);
-			chunk.meta.stumps = [];
+			if(chunk) {// I think if a chunks get saved and this happens in the same cycle, chunk can be undefined
+				chunk.meta.stumps = [];
+			}
 		}
 	}
 }

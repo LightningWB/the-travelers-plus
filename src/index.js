@@ -131,7 +131,7 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	plugin.on('saveChunk', require('./holes').unloadChunk, BASE_PRIORITY + 10);
 	// metal detector
 	plugin.on('equip_actions::metal_detector::dig_with_shovel', require('./equipment/metal_detector').dig_with_shovel, BASE_PRIORITY);
-	plugin.on('travelers::movePlayer', require('./equipment/metal_detector').movePlayer, BASE_PRIORITY- 10);
+	plugin.on('travelers::onPlayerStep', require('./equipment/metal_detector').onPlayerStep, BASE_PRIORITY);
 	// radio
 	plugin.on('playerConnect', require('./equipment/radio').connect, BASE_PRIORITY);
 	plugin.on('equip_actions::radio::radio_toggle', require('./equipment/radio').radio_toggle, BASE_PRIORITY);

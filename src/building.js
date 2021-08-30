@@ -317,7 +317,8 @@ module.exports.canPlayerMoveOn = function(player, obj, val) {
 					emit('travelers', 'eventLog', 'incorrect password.', player);
 				}
 			}, 64);
-			emit('travelers', 'addExeJs', player, "MSG.open('', 'enter password.', 64, 'enter', 'cancel', 'guess_doorpass');")
+			emit('travelers', 'addExeJs', player, "MSG.open('', 'enter password.', 64, 'enter', 'cancel', 'guess_doorpass');");
+			emit('travelers', 'stopPlayerMovement', player);
 		}
 	}
 }
