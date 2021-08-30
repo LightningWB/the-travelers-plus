@@ -76,7 +76,7 @@ plugin.on('actions::craft_cancelone', require('./crafting').cancelOne, BASE_PRIO
 plugin.on('actions::learn', require('./crafting').learn, BASE_PRIORITY);
 // building
 plugin.on('travelers::addStructureData', require('./building').addStructure, BASE_PRIORITY);
-plugin.on('travelers::movePlayer', require('./building').cancelBreak, BASE_PRIORITY);
+plugin.on('travelers::movePlayer', require('./building').cancelBreak, BASE_PRIORITY - 10);
 plugin.on('travelers::placeStructure', require('./building').placeStructure, BASE_PRIORITY);
 plugin.on('travelers::breakStructure', require('./building').breakStructure, BASE_PRIORITY);
 plugin.on('actions::build', require('./building').build, BASE_PRIORITY);
