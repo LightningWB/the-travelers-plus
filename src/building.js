@@ -22,12 +22,19 @@ module.exports.addStructure = function(data) {
 		['placingItem', 'string'],
 		['id', 'string']
 	];
-	if(data.isBreakable) {
-		requiredFields.push(['breakTime', 'number']);
-	}
 	for(const required of requiredFields) {
 		if(typeof data[required[0]] !== required[1]) {
 			throw 'Invalid type for ' + required[0];
+		}
+	}
+	const item = getItem(data.placingItem);
+	if(data.isBreakable) {
+		if(data.breakTime === undefined && item.break_time) {
+			data.breakTime = item.break_time;
+		} else if(item.break_time === undefined && data.breakTime) {
+			item.break_time = data.breakTime;
+		} else if(data.breakTime === undefined && item.break_time === undefined) {
+			throw 'Invalid type for breakTime';
 		}
 	}
 	PLACING_TO_ID[data.placingItem] = data.id;
@@ -46,7 +53,7 @@ function addPublicDataToObject(obj) {
 		obj.public.is_door = structureData.isDoor;
 		obj.public.is_breakable = structureData.isBreakable;
 		obj.private.walkOn = structureData.walkOver;
-    obj.public.break_time = structureData.breakTime;
+    	obj.public.break_time = structureData.breakTime;
 	}
 }
 
