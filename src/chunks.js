@@ -126,6 +126,22 @@ module.exports.save = function()
 				}
 				chunk.meta.players = ps;
 			}
+			for(const key in chunk) {
+				if(key !== 'meta') {
+					try {
+						if(chunk[key]) for(const obj of chunk[key]) {
+							if(obj.private.expiry) {
+								if(new Date().getTime() > obj.private.expiry) {
+									chunks.removeObject(obj.public.x, obj.public.y);
+								}
+							}
+						}
+					} catch(err) {
+						console.log(key, chunk[key]);
+						throw err;
+					}
+				}
+			}
 			if(!activeChunks.includes(chunkId))
 			{
 				chunks.unLoadChunk(x, y);
@@ -154,6 +170,11 @@ module.exports.chunkLoad = function(chunk) {
 				if(obj.public.y === undefined) {
 					obj.public.y = y;
 				}
+				if(obj.private.expiry) {
+					if(new Date().getTime() > obj.private.expiry) {
+						chunks.removeObject(obj.public.x, obj.public.y);
+					}
+				}
 			}
 		}
 	}
@@ -169,7 +190,7 @@ module.exports.chunkUnload = function(chunk) {
 			const splitUp = key.split('|');
 			const x = parseInt(splitUp[0]);
 			const y = parseInt(splitUp[1]);
-			for(const obj of chunk[key]) {
+			if(chunk[key]) for(const obj of chunk[key]) {
 				if(obj.public.x === x) {
 					delete obj.public.x;
 				}

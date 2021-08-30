@@ -6,6 +6,11 @@ const giveItemToPlayer = require('./supplies').giveItemToPlayer;
 // if someone uses public event ids to brute force this, nice job to them. they can see button target ids until the server restarts.
 const salt = util.randomString(9);
 
+const expiry = {// time in seconds
+	house: 60 * 60 * 24 * 3,
+	city: 60 * 60 * 24 * 7
+};
+
 // to save player in correct room
 const hashTable = {};
 
@@ -152,7 +157,8 @@ function checkRoomAction(player)
 module.exports.movePlayerToEvent = function(player, type) {
 	if(type === 'house')
 	{
-		if(getEvent(player.public.x, player.public.y) === undefined)chunks.addObject(player.public.x, player.public.y, {
+		if(getEvent(player.public.x, player.public.y) === undefined) {
+			chunks.addObject(player.public.x, player.public.y, {
 				x: player.public.x,
 				y: player.public.y,
 				char: 'H',
@@ -168,10 +174,15 @@ module.exports.movePlayerToEvent = function(player, type) {
 				},
 				visited: false
 			});
+			const date = new Date();
+			date.setSeconds(date.getSeconds() + expiry.house);
+			chunks.getObject(player.public.x, player.public.y).private.expiry = date.getTime();
+		}
 	}
 	else if(type === 'city')
 	{
-		if(getEvent(player.public.x, player.public.y) === undefined)chunks.addObject(player.public.x, player.public.y, {
+		if(getEvent(player.public.x, player.public.y) === undefined) {
+			chunks.addObject(player.public.x, player.public.y, {
 				x: player.public.x,
 				y: player.public.y,
 				char: 'C',
@@ -186,8 +197,11 @@ module.exports.movePlayerToEvent = function(player, type) {
 					id: chooseEvent(events[type]).id
 				},
 				visited: false
-			}
-		);
+			});
+			const date = new Date();
+			date.setSeconds(date.getSeconds() + expiry.city);
+			chunks.getObject(player.public.x, player.public.y).private.expiry = date.getTime();
+		}
 	}
 	if(player.public.state === 'travel')
 	{
