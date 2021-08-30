@@ -142,11 +142,41 @@ module.exports.chunkLoad = function(chunk) {
 		delete chunk.players;
 	}
 	else if(chunk.meta.players === undefined)chunk.meta.players = [];
+	for(const key in chunk) {
+		if(key !== 'meta') {
+			const splitUp = key.split('|');
+			const x = parseInt(splitUp[0]);
+			const y = parseInt(splitUp[1]);
+			for(const obj of chunk[key]) {
+				if(obj.public.x === undefined) {
+					obj.public.x = x;
+				}
+				if(obj.public.y === undefined) {
+					obj.public.y = y;
+				}
+			}
+		}
+	}
 }
 
 module.exports.chunkUnload = function(chunk) {
 	if(chunk.meta.players && chunk.meta.players.length === 0)
 	{
 		delete chunk.meta.players;
+	}
+	for(const key in chunk) {
+		if(key !== 'meta') {
+			const splitUp = key.split('|');
+			const x = parseInt(splitUp[0]);
+			const y = parseInt(splitUp[1]);
+			for(const obj of chunk[key]) {
+				if(obj.public.x === x) {
+					delete obj.public.x;
+				}
+				if(obj.public.y === y) {
+					delete obj.public.y;
+				}
+			}
+		}
 	}
 }
