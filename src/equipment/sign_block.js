@@ -27,7 +27,7 @@ module.exports.signPlaced = function(sign, player) {
  * @param {players.player} player 
  */
 module.exports.calcPlayerEvent = function(player) {
-	if(player.private.eventData.type === 'sign') {
+	if(player.private.eventData && player.private.eventData.type === 'sign') {
 		const obj = chunks.getObject(player.public.x, player.public.y);
 		let newMessage;
 		if(obj.private.message) {
