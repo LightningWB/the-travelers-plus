@@ -24,12 +24,28 @@
 		"walkOver": false
 	},
 	{
-		"id": "wood_block",
-		"placingItem": "wood_block",
-		"char": "+",
+		"id": "wood_door",
+		"placingItem": "wood_door",
+		"char": "D",
 		"isBreakable": true,
 		"breakTime": 10800,
-		"walkOver": false
+		"isDoor": true
+	},
+	{
+		"id": "scrap_door",
+		"placingItem": "scrap_door",
+		"char": "<b>D</b>",
+		"isBreakable": true,
+		"breakTime": 21600,
+		"isDoor": true
+	},
+	{
+		"id": "steel_door",
+		"placingItem": "steel_door",
+		"char": "$",
+		"isBreakable": true,
+		"breakTime": 57600,
+		"isDoor": true
 	},
 	{
 		"id": "reality_anchor",

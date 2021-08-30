@@ -79,11 +79,20 @@ module.exports.move = function(player) {
 			const tile = generateTileAt(x, y);
 			const onWater = tile === "w";
 			const onBorder = tile === "░";
-			const obj = chunks.getObject(x, y);
-			if (!onWater && !onBorder && !(obj && obj.private.walkOn === false))
+			if (!onWater && !onBorder)
 			{
-				player.public.x = x;
-				player.public.y = y;
+				const obj = chunks.getObject(x, y);
+				if(obj) {
+					const val = util.out(true, 'boolean');
+					emit('travelers', 'canPlayerMoveOn', player, obj, val);
+					if(val.get()) {
+						player.public.x = x;
+						player.public.y = y;
+					}
+				} else {
+					player.public.x = x;
+					player.public.y = y;
+				}
 			} else break;
 			distance--;
 		}

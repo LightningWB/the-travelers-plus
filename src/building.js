@@ -102,6 +102,7 @@ module.exports.playerConnect = function(player) {
 /**
  * places structure if prepared to.
  * damages structure if breaking it
+ * increments doors too.
  * @param {players.player} player 
  * @returns 
  */
@@ -128,6 +129,18 @@ module.exports.tick = function(player) {
       player.private.breakStructure = undefined;
     }
     player.addPropToQueue("break_time");
+  }
+  if(player.cache.doors) {
+	  for(const door of player.cache.doors) {
+		  door.time--;
+	  }
+	  player.cache.doors = player.cache.doors.filter(d => d.time > 0);
+	  if(player.cache.doors.length > 0) {
+		  player.temp.doors = player.cache.doors.map(d => d.x + '|' + d.y);
+		  player.addPropToQueue('doors');
+	  } else {
+		  delete player.cache.doors;
+	  }
   }
 }
 
@@ -247,7 +260,17 @@ module.exports.placeStructure = function(data, player) {
 	}
 	chunks.addObject(data.x, data.y, {}, privateData);
 	const obj = chunks.getObject(data.x, data.y);
-	addPublicDataToObject(obj)
+	addPublicDataToObject(obj);
+	if(structureData.isDoor) {
+		player.message('add_doorpass', p => {
+			if(p.length > 0) {
+				obj.private.password = p;
+				if(!player.cache.doors)player.cache.doors = [];
+				player.cache.doors.push({time: 30, x: obj.public.x, y: obj.public.y});
+			}
+		}, 64);
+		emit('travelers', 'addExeJs', player, "MSG.open('add a password for your door. if you cancel, then it will be permanently locked.', 'add password', 64, 'add password', 'cancel', 'add_doorpass');")
+	}
 	emit('travelers', 'structurePlaced::' + structureData.id, obj, player);
 }
 
@@ -264,4 +287,31 @@ module.exports.breakStructure = function(x, y, player) {
     emit('travelers', 'structureBroke::' + placedStructure.private.id, placedStructure, player);
     chunks.removeObject(placedStructure.public.x, placedStructure.public.y);
   }
+}
+
+/**
+ * 
+ * @param {players.player} player 
+ * @param {object} obj 
+ * @param {util.Out<boolean>} val 
+ */
+module.exports.canPlayerMoveOn = function(player, obj, val) {
+	if(obj.private.walkOn === false)val.set(false);
+	else if(obj.public.is_door) {
+		if(player.cache.doors && player.cache.doors.find(d => d.x === obj.public.x && d.y === obj.public.y)) {
+			val.set(true);
+		} else {
+			val.set(false);
+			player.message('guess_doorpass', g => {
+				if(obj.private.password === g) {
+					if(!player.cache.doors)player.cache.doors = [];
+					player.cache.doors.push({time: 30, x: obj.public.x, y: obj.public.y});
+					emit('travelers', 'eventLog', 'the password was correct, and the gate swings open.', player);
+				} else {
+					emit('travelers', 'eventLog', 'incorrect password.', player);
+				}
+			}, 64);
+			emit('travelers', 'addExeJs', player, "MSG.open('', 'enter password.', 64, 'enter', 'cancel', 'guess_doorpass');")
+		}
+	}
 }

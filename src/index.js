@@ -98,6 +98,7 @@ plugin.on('travelers::addStructureData', require('./building').addStructure, BAS
 plugin.on('travelers::movePlayer', require('./building').cancelBreak, BASE_PRIORITY - 10);
 plugin.on('travelers::placeStructure', require('./building').placeStructure, BASE_PRIORITY);
 plugin.on('travelers::breakStructure', require('./building').breakStructure, BASE_PRIORITY);
+plugin.on('travelers::canPlayerMoveOn', require('./building').canPlayerMoveOn, BASE_PRIORITY);
 plugin.on('actions::build', require('./building').build, BASE_PRIORITY);
 plugin.on('actions::break', require('./building').break, BASE_PRIORITY);
 plugin.on('actions::cancel_break', require('./building').cancel_break, BASE_PRIORITY);
