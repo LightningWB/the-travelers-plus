@@ -76,24 +76,28 @@ module.exports.move = function(player) {
 		while(distance > 0) {
 			const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, 1);
 			
+			const obj = chunks.getObject(x, y);
+			
 			const tile = generateTileAt(x, y);
 			const onWater = tile === "w";
 			const onBorder = tile === "░";
-			if (!onWater && !onBorder)
-			{
-				const obj = chunks.getObject(x, y);
-				if(obj) {
-					const val = util.out(true, 'boolean');
-					emit('travelers', 'canPlayerMoveOn', player, obj, val);
-					if(val.get()) {
-						player.public.x = x;
-						player.public.y = y;
-					}
-				} else {
-					player.public.x = x;
-					player.public.y = y;
+			if(obj) {
+				const val = util.out(true, 'boolean');
+				emit('travelers', 'canPlayerMoveOn', player, obj, val);
+				if(!val.get()) {
+					break;
 				}
-			} else break;
+			}
+			else if (onWater || onBorder)// only check tile if their isn't an object
+			{
+				const val = util.out(false, 'boolean');
+				emit('travelers', 'canPlayerMoveOnTile', player, tile, val);
+				if(!val.get()) {
+					break;
+				}
+			}
+			player.public.x = x;
+			player.public.y = y;
 			distance--;
 		}
 		if(initialDistance === distance) return false;// no movement happened

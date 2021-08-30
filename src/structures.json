@@ -81,5 +81,12 @@
 		"breakTime": 180,
 		"eventId": "sign",
 		"eventType": "sign"
+	},
+	{
+		"id": "ocean_platform",
+		"placingItem": "ocean_platform",
+		"char": "Θ",
+		"isBreakable": true,
+		"breakTime": 10
 	}
 ]

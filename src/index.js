@@ -142,6 +142,8 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	// signs
 	plugin.on('travelers::calcPlayerEvent', require('./equipment/sign_block').calcPlayerEvent, BASE_PRIORITY - 10);
 	plugin.on('travelers::structurePlaced::sign_block', require('./equipment/sign_block').signPlaced, BASE_PRIORITY);
+	// ocean plats
+	plugin.on('travelers::canPlaceStructure', require('./equipment/ocean_platform').canPlaceStructure, BASE_PRIORITY);
 // trees
 plugin.on('actions::gettree', require('./trees').gettree, BASE_PRIORITY);
 plugin.on('actions::break', require('./trees').break, BASE_PRIORITY);

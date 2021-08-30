@@ -1,4 +1,4 @@
-const { chunks, emit, triggerEvent, players, SAVE_INTERVAL, util } = require('./bullet')
+const { chunks, emit, triggerEvent, players, SAVE_INTERVAL, util, generateTileAt } = require('./bullet')
 const getItem = require('./supplies').item;
 
 /**
@@ -111,8 +111,6 @@ module.exports.tick = function(player) {
   {
     // removes item from player and places it
     const { id, x, y } = player.temp.placeStructure;
-    emit('travelers', 'takePlayerItem', id, 1, player);
-	emit('travelers', 'renderItems', player);
     emit('travelers', 'placeStructure', player.temp.placeStructure, player);
   }
   else if(player.private.breakStructure !== undefined)
@@ -236,6 +234,7 @@ module.exports.cancelBreak = function(player) {
 
 }
 
+const NO_BUILD_TILES = ['T', 'M', 'w', 'H', 'C'];
 /**
  * 
  * @param {any} structure 
@@ -244,10 +243,17 @@ module.exports.cancelBreak = function(player) {
  */
 module.exports.placeStructure = function(data, player) {
 	const structureData = STRUCTURE_DATA[PLACING_TO_ID[data.id]];
-	if(chunks.isObjectHere(data.x, data.y)) {
+	const val = util.out(true, 'boolean');
+	if(NO_BUILD_TILES.includes(generateTileAt(data.x, data.y))) {
+		val.set(false);
+	}
+	emit('travelers', 'canPlaceStructure', data, player, val);
+	if(chunks.isObjectHere(data.x, data.y) || !val.get()) {
 		emit('travelers', 'eventLog', 'unable to place object here.', player)
 		return false;
 	}
+	emit('travelers', 'takePlayerItem', data.id, 1, player);
+	emit('travelers', 'renderItems', player);
 	const privateData = {
 		structureId: structureData.id
 	};
