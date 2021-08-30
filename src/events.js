@@ -416,6 +416,9 @@ module.exports.event_choice = function(packet, player) {
 				player.public.state = 'travel';
 				player.private.eventData = undefined;
 				player.addPropToQueue('state');
+			} else if(targetBtn.for === 'death') {
+				emit('travelers', 'killPlayer', player);
+				delete player.private.eventData;
 			}
 			else
 			{
@@ -475,6 +478,9 @@ module.exports.loot_next = function(packet, player) {
 				player.public.state = 'travel';
 				player.private.eventData = undefined;
 				player.addPropToQueue('state');
+			} else if(player.private.eventData.room === 'death') {
+				emit('travelers', 'killPlayer', player);
+				delete player.private.eventData;
 			}
 			else checkRoomAction(player);
 			emit('travelers', 'calcPlayerEvent', player);

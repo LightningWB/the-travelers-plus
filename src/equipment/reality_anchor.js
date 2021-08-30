@@ -7,7 +7,10 @@ const removeRespawn = (loc) => {
 	const interval = setInterval(() => {
 		if(chunks.isChunkLoaded(loc.x, loc.y)) {
 			clearInterval(interval);
-			delete chunks.getObject(loc.x, loc.y).private.owner;
+			const obj = chunks.getObject(loc.x, loc.y);
+			if(obj) {
+				delete obj.private.owner;
+			}
 		}
 	}, 10);
 }
@@ -27,4 +30,10 @@ module.exports.broke = function(reality_anchor, _player) {
   {
     owner.private.respawnPoint = undefined;
   }
+}
+
+module.exports.getSpawnLocation = function(player, val) {
+	if(player.private.respawnPoint) {
+		val.set({x: player.private.respawnPoint.x, y: player.private.respawnPoint.y});
+	}
 }

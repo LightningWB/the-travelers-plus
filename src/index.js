@@ -142,6 +142,7 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	// reality anchor
 	plugin.on('travelers::structurePlaced::reality_anchor', require('./equipment/reality_anchor').placed, BASE_PRIORITY);
 	plugin.on('travelers::structureBroke::reality_anchor', require('./equipment/reality_anchor').broke, BASE_PRIORITY);
+	plugin.on('travelers::getSpawnLocation', require('./equipment/reality_anchor').getSpawnLocation, BASE_PRIORITY);
 	// signs
 	plugin.on('travelers::calcPlayerEvent', require('./equipment/sign_block').calcPlayerEvent, BASE_PRIORITY - 10);
 	plugin.on('travelers::structurePlaced::sign_block', require('./equipment/sign_block').signPlaced, BASE_PRIORITY);
