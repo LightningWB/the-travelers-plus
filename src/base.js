@@ -35,6 +35,14 @@ module.exports.plugin = (p)=>plugin = p;
 				}
 				else addAllAction();
 			});
+			plugin.once('travelers::movePlayer', player => {
+				if(fulfilled)return;
+				if(player.public.username === p.public.username)
+				{
+					fulfilled = true;
+				}
+				else addAllAction();
+			});
 		}
 		setTimeout(()=>{
 			addAllAction();
