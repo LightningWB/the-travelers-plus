@@ -59,15 +59,15 @@ function addPublicDataToObject(obj) {
 
 module.exports.chunkUnload = function(chunk) {
 	for(const key in chunk) {
-		if(key !== 'meta') {
-			for(const obj of chunk[key]) {
+		if(key !== 'meta' && chunk[key]) {
+			for(const obj of chunk[key]) {// deleted objs
 				if(obj.private && obj.private.structureId) {// these props get loaded up on runtime to allow changing every fence's texture or something
 					delete obj.public.char;
 					delete obj.public.walk_over;
 					delete obj.public.is_door;
 					delete obj.public.is_breakable;
 					delete obj.private.walkOn;
-          delete obj.public.break_time;
+					delete obj.public.break_time;
 				}
 			}
 		}
