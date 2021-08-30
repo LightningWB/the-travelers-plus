@@ -46,6 +46,9 @@ module.exports.onAddEvent = function(type, data) {
 			data.rooms[newId] = newRoom;
 		}
 		else data.rooms.main = util.clone(oldData.rooms.main);
+		if(!data.rooms[newId].btns) {
+			data.rooms[newId].btns = ['leave'];
+		}
 		if(data.rooms[newId].btns) for(const btn of data.rooms[newId].btns)
 		{
 			if(typeof btn === 'object')

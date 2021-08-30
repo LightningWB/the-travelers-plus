@@ -119,6 +119,9 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	// reality anchor
 	plugin.on('travelers::structurePlaced::reality_anchor', require('./equipment/reality_anchor').placed, BASE_PRIORITY);
 	plugin.on('travelers::structureBroke::reality_anchor', require('./equipment/reality_anchor').broke, BASE_PRIORITY);
+	// signs
+	plugin.on('travelers::calcPlayerEvent', require('./equipment/sign_block').calcPlayerEvent, BASE_PRIORITY - 10);
+	plugin.on('travelers::structurePlaced::sign_block', require('./equipment/sign_block').signPlaced, BASE_PRIORITY);
 // trees
 plugin.on('actions::gettree', require('./trees').gettree, BASE_PRIORITY);
 plugin.on('actions::break', require('./trees').break, BASE_PRIORITY);
@@ -149,6 +152,7 @@ thetravelers.emit('travelers', 'addEvent', 'crater', require('./events/other/cra
 thetravelers.emit('travelers', 'addEvent', 'hole', require('./events/other/hole.json'));
 thetravelers.emit('travelers', 'addEvent', 'storageUnit', require('./events/other/smallBox.json'));
 thetravelers.emit('travelers', 'addEvent', 'storageUnit', require('./events/other/largeBox.json'));
+thetravelers.emit('travelers', 'addEvent', 'sign', require('./events/other/sign.json'));
 (function(){// load recipe level unlocks
 	const data = require('./craftingData.json');
 	for(const key in data)

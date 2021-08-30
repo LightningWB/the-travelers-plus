@@ -56,5 +56,14 @@
 		"breakTime": 600,
 		"eventId": "largeBox",
 		"eventType": "storageUnit"
+	},
+	{
+		"id": "sign_block",
+		"placingItem": "sign_block",
+		"char": "¶",
+		"isBreakable": true,
+		"breakTime": 180,
+		"eventId": "sign",
+		"eventType": "sign"
 	}
 ]
