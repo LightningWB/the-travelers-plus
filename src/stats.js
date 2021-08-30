@@ -79,23 +79,29 @@ module.exports.skill_upgrade = function(packet, player) {
 	}
 }
 
-/**
- * @param {object} packet
- * @param {players.player} player 
- */
-module.exports.reset_skills = function(_packet, player) {
+module.exports.resetLevel = function(player) {
 	// drop player level by 10% and recalculate xp
 	const resetLevel = Math.ceil((player.public.skills.level + 1) * 0.9) - 1;
 	const resetXp = xpForLevel(resetLevel - 1);
 	const resetNextLevelXp = xpForLevel(resetLevel);
+
+	player.public.skills.level = resetLevel;
+	player.public.skills.xp = resetXp;
+	player.public.skills.next_level_xp = resetNextLevelXp;
+}
+
+module.exports.travelersResetSkills = function(player, resetXp = false) {
+	if(resetXp) {
+		emit('travelers', 'resetLevel', player);
+	}
 	
 	const { sp: currentSp, hp: currentHp, carry: currentCarry } = player.public.skills;
 	player.public.skills = {
 		...defaultSkillValues,
-		level: resetLevel,
-		xp: resetXp,
-		next_level_xp: resetNextLevelXp,
-		skill_points: resetLevel,
+		level: player.public.skills.level,
+		xp: player.public.skills.xp,// its reset earlier if needed so no problem here
+		next_level_xp: player.public.skills.next_level_xp,
+		skill_points: player.public.skills.level,
 		sp: Math.min(currentSp, defaultSkillValues.sp),
 		hp: Math.min(currentHp, defaultSkillValues.hp),
 		carry: currentCarry
@@ -104,6 +110,14 @@ module.exports.reset_skills = function(_packet, player) {
 
 	// reset player crafting recipes with new level
 	emit('travelers', 'renderCrafting', player);
+}
+
+/**
+ * @param {object} packet
+ * @param {players.player} player 
+ */
+module.exports.reset_skills = function(_packet, player) {
+	emit('travelers', 'resetSkills', player, true);
 }
 
 /**

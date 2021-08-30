@@ -67,8 +67,8 @@ module.exports.tick = function(player) {
 	}
 }
 
-module.exports.cancelAll = function(packet, player) {
-	if(player.public.craft_queue && player.public.state === 'travel')
+module.exports.cancelAll = function(packet, player, addToQueue = true) {
+	if(player.public.craft_queue)
 	{
 		for(const id in player.public.craft_queue)
 		{
@@ -82,8 +82,8 @@ module.exports.cancelAll = function(packet, player) {
 			}
 		}
 		player.public.craft_queue = undefined;
-		player.addPropToQueue('craft_queue');
-		emit('travelers', 'renderItems', player);
+		if(addToQueue !== false)player.addPropToQueue('craft_queue');
+		emit('travelers', 'renderItems', player, addToQueue);
 	}
 }
 
