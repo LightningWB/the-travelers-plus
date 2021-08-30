@@ -147,6 +147,8 @@ require('./events/cites.json').forEach(e=>thetravelers.emit('travelers', 'addEve
 thetravelers.emit('travelers', 'addEvent', 'body', require('./events/other/body.json'));
 thetravelers.emit('travelers', 'addEvent', 'crater', require('./events/other/crater.json'));
 thetravelers.emit('travelers', 'addEvent', 'hole', require('./events/other/hole.json'));
+thetravelers.emit('travelers', 'addEvent', 'storageUnit', require('./events/other/smallBox.json'));
+thetravelers.emit('travelers', 'addEvent', 'storageUnit', require('./events/other/largeBox.json'));
 (function(){// load recipe level unlocks
 	const data = require('./craftingData.json');
 	for(const key in data)

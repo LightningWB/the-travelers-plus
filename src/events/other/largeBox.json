@@ -1,0 +1,15 @@
+{
+	"id": "largeBox",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "large storage unit",
+			"body": "plenty of room.",
+			"loot": true,
+			"lootTable": [],
+			"nextId": "leave",
+			"size": 2000
+		}
+	}
+}

@@ -38,5 +38,23 @@
 		"isBreakable": true,
 		"breakTime": 7200,
 		"walkOver": false
+	},
+	{
+		"id": "small_chest",
+		"placingItem": "small_chest",
+		"char": "◻",
+		"isBreakable": true,
+		"breakTime": 300,
+		"eventId": "smallBox",
+		"eventType": "storageUnit"
+	},
+	{
+		"id": "large_chest",
+		"placingItem": "large_chest",
+		"char": "▭",
+		"isBreakable": true,
+		"breakTime": 600,
+		"eventId": "largeBox",
+		"eventType": "storageUnit"
 	}
 ]

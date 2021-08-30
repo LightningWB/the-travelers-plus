@@ -30,11 +30,11 @@ export declare type structureData = {
 	walkOver?: boolean,
 	// if either event thing is undefined no player interactivity
 	/**
-	 * id for the event at this location
+	 * the variation id of the event
 	 */
 	eventId?: string,
 	/**
-	 * the variation of the event
+	 * the type of event
 	 */
 	eventType?: string
 }

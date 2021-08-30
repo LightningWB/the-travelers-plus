@@ -233,11 +233,18 @@ module.exports.placeStructure = function(data, player) {
 	const structureData = STRUCTURE_DATA[PLACING_TO_ID[data.id]];
 	if(chunks.isObjectHere(data.x, data.y)) {
 		emit('travelers', 'eventLog', 'unable to place object here.', player)
-		return;
+		return false;
 	}
 	const privateData = {
 		structureId: structureData.id
 	};
+	if(typeof structureData.eventId === 'string' && typeof structureData.eventType === 'string') {
+		privateData.eventData = {
+			type: structureData.eventType,
+			id: structureData.eventId,
+			loot: {}
+		}
+	}
 	chunks.addObject(data.x, data.y, {}, privateData);
 	const obj = chunks.getObject(data.x, data.y);
 	addPublicDataToObject(obj)
