@@ -21,7 +21,9 @@ const BONUS_LOOT = [
 		chance: .001,
 		min: 1,
 		max: 1
-	}]
+	}];
+const recentMetals = [];
+module.exports.recentMetals = recentMetals;
 
 module.exports.dig = function(player) {
 	const {x , y} = player.public;
@@ -33,7 +35,7 @@ module.exports.dig = function(player) {
 	}
 	else {
 		placeEvent(x, y, 'o', 'hole', 'hole');
-		if(isMetalHole(x, y)) {
+		if(recentMetals.find(o => o.x === x && o.y === y) === undefined && isMetalHole(x, y)) {
 			const lootFull = chunks.getObject(x, y).private.eventData.loot;
 			lootFull.main = {};
 			const loot = lootFull.main;
@@ -50,6 +52,10 @@ module.exports.dig = function(player) {
 			loot[metal] = metalCount;
 			if(bonus) {
 				loot[bonus] = bonusCount;
+			}
+			recentMetals.push({x, y});
+			if(recentMetals.length > 2000) {
+				recentMetals.shift();
 			}
 		}
 	}

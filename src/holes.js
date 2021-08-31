@@ -92,5 +92,5 @@ module.exports.isMetalHole = function(x, y) {
 	if(hole && hole.private.eventData && hole.private.eventData.type === 'hole' && hole.private.visible === false) {
 		return true;
 	}
-	return metalNoise.simplex2(x * 1000, y * 1000) < -.6;// chance is 20% so double because noise can be negative
+	return metalNoise.simplex2(x * 10000, y * 10000) < -.6;// chance is 20% so double because noise can be negative
 }
