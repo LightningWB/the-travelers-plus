@@ -197,3 +197,8 @@ thetravelers.emit('travelers', 'addEvent', 'sign', require('./events/other/sign.
 })();
 // load structure data
 require('./structures.json').forEach(s => thetravelers.emit('travelers', 'addStructureData', s));
+
+plugin.addLeaderboard('xp',
+	p => p.public.skills.xp,
+	{xp: p => p.public.skills.xp, level: p => p.public.skills.level},
+	{caption: x => x.xp + ' total xp', primary: l => 'level ' + l.level});
