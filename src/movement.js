@@ -79,7 +79,7 @@ module.exports.move = function(player) {
 			const obj = chunks.getObject(x, y);
 			
 			const tile = generateTileAt(x, y);
-			const onWater = tile === "w";
+			const onWater = (tile === "w") && player.public.equipped != "boat";
 			const onBorder = tile === "░";
 			if(obj) {
 				const val = util.out(true, 'boolean');
