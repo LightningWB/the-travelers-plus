@@ -34,28 +34,34 @@ module.exports.dig = function(player) {
 		else obj.private.visible = undefined;
 	}
 	else {
-		placeEvent(x, y, 'o', 'hole', 'hole');
 		if(recentMetals.find(o => o.x === x && o.y === y) === undefined && isMetalHole(x, y)) {
-			const lootFull = chunks.getObject(x, y).private.eventData.loot;
-			lootFull.main = {};
-			const loot = lootFull.main;
-			const metal = METALS[Math.floor(Math.random() * METALS.length)];
-			const metalCount = Math.floor(Math.random() * (3) + 2);
-			let bonus, bonusCount;
-			for(const bonusLoot of BONUS_LOOT) {
-				if(Math.random() < bonusLoot.chance) {
-					bonus = bonusLoot.name;
-					bonusCount = Math.floor(Math.random() * (bonusLoot.max - bonusLoot.min) + bonusLoot.min);
-					break;
+			if(player.private.foundTrapdoor !== true) {
+				if(util.rand(0, 1000) <= 1) {
+					placeEvent(x, y, '_', 'trapdoor', 'trapdoor');
 				}
-			}
-			loot[metal] = metalCount;
-			if(bonus) {
-				loot[bonus] = bonusCount;
-			}
-			recentMetals.push({x, y});
-			if(recentMetals.length > 2000) {
-				recentMetals.shift();
+			} else {
+				placeEvent(x, y, 'o', 'hole', 'hole');
+				const lootFull = chunks.getObject(x, y).private.eventData.loot;
+				lootFull.main = {};
+				const loot = lootFull.main;
+				const metal = METALS[Math.floor(Math.random() * METALS.length)];
+				const metalCount = Math.floor(Math.random() * (3) + 2);
+				let bonus, bonusCount;
+				for(const bonusLoot of BONUS_LOOT) {
+					if(Math.random() < bonusLoot.chance) {
+						bonus = bonusLoot.name;
+						bonusCount = Math.floor(Math.random() * (bonusLoot.max - bonusLoot.min) + bonusLoot.min);
+						break;
+					}
+				}
+				loot[metal] = metalCount;
+				if(bonus) {
+					loot[bonus] = bonusCount;
+				}
+				recentMetals.push({x, y});
+				if(recentMetals.length > 2000) {
+					recentMetals.shift();
+				}
 			}
 		}
 	}
