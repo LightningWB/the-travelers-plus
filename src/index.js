@@ -23,6 +23,7 @@ plugin.on('actions::doublestep', require('./movement').doubleStep, BASE_PRIORITY
 // time
 plugin.on('gameTickPre', require('./time').gameTickPre, BASE_PRIORITY);
 plugin.on('playerTick', require('./time').playerTick, BASE_PRIORITY);
+plugin.on('playerConnect', require('./time').playerJoin, BASE_PRIORITY);
 plugin.on('travelers::getTime', require('./time').getTime, BASE_PRIORITY);
 plugin.on('travelers::setTime', require('./time').setTime, BASE_PRIORITY);
 // stats
@@ -37,6 +38,7 @@ plugin.on('travelers::calcWeight', require('./stats').calcWeight, BASE_PRIORITY)
 plugin.on('travelers::resetSkills', require('./stats').travelersResetSkills, BASE_PRIORITY);
 plugin.on('travelers::resetLevel', require('./stats').resetLevel, BASE_PRIORITY);
 plugin.on('travelers::givePlayerXp', require('./stats').givePlayerXp, BASE_PRIORITY);
+plugin.on('travelers::onPlayerStep', require('./stats').onStep, BASE_PRIORITY);
 // interactions
 plugin.on('travelers::movePlayer', require('./interactions').movePlayer, BASE_PRIORITY - 10);
 plugin.on('travelers::playerJoinInteraction', require('./interactions').playerJoinInteraction, BASE_PRIORITY);
@@ -198,7 +200,19 @@ thetravelers.emit('travelers', 'addEvent', 'sign', require('./events/other/sign.
 // load structure data
 require('./structures.json').forEach(s => thetravelers.emit('travelers', 'addStructureData', s));
 
-plugin.addLeaderboard('xp',
+plugin.addLeaderboard('experience',
 	p => p.public.skills.xp,
 	{xp: p => p.public.skills.xp, level: p => p.public.skills.level},
 	{caption: x => x.xp + ' total xp', primary: l => 'level ' + l.level});
+plugin.addLeaderboard('distance traveled',
+	p => p.public.steps_taken,
+	{steps_taken: p => p.public.steps_taken},
+	{primary: l => l.steps_taken + 'km'});
+plugin.addLeaderboard('hours played',
+	p => p.public.seconds_played,
+	{seconds_played: p => Math.round(p.public.seconds_played / thetravelers.options.tps)},
+	{caption: x => x.seconds_played + ' total seconds', primary: l => (l.seconds_played / 3600).toFixed(1) + 'hours'});
+plugin.addLeaderboard('locations explored',
+	p => p.public.locs_explored,
+	{locs_explored: p => p.public.locs_explored},
+	{primary: l => l.locs_explored + ' locations'});

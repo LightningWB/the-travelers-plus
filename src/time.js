@@ -13,7 +13,12 @@ module.exports.gameTickPre = function() {
 
 module.exports.playerTick = function(player) {
 	player.temp.turn = GAME_TIME;
+	player.public.seconds_played++;
 	player.addPropToQueue('turn');
+}
+
+module.exports.playerJoin = function(player) {
+	if(!player.public.seconds_played)player.public.seconds_played = 0;
 }
 
 module.exports.getTime = out => out.set(GAME_TIME);

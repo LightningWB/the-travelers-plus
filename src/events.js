@@ -409,6 +409,8 @@ module.exports.event_choice = function(packet, player) {
 				const obj = chunks.getObject(player.public.x, player.public.y);
 				if(obj) {
 					if(obj.private.visited === false && obj.private.eventData && XP_REWARDS[obj.private.eventData.type]) {
+						player.public.locs_explored++;
+						player.addPropToQueue('locs_explored');
 						emit('travelers', 'givePlayerXp', player, util.out(XP_REWARDS[obj.private.eventData.type]));
 						obj.private.visited = true;
 					}
@@ -472,6 +474,8 @@ module.exports.loot_next = function(packet, player) {
 				if(obj) {
 					if(obj.private.visited === false && obj.private.eventData && XP_REWARDS[obj.private.eventData.type]) {
 						emit('travelers', 'givePlayerXp', player, util.out(XP_REWARDS[obj.private.eventData.type]));
+						player.public.locs_explored++;
+						player.addPropToQueue('locs_explored');
 						obj.private.visited = true;
 					}
 				}
@@ -686,6 +690,7 @@ module.exports.reEnter = function(packet, player) {
  */
 module.exports.playerJoin = function(player) {
 	if(player.private.supplies === undefined)player.private.supplies = {};
+	if(!player.public.locs_explored)player.public.locs_explored = 0;
 	emit('travelers', 'calcPlayerEvent', player);
 }
 

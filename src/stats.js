@@ -54,6 +54,10 @@ module.exports.movePlayer = function(player) {
 	}
 }
 
+module.exports.onStep = function(player) {
+	player.public.steps_taken++;
+}
+
 
 /**
  * @param {object} packet 
@@ -161,6 +165,7 @@ module.exports.levelUp = function(player) {
 module.exports.playerJoin = function(player) {
 	// you have to clone here to stop everyone sharing a common skill set
 	if(!player.public.skills)player.public.skills = util.clone(defaultSkillValues);
+	if(!player.public.steps_taken)player.public.steps_taken = 0;
 	emit('travelers', 'calcWeight', player);
 }
 
