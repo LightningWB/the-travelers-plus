@@ -76,7 +76,7 @@ module.exports.chunkUnload = function(chunk) {
 
 module.exports.chunkLoad = function(chunk) {
 	for(const key in chunk) {
-		if(key !== 'meta') {
+		if(key !== 'meta' && chunk[key]) {
 			for(const obj of chunk[key]) {
 				if(obj.private.structureId) {
 					addPublicDataToObject(obj);
