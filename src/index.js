@@ -185,6 +185,7 @@ thetravelers.emit('travelers', 'addGameItems', require('./itemData.json'));
 require('./events/houses.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'house', require('./events/houses/' + e)));
 require('./events/cites.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'city', require('./events/cities/' + e)));
 thetravelers.emit('travelers', 'addEvent', 'body', require('./events/other/body.json'));
+thetravelers.emit('travelers', 'addEvent', 'trapdoor', require('./events/other/trapdoor.json'));
 thetravelers.emit('travelers', 'addEvent', 'crater', require('./events/other/crater.json'));
 thetravelers.emit('travelers', 'addEvent', 'hole', require('./events/other/hole.json'));
 thetravelers.emit('travelers', 'addEvent', 'storageUnit', require('./events/other/smallBox.json'));
