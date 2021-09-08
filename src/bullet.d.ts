@@ -37,7 +37,8 @@ declare namespace utility
 		get():T
 		getType():dataType
 	}
-	export function out<T>(val: T, t?:dataType)
+	export function out<T>(val: T, t?:dataType): Out<T>
+	export function getObjs(chunk:chunks.chunk): chunks.obj[]
 }
 
 declare namespace chunk
@@ -59,7 +60,7 @@ declare namespace chunk
 		/**
 		 * metadata about an object
 		 */
-		meta:anyObject
+		meta:utility.anyObject
 	}
 }
 
@@ -99,7 +100,13 @@ type ops = {
 	tps: number,
 	port: number,
 	title: string,
-	description: string
+	description: string,
+	changelog: {
+		date: string,
+		title: string,
+		body: string
+	}[],
+	ipLimit: number
 }
 
 /**
@@ -126,6 +133,7 @@ declare namespace plugins
 		export function getOnlinePlayer(username: string): player.playerData
 		export function onlinePlayers(): player.playerData[]
 		export function onlinePlayerNames(): string[]
+		export function getPlayerNames(): string[]
 	}
 	export namespace chunks
 	{
@@ -189,6 +197,7 @@ declare namespace plugins
 		on(event: 'playerSave', listener: (player:player.playerData) => any, priority:number):any
 		on(event: 'playerTick', listener: (player:player.playerData) => any, priority:number):any
 		on(event: 'saveChunk', listener: (chunk:chunk.chunk) => any, priority:number):any
+		on(event: 'ready', listener: () => any, priority:number):any
 		on(event: string, listener: (...args: any[])=>any, priority:number):any
 
 		// pretty bad copy pasting but not too bad
@@ -203,6 +212,7 @@ declare namespace plugins
 		once(event: 'playerSave', listener: (player:player.playerData) => any, priority:number):any
 		once(event: 'playerTick', listener: (player:player.playerData) => any, priority:number):any
 		once(event: 'saveChunk', listener: (chunk:chunk.chunk) => any, priority:number):any
+		once(event: 'ready', listener: () => any, priority:number):any
 		once(event: string, listener: (...args: any[])=>any, priority:number):any
 
 		emit(event: string, ...args: any[]):any
@@ -218,6 +228,10 @@ declare namespace plugins
 		  * @param storage new storage
 		  */
 		setStorage(storage: storage): void
+		addLeaderboard(name: string, scorer: (player: player.playerData,) => number, maps:{[key:string]:(player: player.playerData) => any}, _translators:{[key:string]:(player: player.playerData) => string}):void
+		{
+			net.addLeaderboard(name, scorer, maps, _translators);
+		}
 	}
 	export function makePlugin(id:string):plugin
 	export function emit(namespace: string, method: string, ...args):void
