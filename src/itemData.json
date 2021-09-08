@@ -161,6 +161,16 @@
         "build": true,
         "build_desc": "when placed, you will be able to write a short message on it, visible to any traveler who visits it."
     },
+    "auto_breaker": {
+        "name": "auto_breaker",
+        "title": "auto breaker",
+        "type": "tool",
+        "weight": 1,
+        "icon": "––X",
+        "desc": "torogadude's magic auto-structure breaker. admins only, no plebeans allowed.",
+        "breaker": true,
+        "break_ratio": 100
+    },
     "bolt_cutters": {
         "name": "bolt_cutters",
         "title": "bolt cutters",

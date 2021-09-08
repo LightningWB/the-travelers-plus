@@ -139,6 +139,9 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	plugin.on('equip_actions::radio::radio_toggle', require('./equipment/radio').radio_toggle, BASE_PRIORITY);
 	plugin.on('equip_actions::radio::radio_transmit', require('./equipment/radio').radio_transmit, BASE_PRIORITY);
 	plugin.on('equip_actions::radio::radio_setchannel', require('./equipment/radio').radio_setchannel, BASE_PRIORITY);
+	// boat
+	plugin.on('travelers::canPlayerMoveOnTile', require('./equipment/boat').canPlayerMoveOnTile, BASE_PRIORITY);
+	plugin.on('actions::dequip', require('./equipment/boat').unequip, BASE_PRIORITY + 10);
 	// nuke
 	plugin.on('equip_actions::nuke::detonate', require('./equipment/nuke').detonate, BASE_PRIORITY);
 	// reality anchor

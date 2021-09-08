@@ -79,7 +79,7 @@ module.exports.move = function(player) {
 			const obj = chunks.getObject(x, y);
 			
 			const tile = generateTileAt(x, y);
-			const onWater = (tile === "w") && player.public.equipped != "boat";
+			const onWater = tile === "w";
 			const onBorder = tile === "░";
 			if(obj) {
 				const val = util.out(true, 'boolean');
@@ -87,12 +87,10 @@ module.exports.move = function(player) {
 				if(!val.get()) {
 					break;
 				}
-			}
-			else if (onWater || onBorder)// only check tile if their isn't an object
-			{
-				const val = util.out(false, 'boolean');
-				emit('travelers', 'canPlayerMoveOnTile', player, tile, val);
-				if(!val.get()) {
+			} else {
+				const out = util.out(!(onWater || onBorder), 'boolean');
+				emit('travelers', 'canPlayerMoveOnTile', player, tile, out);
+				if(!out.get()) {
 					break;
 				}
 			}
