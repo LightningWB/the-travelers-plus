@@ -59,7 +59,7 @@ module.exports.dig = function(player) {
 					loot[bonus] = bonusCount;
 				}
 				recentMetals.push({x, y});
-				if(recentMetals.length > 2000) {
+				if(recentMetals.length > 5000) {
 					recentMetals.shift();
 				}
 			}
