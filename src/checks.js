@@ -5,6 +5,9 @@ const TRAVEL = 'travel',
 	DEATH = 'death';
 
 const actionStates = {
+	// tutorial
+	tut_inc: TRAVEL,
+	tut_skip: TRAVEL,
 	// travel
 	setDir: TRAVEL,
 	doublestep: TRAVEL,

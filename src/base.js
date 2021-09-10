@@ -1,4 +1,5 @@
 const {emit, players, util, chunks} = require('./bullet');
+const { placeEvent } = require('./events');
 let plugin;
 module.exports.plugin = (p)=>plugin = p;
 
@@ -6,7 +7,6 @@ module.exports.plugin = (p)=>plugin = p;
  * @param {players.player} player 
  */
  module.exports.join = function(player) {
-	player.addPropToQueue('*');// just a good idea to set everything to send when they join
 	player.message = function(id, cb, size = Infinity) {// the message popups for stuff like signs
 		let fulfilled = false;
 		function tryToGetUser() {
@@ -49,6 +49,7 @@ module.exports.plugin = (p)=>plugin = p;
 			tryToGetUser();
 		}, 0);
 	}
+
 }
 
 /**
@@ -57,6 +58,15 @@ module.exports.plugin = (p)=>plugin = p;
 module.exports.create = function(player) {
 	player.public.x = util.rand(-500, 500);
 	player.public.y = util.rand(-500, 500);
+	const {x, y} = player.public;
+	const dir = util.rand(1, 4);
+	const targetPos = {
+		1: {x, y: y + 5},
+		2: {x: x + 4, y},
+		3: {x, y: y - 5},
+		4: {x: x - 5, y}
+	}[dir];
+	placeEvent(targetPos.x, targetPos.y, 'u', 'backpack', 'backpack');
 }
 
 module.exports.eventLog = function(message, player, ) {

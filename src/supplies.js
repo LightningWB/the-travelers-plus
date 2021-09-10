@@ -24,12 +24,16 @@ module.exports.renderItems = function(player, addToQueue) {
 	player.temp.supplies = {};
 	for(const id in player.private.supplies)
 	{
-		if(player.private.supplies[id]) player.temp.supplies[id] = {
+		if(player.private.supplies[id] && player.private.supplies[id] > 0) player.temp.supplies[id] = {
 			count: player.private.supplies[id],
 			data: items[id]
 		};
 	}
-	if(addToQueue !== false)player.addPropToQueue('supplies');
+	if(Object.keys(player.temp.supplies).length !== 0) {
+		if(addToQueue !== false)player.addPropToQueue('supplies');
+	} else {
+		delete player.temp.supplies;
+	}
 }
 
 module.exports.givePlayerItem = function(id, count, player) {

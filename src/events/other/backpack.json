@@ -1,0 +1,40 @@
+{
+	"id": "backpack",
+	"weight": 1,
+	"rooms": {
+		"main": {
+			"id": "main",
+			"title": "a fresh bag",
+			"body": "contrasting the surrounding landscape, this sack seems like it got here recently. its material is similar to plastic, but it is cool to the touch, like metal. seems like someone's already looked through it, though.",
+			"btns": [
+				{
+					"for": "inside",
+					"text": "look inside"
+				}
+			]
+		},
+		"inside": {
+			"id": "inside",
+			"title": "something's inside",
+			"body": "perhaps these will become useful.",
+			"visited": "whoever searched this decided they didn't need what was in here.",
+			"loot": true,
+			"lootTable": [
+				{
+					"id": "wood_stick",
+					"min": 1,
+					"max": 10,
+					"chance": 1
+				},
+				{
+					"id": "scrap_metal",
+					"min": 1,
+					"max": 5,
+					"chance": 1
+				}
+			],
+			"nextId": "leave",
+			"size": 25
+		}
+	}
+}

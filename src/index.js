@@ -18,7 +18,7 @@ plugin.on('actions::setDir', require('./movement').setDir, BASE_PRIORITY);
 plugin.on('travelers::movePlayer', require('./movement').move, BASE_PRIORITY);
 plugin.on('travelers::stopPlayerMovement', require('./movement').stopPlayerMovement, BASE_PRIORITY);
 plugin.on('playerTick', require('./movement').tick, BASE_PRIORITY);
-plugin.on('playerReady', require('./movement').join, BASE_PRIORITY);
+plugin.on('playerConnect', require('./movement').join, BASE_PRIORITY);
 plugin.on('actions::doublestep', require('./movement').doubleStep, BASE_PRIORITY);
 // time
 plugin.on('gameTickPre', require('./time').gameTickPre, BASE_PRIORITY);
@@ -171,6 +171,7 @@ plugin.on('playerCreate', require('./base').create, BASE_PRIORITY);
 // chunks
 plugin.on('playerConnect', require('./chunks').tick, BASE_PRIORITY);
 plugin.on('playerTick', require('./chunks').tick, BASE_PRIORITY - 10);
+plugin.on('playerReady', require('./chunks').tick, BASE_PRIORITY - 10);
 plugin.on('chunkSave', require('./chunks').save, BASE_PRIORITY);
 plugin.on('gameTickPre', require('./chunks').gameTickPre, BASE_PRIORITY);
 plugin.on('loadChunk', require('./chunks').chunkLoad, BASE_PRIORITY + 100);
@@ -183,12 +184,18 @@ plugin.on('actions::loot_next', require('./death').loot_next, BASE_PRIORITY);
 // other
 plugin.on('actions::hands', require('./other').drop, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./other').loot_next, BASE_PRIORITY);
+// tutorial
+plugin.on('actions::tut_inc', require('./tutorial').tutInc, BASE_PRIORITY);
+plugin.on('actions::tut_skip', require('./tutorial').tutSkip, BASE_PRIORITY);
+plugin.on('actions::loot_next', require('./tutorial').loot_next, BASE_PRIORITY);
+plugin.on('playerCreate', require('./tutorial').playerCreate, BASE_PRIORITY);
 
 // loading data
 thetravelers.emit('travelers', 'addGameItems', require('./itemData.json'));
 require('./events/houses.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'house', require('./events/houses/' + e)));
 require('./events/cites.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'city', require('./events/cities/' + e)));
 thetravelers.emit('travelers', 'addEvent', 'body', require('./events/other/body.json'));
+thetravelers.emit('travelers', 'addEvent', 'backpack', require('./events/other/backpack.json'));
 thetravelers.emit('travelers', 'addEvent', 'dropped_items', require('./events/other/droppedItems.json'));
 thetravelers.emit('travelers', 'addEvent', 'trapdoor', require('./events/other/trapdoor.json'));
 thetravelers.emit('travelers', 'addEvent', 'crater', require('./events/other/crater.json'));
