@@ -1,0 +1,17 @@
+{
+	"id": "dropped_items",
+	"weight": "1",
+	"rooms": {
+	  "main": {
+		"id": "main",
+		"title": "on the ground",
+		"body": "as good a spot as any.",
+		"visitedBody": "left behind to rot.",
+		"visitTarget": "main",
+		"loot": true,
+		"nextId": "leave",
+		"size": 100,
+		"lootTable": []
+	  }
+	}
+  }

@@ -54,6 +54,10 @@ module.exports.addEvent = function(type, data) {
 	events[type].push(data);
 }
 
+module.exports.addExpiry = function(type, time) {
+	expiry[type] = time;
+}
+
 module.exports.onAddEvent = function(type, data) {
 	const oldData = util.clone(data);
 	data.weight = parseInt(data.weight);
@@ -719,7 +723,7 @@ module.exports.saveChunk = function(chunk) {
 		if(id !== 'meta' && chunk[id])
 		{
 			const objs = chunk[id];
-			objs.forEach(o=>{
+			if(objs)objs.forEach(o=>{
 				if(o.private.eventData)
 				{
 					for(const id in o.private.eventData.loot)
@@ -757,7 +761,7 @@ module.exports.loadChunk = function(chunk) {
 		if(id !== 'meta')
 		{
 			const objs = chunk[id];
-			objs.forEach(o=>{
+			if(objs)objs.forEach(o=>{
 				if(o.private.eventData)
 				{
 					for(const id in o.private.eventData.loot)
@@ -803,6 +807,9 @@ module.exports.addEventTile = function(x, y, char, id, type)
 			},
 			visited: false
 		});
+		if(expiry[type] !== undefined) {
+			chunks.getObject(x, y).private.expiry = expiry[type];
+		}
 	}
 	else
 	{

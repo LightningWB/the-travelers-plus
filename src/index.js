@@ -64,6 +64,7 @@ plugin.on('travelers::addEventTile', require('./events').addEventTile, BASE_PRIO
 plugin.on('travelers::generateLoot', require('./events').generateLoot, BASE_PRIORITY);
 plugin.on('travelers::setReward', require('./events').setReward, BASE_PRIORITY);
 plugin.on('travelers::getRewards', require('./events').getRewards, BASE_PRIORITY);
+plugin.on('travelers::addExpiry', require('./events').addExpiry, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./events').loot_next, BASE_PRIORITY);
 plugin.on('actions::loot_exchange', require('./events').loot_exchange, BASE_PRIORITY);
 plugin.on('actions::int_exchange', require('./events').int_exchange, BASE_PRIORITY);
@@ -179,12 +180,16 @@ plugin.on('travelers::killPlayer', require('./death').kill, BASE_PRIORITY);
 plugin.on('actions::suicide', require('./death').suicide, BASE_PRIORITY);
 plugin.on('actions::reincarnate', require('./death').reincarnate, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./death').loot_next, BASE_PRIORITY);
+// other
+plugin.on('actions::hands', require('./other').drop, BASE_PRIORITY);
+plugin.on('actions::loot_next', require('./other').loot_next, BASE_PRIORITY);
 
 // loading data
 thetravelers.emit('travelers', 'addGameItems', require('./itemData.json'));
 require('./events/houses.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'house', require('./events/houses/' + e)));
 require('./events/cites.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'city', require('./events/cities/' + e)));
 thetravelers.emit('travelers', 'addEvent', 'body', require('./events/other/body.json'));
+thetravelers.emit('travelers', 'addEvent', 'dropped_items', require('./events/other/droppedItems.json'));
 thetravelers.emit('travelers', 'addEvent', 'trapdoor', require('./events/other/trapdoor.json'));
 thetravelers.emit('travelers', 'addEvent', 'crater', require('./events/other/crater.json'));
 thetravelers.emit('travelers', 'addEvent', 'hole', require('./events/other/hole.json'));

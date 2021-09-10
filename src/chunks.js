@@ -159,7 +159,7 @@ module.exports.chunkLoad = function(chunk) {
 	}
 	else if(chunk.meta.players === undefined)chunk.meta.players = [];
 	for(const key in chunk) {
-		if(key !== 'meta') {
+		if(key !== 'meta' && chunk[key]) {
 			const splitUp = key.split('|');
 			const x = parseInt(splitUp[0]);
 			const y = parseInt(splitUp[1]);
@@ -170,7 +170,7 @@ module.exports.chunkLoad = function(chunk) {
 				if(obj.public.y === undefined) {
 					obj.public.y = y;
 				}
-				if(obj.private.expiry) {
+				if(obj.private.expiry !== undefined) {
 					if(new Date().getTime() > obj.private.expiry) {
 						chunks.removeObject(obj.public.x, obj.public.y);
 					}
