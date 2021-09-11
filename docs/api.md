@@ -14,6 +14,9 @@ type storage = {
 ```
 item keys are the item id and the number is their count in the storage.
 
+## structure
+see [structure type](https://github.com/LightningWB/the-travelers-plus/blob/main/src/building.d.ts#L1)
+
 # Events in `travelers` namespace
 
 ## addCraftableItem
@@ -37,6 +40,18 @@ Registers an event of a given type.
 
 Places a tile that contains an event of a given id and type.
 
+## addExeJs
+* player
+* js `string`
+
+Adds javascript for the client to run.
+
+## addExpiry
+* type `string`
+* time `number`
+
+Sets how long an event should last for in ms.
+
 ## addGameItem
 * id `string`
 * item
@@ -55,6 +70,18 @@ Adds items to the game.
 
 Adds a certain amount of items from a storage.
 
+## addItem
+* data `structure`
+
+Registers a type of structure.
+
+## breakStructure
+* x `number`
+* y `number`
+* player
+
+Emitted when a player's break timer reaches 0.
+
 ## calcPlayerEvent
 * player
 
@@ -64,6 +91,20 @@ Fired when a player needs an event screen rendered.
 * player
 
 Fired when a player needs its weight recalculated.
+
+## canPlayerMoveOn
+* player
+* obj `world object`
+* out `out<boolean>`
+
+Emitted for every step. If out is true, will cancel movement.
+
+## canPlayerMoveOnTile
+* player
+* tile `string`
+* out `out<boolean>`
+
+Emitted for every step. If out is true, will cancel movement.
 
 ## eventLog
 * message `string`
@@ -95,6 +136,11 @@ Returns an item of a given id through ptr by applying item properties to prt.
 
 Gets a player's base movement speed. 1 by default.
 
+## getRewards
+* out `out<{[key:string]: number}>`
+
+Gets the xp rewards for each event.
+
 ## getTime
 * out `int`
 
@@ -106,6 +152,11 @@ Gets the current game time.
 * player
 
 Gives a certain amount of items of a given id to a player.
+
+## killPlayer
+* player
+
+Kills a player.
 
 ## levelUpPlayer
 * player
@@ -123,6 +174,21 @@ Fired when a player is supposed to move.
 
 Fired when a player is supposed to get transferred into an event.
 Will generate a new event if type is provided.
+
+## onPlayerStep
+* player
+* out `out<boolean>`
+Emitted when a player steps. Can cancel any further movement.
+
+## placeStructure
+* data `object`
+* player
+
+Places a structure given the player's currently placing data.
+
+## playerJoinInteraction
+* player
+Moves a player steps joins an interaction.
 
 ## removeItem
 * id `string`
@@ -142,6 +208,12 @@ Renders a player's crafting items.
 
 Renders a player's items. If addToQueue is false, then it won't send to the client.
 
+## setReward
+* type `string`
+* reward `number`
+
+Sets the xp reward for a given event type.
+
 ## setTime
 * out `int`
 
@@ -151,6 +223,18 @@ Sets the current game time.
 * player
 
 Fired when a player is supposed to stop moving.
+
+## structureBroke::{structure}
+* worldObject
+* player
+
+Emitted when a certain structure is broken.
+
+## structurePlaced::{structure}
+* worldObject
+* player
+
+Emitted when a certain structure is placed.
 
 ## takePlayerItem
 * id `string`
@@ -164,3 +248,21 @@ Takes a certain amount of items of a given id from a player.
 * learningItem `string`
 
 Adds an item to a player's bp list.
+
+# `equip_actions` namepsace
+all events in this name space are related to equipment.
+the way an event is emitted is `equip_actions::{equipment id}::{action}`.
+there is also a dequip action for every equipment item.
+the only parameter is the player who performed the action.
+ex. `equip_actions::shovel::dig`.
+
+# other
+a new property is added to every online player known as `message`. this is used to trigger a message popup for the player.
+
+## parameters passed
+* id `string`
+* cb `string => void`
+* size = Infinity `number`
+
+id is the message id to wait for from the client. cb is the callback called when the player sends the message.
+size is the max length of the message.
