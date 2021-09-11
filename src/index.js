@@ -112,6 +112,14 @@ plugin.on('playerConnect', require('./building').playerConnect, BASE_PRIORITY);
 plugin.on('playerTick', require('./building').tick, BASE_PRIORITY + 10);// apply first so other stuff can see structures
 plugin.on('loadChunk', require('./building').chunkLoad, BASE_PRIORITY);
 plugin.on('saveChunk', require('./building').chunkUnload, BASE_PRIORITY);
+// combat
+plugin.on('actions::pvp-attack', require('./pvp').attack, BASE_PRIORITY);
+plugin.on('actions::int_acceptchal', require('./pvp').acceptChallenge, BASE_PRIORITY);
+plugin.on('actions::pvp-endchat', require('./pvp').endChat, BASE_PRIORITY);
+plugin.on('actions::pvp-startready', require('./pvp').startReady, BASE_PRIORITY);
+plugin.on('actions::pvp-execute', require('./pvp').execute, BASE_PRIORITY);
+plugin.on('actions::pvp-battleopt', require('./pvp').battleOpt, BASE_PRIORITY);
+plugin.on('gameTick', require('./pvp').tick, BASE_PRIORITY);
 // equipment
 plugin.on('actions::equip', require('./equipment').equip, BASE_PRIORITY);
 plugin.on('actions::dequip', require('./equipment').dequip, BASE_PRIORITY);
