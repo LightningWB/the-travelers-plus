@@ -227,7 +227,7 @@ plugin.addLeaderboard('distance traveled',
 plugin.addLeaderboard('hours played',
 	p => p.public.seconds_played,
 	{seconds_played: p => Math.round(p.public.seconds_played / thetravelers.options.tps)},
-	{caption: x => x.seconds_played + ' total seconds', primary: l => (l.seconds_played / 3600).toFixed(1) + 'hours'});
+	{caption: x => x.seconds_played + ' total seconds', primary: l => (l.seconds_played / 3600).toFixed(1) + ' hours'});
 plugin.addLeaderboard('locations explored',
 	p => p.public.locs_explored,
 	{locs_explored: p => p.public.locs_explored},
