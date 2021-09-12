@@ -133,7 +133,7 @@ module.exports.playerJoinInteraction = function(player) {
  * @param {players.player} player 
  */
 module.exports.leave_int = function(packet, player) {
-	if(player.cache.intLeaveTimeout)return false;
+	if(player.cache.intLeaveTimeout || player.cache.activeBattleId)return false;
 	player.public.state = 'travel';
 	player.addPropToQueue('state');
 }

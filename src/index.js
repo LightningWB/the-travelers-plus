@@ -120,6 +120,7 @@ plugin.on('actions::pvp-startready', require('./pvp').startReady, BASE_PRIORITY)
 plugin.on('actions::pvp-execute', require('./pvp').execute, BASE_PRIORITY);
 plugin.on('actions::pvp-battleopt', require('./pvp').battleOpt, BASE_PRIORITY);
 plugin.on('gameTick', require('./pvp').tick, BASE_PRIORITY);
+plugin.on('ready', require('./pvp').onReady, BASE_PRIORITY);
 // equipment
 plugin.on('actions::equip', require('./equipment').equip, BASE_PRIORITY);
 plugin.on('actions::dequip', require('./equipment').dequip, BASE_PRIORITY);

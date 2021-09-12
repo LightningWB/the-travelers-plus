@@ -128,12 +128,12 @@ module.exports.reset_skills = function(_packet, player) {
  * @param {players.player} player 
  */
 module.exports.tick = function(player) {
+	while(player.public.skills.xp >= player.public.skills.next_level_xp)
+	{
+		emit('travelers', 'levelUpPlayer', player);
+	}
 	if(player.public.state === 'travel')
 	{
-		while(player.public.skills.xp >= player.public.skills.next_level_xp)
-		{
-			emit('travelers', 'levelUpPlayer', player);
-		}
 		if(player.public.skills.sp < player.public.skills.max_sp)
 		{
 			player.addPropToQueue('skills');

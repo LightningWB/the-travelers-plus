@@ -2,6 +2,8 @@ const {emit, players, util, chunks, options, generateTileAt} = require('./bullet
 
 const items = {};
 
+module.exports.getItems = () => items;
+
 module.exports.getItem = function(id, itemPtr) {
 	Object.assign(itemPtr, util.clone(items[id]));
 }
