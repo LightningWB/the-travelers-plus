@@ -203,6 +203,21 @@ class Battle {
 		}
 	}
 
+	onEndChat(packet, player) {
+		if(this.battleState === 3) {
+			this.player1.addPropToQueue('battle_endchatmsg')
+			this.player2.addPropToQueue('battle_endchatmsg')
+			this.player1.temp.battle_endchatmsg = {
+				from: player.public.username,
+				message: require('./base').xssReplace(packet.message.substr(0, 200))
+			};
+			this.player2.temp.battle_endchatmsg = {
+				from: player.public.username,
+				message: require('./base').xssReplace(packet.message.substr(0, 200))
+			};
+		}
+	}
+
 	static ALLOWED_BATTLE_OPS = ['h', 'ar', 'al', 'dl', 'dr', 'b'];
 	/**
 	 * @param {object} packet 
@@ -356,7 +371,9 @@ module.exports.acceptChallenge = function(packet, player) {
 }
 
 module.exports.endChat = function(packet, player) {
-	console.log(packet);
+	if(player.cache.activeBattleId) {
+		battles[player.cache.activeBattleId].onEndChat(packet, player);
+	} else return false;
 }
 
 module.exports.startReady = function(packet, player) {
