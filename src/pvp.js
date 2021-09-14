@@ -26,6 +26,7 @@ class Battle {
 	battleState = 0;
 	nextRoundTurn = getTime() + (Math.ceil(options.tps) * 60);// this gets changed later on anyways
 	round = 1;
+	abstainCount = 0;
 	static weapons = {
 		hands: {
 			dmg: 0,
@@ -124,6 +125,18 @@ class Battle {
 		}
 	}
 
+	endScreen(p1, p2) {
+		if(players.isPlayerOnline(p1.public.username)) {
+			p1.temp.battle_over = {
+				next_round: this.nextRoundTurn,
+				youWon: p1.public.skills.hp > 0,
+				opp_username: p2.public.username,
+				round: this.round		
+			};
+			p1.addPropToQueue('battle_over');
+		}
+	}
+
 	sendData(newState = true) {
 		if(this.battleState === 0) {
 			if(players.isPlayerOnline(this.player1.public.username)) {
@@ -151,6 +164,9 @@ class Battle {
 		} else if(this.battleState === 2) {
 			this.addBattleRecap(this.player1, this.player2);
 			this.addBattleRecap(this.player2, this.player1);
+		} else if(this.battleState === 3) {
+			this.endScreen(this.player1, this.player2);
+			this.endScreen(this.player2, this.player1);
 		}
 	}
 
@@ -188,13 +204,21 @@ class Battle {
 		this.computeAttacks(this.player2, this.player1);
 		this.sendData();
 		// now that needed stuff is done clear some data
+		if(this.player1.cache.battleStats.move === '' && this.player2.cache.battleStats.move === '') {
+			this.abstainCount++;
+		} else this.abstainCount = 0;
 		this.player1.cache.battleStats.move = '';
 		this.player2.cache.battleStats.move = '';
 	}
 
 	startNewRound() {
-		this.battleState = 1;
-		this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 5;
+		if(this.player1.public.skills.hp <= 0 || this.player2.public.skills.hp <= 0 || this.abstainCount >= 10) {
+			this.battleState = 3;
+			this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 30;
+		} else {
+			this.battleState = 1;
+			this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 5;
+		}
 		this.sendData();
 	}
 
@@ -267,6 +291,9 @@ class Battle {
 		}
 		if(p1Skills.sp > p1Skills.max_sp) {
 			p1Skills.sp = p1Skills.max_sp;
+		}
+		if(p2Skills.hp < 0) {
+			p2Skills.hp = 0;
 		}
 	}
 }
