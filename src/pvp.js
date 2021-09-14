@@ -58,6 +58,7 @@ class Battle {
 		this.player1.cache.activeBattleId = randString;
 		this.player2.cache.activeBattleId = randString;
 		battles[randString] = this;
+		this.id = randString;
 		this.sendData();
 	}
 
@@ -137,6 +138,15 @@ class Battle {
 		}
 	}
 
+	exit(player) {
+		if(players.isPlayerOnline(player.public.username)) {
+			player.temp.battle_close = true;
+			player.addPropToQueue('battle_close');
+			delete player.cache.battleStats;
+			delete player.cache.activeBattleId;
+		}
+	}
+
 	sendData(newState = true) {
 		if(this.battleState === 0) {
 			if(players.isPlayerOnline(this.player1.public.username)) {
@@ -165,8 +175,10 @@ class Battle {
 			this.addBattleRecap(this.player1, this.player2);
 			this.addBattleRecap(this.player2, this.player1);
 		} else if(this.battleState === 3) {
-			this.endScreen(this.player1, this.player2);
-			this.endScreen(this.player2, this.player1);
+			if(newState) {
+				this.endScreen(this.player1, this.player2);
+				this.endScreen(this.player2, this.player1);
+			}
 		}
 	}
 
@@ -235,6 +247,10 @@ class Battle {
 			if(getTime() === this.nextRoundTurn) {
 				this.startNewRound();
 			}
+		} else if(this.battleState === 3) {
+			if(getTime() === this.nextRoundTurn) {
+				this.closeFight();
+			}
 		}
 	}
 
@@ -295,6 +311,18 @@ class Battle {
 		if(p2Skills.hp < 0) {
 			p2Skills.hp = 0;
 		}
+	}
+
+	closeFight() {
+		if(this.player1.public.skills.hp <= 0) {
+			emit('travelers', 'killPlayer', this.player1);
+		}
+		if(this.player2.public.skills.hp <= 0) {
+			emit('travelers', 'killPlayer', this.player2);
+		}
+		this.exit(this.player1);
+		this.exit(this.player2);
+		delete battles[this.id];
 	}
 }
 
