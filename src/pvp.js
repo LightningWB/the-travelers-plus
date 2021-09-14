@@ -204,18 +204,16 @@ class Battle {
 	}
 
 	onEndChat(packet, player) {
-		if(this.battleState === 3) {
-			this.player1.addPropToQueue('battle_endchatmsg')
-			this.player2.addPropToQueue('battle_endchatmsg')
-			this.player1.temp.battle_endchatmsg = {
-				from: player.public.username,
-				message: require('./base').xssReplace(packet.message.substr(0, 200))
-			};
-			this.player2.temp.battle_endchatmsg = {
-				from: player.public.username,
-				message: require('./base').xssReplace(packet.message.substr(0, 200))
-			};
-		}
+		this.player1.addPropToQueue('battle_endchatmsg')
+		this.player2.addPropToQueue('battle_endchatmsg')
+		this.player1.temp.battle_endchatmsg = {
+			from: player.public.username,
+			message: require('./base').xssReplace(packet.message.substr(0, 200))
+		};
+		this.player2.temp.battle_endchatmsg = {
+			from: player.public.username,
+			message: require('./base').xssReplace(packet.message.substr(0, 200))
+		};
 	}
 
 	static ALLOWED_BATTLE_OPS = ['h', 'ar', 'al', 'dl', 'dr', 'b'];
@@ -361,7 +359,7 @@ module.exports.tick = function() {
 module.exports.attack = function(packet, player) {
 	if(typeof packet.option === 'string' && players.isPlayerOnline(packet.option)) {
 		const opponent = players.getPlayerByUsername(packet.option);
-		if(opponent.cache.activeBattleId || player.cache.activeBattleId)return false;
+		if(opponent.cache.activeBattleId || player.cache.activeBattleId || opponent.public.state !== 'int')return false;
 		new Battle(player, opponent);
 	}
 }
