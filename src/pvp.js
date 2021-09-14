@@ -197,6 +197,12 @@ class Battle {
 		}
 	}
 
+	onExecute(_packet, player) {
+		if(this.battleState === 3) {
+			this.closeFight();
+		}
+	}
+
 	static ALLOWED_BATTLE_OPS = ['h', 'ar', 'al', 'dl', 'dr', 'b'];
 	/**
 	 * @param {object} packet 
@@ -360,7 +366,9 @@ module.exports.startReady = function(packet, player) {
 }
 
 module.exports.execute = function(packet, player) {
-	console.log(packet);
+	if(player.cache.activeBattleId) {
+		battles[player.cache.activeBattleId].onExecute(packet, player);
+	} else return false;
 }
 
 module.exports.battleOpt = function(packet, player) {
