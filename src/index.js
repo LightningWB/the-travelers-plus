@@ -21,7 +21,7 @@ plugin.on('playerTick', require('./movement').tick, BASE_PRIORITY);
 plugin.on('playerConnect', require('./movement').join, BASE_PRIORITY);
 plugin.on('actions::doublestep', require('./movement').doubleStep, BASE_PRIORITY);
 // time
-plugin.on('gameTickPre', require('./time').gameTickPre, BASE_PRIORITY);
+plugin.on('gameTickPre', require('./time').gameTickPre, BASE_PRIORITY + 10);
 plugin.on('playerTick', require('./time').playerTick, BASE_PRIORITY);
 plugin.on('playerConnect', require('./time').playerJoin, BASE_PRIORITY);
 plugin.on('travelers::getTime', require('./time').getTime, BASE_PRIORITY);
@@ -40,6 +40,8 @@ plugin.on('travelers::resetLevel', require('./stats').resetLevel, BASE_PRIORITY)
 plugin.on('travelers::givePlayerXp', require('./stats').givePlayerXp, BASE_PRIORITY);
 plugin.on('travelers::onPlayerStep', require('./stats').onStep, BASE_PRIORITY);
 // interactions
+plugin.on('travelers::battles::end', require('./interactions').battleEnd, BASE_PRIORITY);
+plugin.on('travelers::battles::fightOpened', require('./interactions').battleStart, BASE_PRIORITY);
 plugin.on('travelers::movePlayer', require('./interactions').movePlayer, BASE_PRIORITY - 10);
 plugin.on('travelers::playerJoinInteraction', require('./interactions').playerJoinInteraction, BASE_PRIORITY);
 plugin.on('actions::leave_int', require('./interactions').leave_int, BASE_PRIORITY);
@@ -112,6 +114,16 @@ plugin.on('playerConnect', require('./building').playerConnect, BASE_PRIORITY);
 plugin.on('playerTick', require('./building').tick, BASE_PRIORITY + 10);// apply first so other stuff can see structures
 plugin.on('loadChunk', require('./building').chunkLoad, BASE_PRIORITY);
 plugin.on('saveChunk', require('./building').chunkUnload, BASE_PRIORITY);
+// combat
+plugin.on('actions::pvp-attack', require('./pvp').attack, BASE_PRIORITY);
+plugin.on('actions::int_acceptchal', require('./pvp').acceptChallenge, BASE_PRIORITY);
+plugin.on('actions::pvp-endchat', require('./pvp').endChat, BASE_PRIORITY);
+plugin.on('actions::pvp-startready', require('./pvp').startReady, BASE_PRIORITY);
+plugin.on('actions::pvp-execute', require('./pvp').execute, BASE_PRIORITY);
+plugin.on('actions::pvp-battleopt', require('./pvp').battleOpt, BASE_PRIORITY);
+plugin.on('actions::leave_int', require('./pvp').leaveInt, BASE_PRIORITY - 10);
+plugin.on('gameTick', require('./pvp').tick, BASE_PRIORITY);
+plugin.on('ready', require('./pvp').onReady, BASE_PRIORITY);
 // equipment
 plugin.on('actions::equip', require('./equipment').equip, BASE_PRIORITY);
 plugin.on('actions::dequip', require('./equipment').dequip, BASE_PRIORITY);
@@ -181,6 +193,7 @@ plugin.on('travelers::killPlayer', require('./death').kill, BASE_PRIORITY);
 plugin.on('actions::suicide', require('./death').suicide, BASE_PRIORITY);
 plugin.on('actions::reincarnate', require('./death').reincarnate, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./death').loot_next, BASE_PRIORITY);
+plugin.on('playerTick', require('./death').playerTick, BASE_PRIORITY - 10);
 // other
 plugin.on('actions::hands', require('./other').drop, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./other').loot_next, BASE_PRIORITY);

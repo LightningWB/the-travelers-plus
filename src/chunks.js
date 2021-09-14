@@ -7,7 +7,7 @@ const checkChunkPlayers = (chunk, chunkX, chunkY) => {
 	if(chunk && chunk.meta.players === undefined)chunk.meta.players = [];
 	for(const name of chunk.meta.players) {
 		const player = players.getPlayerByUsername(name);
-		const {x, y} = player.public;
+		const {x, y} = chunks.toChunkCoords(player.public.x, player.public.y);
 		if(chunk && x !== chunkX && y !== chunkY && chunk.meta.players.includes(player.public.username))
 		{
 			const playerIndex = chunk.meta.players.findIndex((playerInChunk) => playerInChunk === player.public.username);
@@ -51,8 +51,10 @@ module.exports.tick = function(player)
 			}
 			// player chunk lists
 			const chunk = chunks.getChunkFromChunkCoords(x, y);
-			checkChunkPlayers(chunk);
-			if(chunk && x === chunkX  && y === chunkY && !chunk.meta.players.includes(player.public.username))chunk.meta.players.push(player.public.username);
+			checkChunkPlayers(chunk, chunkX, chunkY);
+			if(chunk && x === chunkX  && y === chunkY && !chunk.meta.players.includes(player.public.username)) {
+				chunk.meta.players.push(player.public.username);
+			}
 			const ps = [];
 			if(chunk) for(const username of chunk.meta.players)
 			{

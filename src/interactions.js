@@ -40,6 +40,12 @@ const renderPlayerList = loc => {
 	});
 }
 
+module.exports.utils = {
+	getPlayersInInteraction,
+	online,
+	playerData
+};
+
 /**
  * @param {players.player} player 
  */
@@ -129,11 +135,34 @@ module.exports.playerJoinInteraction = function(player) {
 	}
 }
 
+module.exports.battleEnd = function(battle) {
+	renderPlayerList(battle.player1.public);
+	const victor = battle.player1.public.skills.hp > 0 ? battle.player1 : battle.player2;
+	const looser = battle.player1.public.skills.hp <= 0 ? battle.player1 : battle.player2;
+	getPlayersInInteraction(battle.player1.public).filter(online).map(playerData).forEach(p => {
+		p.temp.int_defeated = {
+			victor: victor.public.username,
+			loser: looser.public.username
+		};
+		p.addPropToQueue('int_defeated');
+	});
+}
+
+module.exports.battleStart = function(battle) {
+	getPlayersInInteraction(battle.player1.public).filter(online).map(playerData).forEach(p => {
+		p.temp.int_pvpstarted = {
+			attacker: battle.player1.public.username,
+			defender: battle.player2.public.username
+		};
+		p.addPropToQueue('int_pvpstarted');
+	});
+}
+
 /**
  * @param {players.player} player 
  */
 module.exports.leave_int = function(packet, player) {
-	if(player.cache.intLeaveTimeout)return false;
+	if(player.cache.intLeaveTimeout || player.cache.activeBattleId)return false;
 	player.public.state = 'travel';
 	player.addPropToQueue('state');
 }
