@@ -8,8 +8,12 @@ const getTime = () => {
 }
 
 const defaultBattleStats = {
-	weapon: 'hands'
+	weapon: 'hands',
+	move: '',
+	ready: false
 };
+
+const STAM_REGEN = 10;
 
 /**
  * represents a battle between two people
@@ -20,8 +24,8 @@ class Battle {
 	 * @type {0 | 1 | 2 | 3}
 	 */
 	battleState = 0;
-	turn = 0;
-	round = 0;
+	nextRoundTurn = getTime() + (Math.ceil(options.tps) * 60);// this gets changed later on anyways
+	round = 1;
 	static weapons = {
 		hands: {
 			dmg: 0,
@@ -65,7 +69,7 @@ class Battle {
 			const oppWeapon = Battle.weapons[p2.cache.battleStats.weapon];
 			const youWeapon = Battle.weapons[p1.cache.battleStats.weapon];
 			p1.temp.battle_startround = {
-				next_round: getTime() + (options.tps * 15),
+				next_round: this.nextRoundTurn,
 				opp_base_dmg: p2.public.skills.dmg,
 				opp_hp: p2.public.skills.hp,
 				opp_lvl: p2.public.skills.level,
@@ -95,14 +99,28 @@ class Battle {
 	 */
 	addBattleView(p1, p2) {
 		if(players.isPlayerOnline(p1.public.username)) {
-			p1.temp.battle_roundview = {
-				next_round: getTime() + (options.tps * 5),
-				opp_hp: p2.public.skills.hp,
-				opp_option: '',// todo
-				opp_sp: p2.public.skills.sp,
-				you_option: ''// todo
+			p1.temp.battle_startnextround = {
+				next_round: this.nextRoundTurn,
+				round: this.round
 			};
-			p1.addPropToQueue('battle_roundview');
+			p1.addPropToQueue('battle_startnextround');
+		}
+	}
+
+	/**
+	 * @param {players.player} p1 
+	 * @param {players.player} p2 
+	 */
+	addBattleRecap(p1, p2) {
+		if(players.isPlayerOnline(p1.public.username)) {
+			p1.temp.battle_roundreview = {
+				next_round: this.nextRoundTurn,
+				opp_hp: p2.public.skills.hp,
+				opp_option: p2.cache.battleStats.move,
+				opp_sp: p2.public.skills.sp,
+				you_option: p1.cache.battleStats.move
+			};
+			p1.addPropToQueue('battle_roundreview', 'skills');
 		}
 	}
 
@@ -130,6 +148,9 @@ class Battle {
 				this.addBattleView(this.player1, this.player2);
 				this.addBattleView(this.player2, this.player1);
 			}
+		} else if(this.battleState === 2) {
+			this.addBattleRecap(this.player1, this.player2);
+			this.addBattleRecap(this.player2, this.player1);
 		}
 	}
 
@@ -139,30 +160,114 @@ class Battle {
 	 */
 	onReady(packet, player) {
 		if(this.battleState === 0) {
-			const weapon = getItem(packet.weapon);
-			if(weapon && weapon.weapon) {
+			if(Battle.weapons[packet.weapon] && (packet.weapon === 'hands' || player.private.supplies[packet.weapon] > 0)) {
 				player.cache.battleStats.weapon = packet.weapon;
+				player.cache.battleStats.ready = true;
 				player.temp.battle_ready_weapon = packet.weapon;
 				player.addPropToQueue('battle_ready_weapon');
 			}
 		}
 	}
 
+	static ALLOWED_BATTLE_OPS = ['h', 'ar', 'al', 'dl', 'dr', 'b'];
+	/**
+	 * @param {object} packet 
+	 * @param {players.player} player 
+	 */
+	onBattleOpt(packet, player) {
+		if(typeof packet.option === 'string' && Battle.ALLOWED_BATTLE_OPS.includes(packet.option)) {
+			player.cache.battleStats.move = packet.option;
+		}
+	}
+
+	recapRound() {
+		this.battleState = 2;
+		this.round++;
+		this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 5;
+		this.computeAttacks(this.player1, this.player2);
+		this.computeAttacks(this.player2, this.player1);
+		this.sendData();
+		// now that needed stuff is done clear some data
+		this.player1.cache.battleStats.move = '';
+		this.player2.cache.battleStats.move = '';
+	}
+
+	startNewRound() {
+		this.battleState = 1;
+		this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 5;
+		this.sendData();
+	}
+
 	tick() {
 		if(this.battleState === 0) {
-			if(this.turn === 59) {
+			if(getTime() >= this.nextRoundTurn || (this.player1.cache.battleStats.ready && this.player2.cache.battleStats.ready)) {
 				return this.moveToFight();
 			}
 		} else if(this.battleState === 1) {
-
+			if(getTime() === this.nextRoundTurn) {
+				this.recapRound();
+			}
+		} else if(this.battleState === 2) {
+			if(getTime() === this.nextRoundTurn) {
+				this.startNewRound();
+			}
 		}
-		this.turn++;
 	}
 
 	moveToFight() {
 		this.battleState = 1;
-		this.turn = 0;
+		this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 15;
 		this.sendData(true);
+	}
+
+	computeAttacks(p1, p2) {
+		const p1Skills = p1.public.skills;
+		const p2Skills = p2.public.skills;
+		const p1Attack = Battle.weapons[p1.cache.battleStats.weapon].dmg + p1Skills.dmg;
+		const p1Stam = Battle.weapons[p1.cache.battleStats.weapon].sp;
+		const p1Move = p1.cache.battleStats.move;
+		const p2Move = p2.cache.battleStats.move;
+		switch (p1Move) {
+			case 'h':
+				if(p2Move !== 'h') {
+					p2Skills.hp -= p1Attack * 2;
+				}
+				p1Skills.sp -= p1Stam * 2;
+				break;
+			case 'al':
+				if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dr') {
+					p2Skills.hp -= p1Attack;
+				}
+				p1Skills.sp -= p1Stam * 2;
+				break;
+			case 'ar':
+				if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dl') {
+					p2Skills.hp -= p1Attack;
+				}
+				p1Skills.sp -= p1Stam * 2;
+				break;
+			case 'dl':
+				if(p2Move !== 'al') {
+					p1Skills.sp += STAM_REGEN;
+				}
+				break;
+			case 'dr':
+				if(p2Move !== 'ar') {
+					p1Skills.sp += STAM_REGEN;
+				}
+				break;
+			case 'b':
+				if(p2Move !== 'h') {
+					p1Skills.sp += STAM_REGEN;
+				}
+				break;
+			case '':// abstain
+				p1Skills.sp += STAM_REGEN;
+				break;
+		}
+		if(p1Skills.sp > p1Skills.max_sp) {
+			p1Skills.sp = p1Skills.max_sp;
+		}
 	}
 }
 
@@ -195,7 +300,7 @@ module.exports.endChat = function(packet, player) {
 
 module.exports.startReady = function(packet, player) {
 	if(player.cache.activeBattleId) {
-		battles[activeBattleId].onReady(packet, player);
+		battles[player.cache.activeBattleId].onReady(packet, player);
 	} else return false;
 }
 
@@ -204,7 +309,9 @@ module.exports.execute = function(packet, player) {
 }
 
 module.exports.battleOpt = function(packet, player) {
-	console.log(packet);
+	if(player.cache.activeBattleId) {
+		battles[player.cache.activeBattleId].onBattleOpt(packet, player);
+	} else return false;
 }
 
 module.exports.onReady = function() {
@@ -212,8 +319,8 @@ module.exports.onReady = function() {
 	for(const itemId in items) {
 		if(items[itemId].weapon) {
 			Battle.weapons[itemId] = {
-				dmg: items[itemId].dmg,
-				sp: items[itemId].sp
+				dmg: items[itemId].weapon_data.dmg,
+				sp: items[itemId].weapon_data.sp
 			}
 		}
 	}
