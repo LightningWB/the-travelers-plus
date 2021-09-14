@@ -68,7 +68,14 @@ module.exports.reincarnate = function(_packet, player) {
   delete player.public.death_x;
   delete player.public.death_y;
   emit('travelers', 'resetSkills', player);
+  player.public.skills.hp = 100;
   emit('travelers', 'renderItems', player);
   emit('travelers', 'calcWeight', player);
   player.addPropToQueue('*');
+}
+
+module.exports.playerTick = function(player) {
+	if(player.public.state === 'travel' && player.public.skills.hp <= 0) {
+		emit('travelers', 'killPlayer', player);
+	}
 }

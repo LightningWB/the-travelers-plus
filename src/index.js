@@ -190,6 +190,7 @@ plugin.on('travelers::killPlayer', require('./death').kill, BASE_PRIORITY);
 plugin.on('actions::suicide', require('./death').suicide, BASE_PRIORITY);
 plugin.on('actions::reincarnate', require('./death').reincarnate, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./death').loot_next, BASE_PRIORITY);
+plugin.on('playerTick', require('./death').playerTick, BASE_PRIORITY - 10);
 // other
 plugin.on('actions::hands', require('./other').drop, BASE_PRIORITY);
 plugin.on('actions::loot_next', require('./other').loot_next, BASE_PRIORITY);
