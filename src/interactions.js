@@ -129,6 +129,10 @@ module.exports.playerJoinInteraction = function(player) {
 	}
 }
 
+module.exports.battleEnd = function(battle) {
+	renderPlayerList(battle.player1.public);
+}
+
 /**
  * @param {players.player} player 
  */

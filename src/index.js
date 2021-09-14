@@ -40,6 +40,7 @@ plugin.on('travelers::resetLevel', require('./stats').resetLevel, BASE_PRIORITY)
 plugin.on('travelers::givePlayerXp', require('./stats').givePlayerXp, BASE_PRIORITY);
 plugin.on('travelers::onPlayerStep', require('./stats').onStep, BASE_PRIORITY);
 // interactions
+plugin.on('travelers::battles::end', require('./interactions').battleEnd, BASE_PRIORITY);
 plugin.on('travelers::movePlayer', require('./interactions').movePlayer, BASE_PRIORITY - 10);
 plugin.on('travelers::playerJoinInteraction', require('./interactions').playerJoinInteraction, BASE_PRIORITY);
 plugin.on('actions::leave_int', require('./interactions').leave_int, BASE_PRIORITY);

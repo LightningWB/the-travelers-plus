@@ -1,5 +1,8 @@
 # Types
 
+## battle
+see [pvp.js](https://github.com/LightningWB/the-travelers-plus/blob/main/src/pvp.js#21)
+
 ## eventData
 see [event type](https://github.com/LightningWB/the-travelers-plus/blob/main/src/event%20types.ts#L136)
 
@@ -74,6 +77,76 @@ Adds a certain amount of items from a storage.
 * data `structure`
 
 Registers a type of structure.
+
+## battles namespace
+
+### battleChoice
+* option `string`
+* player
+* cancel `out<boolean>`
+* battle
+
+Triggered when a player selects a battle choice.
+
+### chatMessage
+* message `string`
+* sender `player`
+* cancel `out<boolean>`
+* battle
+
+Triggered when a player sends an in battle chat message.
+
+### computeAttack
+* mover `player`
+* victim `player`
+* cancel `out<boolean>`
+* battle
+
+Triggered when a player (mover) has their move calculated against another player (victim). Cancel will stop the default action.
+
+### end
+* battle
+
+Triggered when a battle ends, either from abstaining or death.
+
+### execute
+* killer `player`
+* victim `player`
+* cancel `out<boolean>`
+* battle
+
+Triggered when a player executes the looser at the end of a fight.
+
+### fightOpened
+* battle
+
+Triggered when a battle starts
+
+### fightStart
+* battle
+
+Triggered when the battle moves past the ready stage
+
+### newRound
+* battle
+
+Triggered when a new combat round starts.
+
+### playerReady
+* player
+* battle
+
+Triggered when a player submits their weapon for the fight and marks them self are ready.
+
+### reviewRound
+* battle
+
+Triggered when a "review round" happens in a battle. This is the part when everyone's stats change.
+
+### tick
+* battle
+
+Triggered once a cycle. Please note this triggers even if its still in the countdown.
 
 ## breakStructure
 * x `number`

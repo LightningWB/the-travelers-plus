@@ -60,6 +60,7 @@ class Battle {
 		battles[randString] = this;
 		this.id = randString;
 		this.sendData();
+		emit('travelers', 'battle::fightOpened', this);
 	}
 
 	/**
@@ -193,27 +194,41 @@ class Battle {
 				player.cache.battleStats.ready = true;
 				player.temp.battle_ready_weapon = packet.weapon;
 				player.addPropToQueue('battle_ready_weapon');
+				emit('travelers', 'battle::playerReady', player, this);
 			}
 		}
 	}
 
 	onExecute(_packet, player) {
 		if(this.battleState === 3) {
+			const cancel = util.out(false, 'boolean');
+			emit('travelers', 'battles::execute', player, victim, cancel, this);
+			if(cancel.get()) {
+				return;
+			}
 			this.closeFight();
+			const victim = player === this.player1 ? this.player2 : this.player1;
 		}
 	}
 
 	onEndChat(packet, player) {
-		this.player1.addPropToQueue('battle_endchatmsg')
-		this.player2.addPropToQueue('battle_endchatmsg')
-		this.player1.temp.battle_endchatmsg = {
-			from: player.public.username,
-			message: require('./base').xssReplace(packet.message.substr(0, 200))
-		};
-		this.player2.temp.battle_endchatmsg = {
-			from: player.public.username,
-			message: require('./base').xssReplace(packet.message.substr(0, 200))
-		};
+		if(typeof packet.message === 'string') {
+			const cancel = util.out(false, 'boolean');
+			emit('travelers', 'battles::chatMessage', packet.message, player, cancel, this);
+			if(cancel.get()) {
+				return;
+			}
+			this.player1.addPropToQueue('battle_endchatmsg')
+			this.player2.addPropToQueue('battle_endchatmsg')
+			this.player1.temp.battle_endchatmsg = {
+				from: player.public.username,
+				message: require('./base').xssReplace(packet.message.substr(0, 200))
+			};
+			this.player2.temp.battle_endchatmsg = {
+				from: player.public.username,
+				message: require('./base').xssReplace(packet.message.substr(0, 200))
+			};
+		}
 	}
 
 	static ALLOWED_BATTLE_OPS = ['h', 'ar', 'al', 'dl', 'dr', 'b'];
@@ -223,6 +238,11 @@ class Battle {
 	 */
 	onBattleOpt(packet, player) {
 		if(typeof packet.option === 'string' && Battle.ALLOWED_BATTLE_OPS.includes(packet.option)) {
+			const cancel = util.out(false, 'boolean');
+			emit('travelers', 'battles::battleChoice', packet.option, player, cancel, this);
+			if(cancel.get()) {
+				return;
+			}
 			player.cache.battleStats.move = packet.option;
 		}
 	}
@@ -238,6 +258,7 @@ class Battle {
 		if(this.player1.cache.battleStats.move === '' && this.player2.cache.battleStats.move === '') {
 			this.abstainCount++;
 		} else this.abstainCount = 0;
+		emit('travelers', 'battles::reviewRound', this);
 		this.player1.cache.battleStats.move = '';
 		this.player2.cache.battleStats.move = '';
 	}
@@ -253,6 +274,7 @@ class Battle {
 			this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 5;
 		}
 		this.sendData();
+		emit('travelers', 'battles::newRound', this);
 	}
 
 	tick() {
@@ -273,12 +295,14 @@ class Battle {
 				this.closeFight();
 			}
 		}
+		emit('travelers', 'battles::tick', this);
 	}
 
 	moveToFight() {
 		this.battleState = 1;
 		this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 15;
 		this.sendData(true);
+		emit('travelers', 'battles::fightStart', this);
 	}
 
 	computeAttacks(p1, p2) {
@@ -288,43 +312,47 @@ class Battle {
 		const p1Stam = Battle.weapons[p1.cache.battleStats.weapon].sp;
 		const p1Move = p1.cache.battleStats.move;
 		const p2Move = p2.cache.battleStats.move;
-		switch (p1Move) {
-			case 'h':
-				if(p2Move !== 'h') {
-					p2Skills.hp -= p1Attack * 2;
-				}
-				p1Skills.sp -= p1Stam * 2;
-				break;
-			case 'al':
-				if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dr') {
-					p2Skills.hp -= p1Attack;
-				}
-				p1Skills.sp -= p1Stam * 2;
-				break;
-			case 'ar':
-				if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dl') {
-					p2Skills.hp -= p1Attack;
-				}
-				p1Skills.sp -= p1Stam * 2;
-				break;
-			case 'dl':
-				if(p2Move !== 'al') {
+		const cancel = util.out(false, 'boolean');
+		emit('travelers', 'battles::computeAttack', p1, p2, cancel, this);
+		if(!cancel.get()) {
+			switch (p1Move) {
+				case 'h':
+					if(p2Move !== 'h') {
+						p2Skills.hp -= p1Attack * 2;
+					}
+					p1Skills.sp -= p1Stam * 2;
+					break;
+				case 'al':
+					if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dr') {
+						p2Skills.hp -= p1Attack;
+					}
+					p1Skills.sp -= p1Stam * 2;
+					break;
+				case 'ar':
+					if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dl') {
+						p2Skills.hp -= p1Attack;
+					}
+					p1Skills.sp -= p1Stam * 2;
+					break;
+				case 'dl':
+					if(p2Move !== 'al') {
+						p1Skills.sp += STAM_REGEN;
+					}
+					break;
+				case 'dr':
+					if(p2Move !== 'ar') {
+						p1Skills.sp += STAM_REGEN;
+					}
+					break;
+				case 'b':
+					if(p2Move !== 'h') {
+						p1Skills.sp += STAM_REGEN;
+					}
+					break;
+				case '':// abstain
 					p1Skills.sp += STAM_REGEN;
-				}
-				break;
-			case 'dr':
-				if(p2Move !== 'ar') {
-					p1Skills.sp += STAM_REGEN;
-				}
-				break;
-			case 'b':
-				if(p2Move !== 'h') {
-					p1Skills.sp += STAM_REGEN;
-				}
-				break;
-			case '':// abstain
-				p1Skills.sp += STAM_REGEN;
-				break;
+					break;
+			}
 		}
 		if(p1Skills.sp > p1Skills.max_sp) {
 			p1Skills.sp = p1Skills.max_sp;
@@ -343,6 +371,7 @@ class Battle {
 		}
 		this.exit(this.player1);
 		this.exit(this.player2);
+		emit('travelers', 'battles::end', this);
 		delete battles[this.id];
 	}
 }
