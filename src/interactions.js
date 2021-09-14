@@ -40,6 +40,12 @@ const renderPlayerList = loc => {
 	});
 }
 
+module.exports.utils = {
+	getPlayersInInteraction,
+	online,
+	playerData
+};
+
 /**
  * @param {players.player} player 
  */

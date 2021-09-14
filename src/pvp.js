@@ -1,4 +1,5 @@
 const { players, util, emit, options } = require('./bullet');
+const utils = require('./interactions').utils;
 const getItem = require('./supplies').item;
 const getItems = require('./supplies').getItems;
 const getTime = () => {
@@ -381,22 +382,60 @@ class Battle {
  */
 const battles = {};
 
+const challenges = {};
+
 module.exports.tick = function() {
 	for(const id in battles) {
 		battles[id].tick();
 	}
 }
 
+module.exports.leaveInt = function(packet, player) {
+	console.log(player.public.username, 'leaving')
+	if(challenges[player.public.username]) {
+		delete challenges[player.public.username];
+	}
+	for(const c in challenges) {
+		if(challenges[c] === player.public.username) {
+			delete challenges[c];
+		}
+	}
+}
+
+
 module.exports.attack = function(packet, player) {
 	if(typeof packet.option === 'string' && players.isPlayerOnline(packet.option)) {
 		const opponent = players.getPlayerByUsername(packet.option);
 		if(opponent.cache.activeBattleId || player.cache.activeBattleId || opponent.public.state !== 'int')return false;
-		new Battle(player, opponent);
+		const challenge = util.out(false, 'boolean');
+		{
+			const {x, y} = player.public;
+			if(x <= 100 && x >= -100 && y >= -100 && y <= 100) {
+				challenge.set(true);
+			}
+		}
+		emit('travelers', 'isChallenge', player, opponent, challenge);
+		if(challenge.get()) {
+			challenges[player.public.username] = packet.option;
+			utils.getPlayersInInteraction(player.public).filter(utils.online).map(utils.playerData).forEach(p => {
+				p.temp.int_challenge = {
+					challenger: player.public.username,
+					challenged: packet.option
+				};
+				p.addPropToQueue('int_challenge');
+			});
+		} else {
+			new Battle(player, opponent);
+		}
 	}
 }
 
 module.exports.acceptChallenge = function(packet, player) {
-	console.log(packet);
+	if(typeof packet.option === 'string') {
+		if(challenges[packet.option] && challenges[packet.option] === player.public.username && players.isPlayerOnline(packet.option)) {
+			new Battle(players.getOnlinePlayer(packet.option), player);
+		}
+	}
 }
 
 module.exports.endChat = function(packet, player) {

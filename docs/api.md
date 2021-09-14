@@ -227,6 +227,13 @@ Gets the current game time.
 
 Gives a certain amount of items of a given id to a player.
 
+## isChallenge
+* attacker `player`
+* opponent `player`
+* out `out<boolean>`
+
+Determines if an attacker has to challenge the opponent before starting a battle.
+
 ## killPlayer
 * player
 
