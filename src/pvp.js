@@ -243,9 +243,11 @@ class Battle {
 	}
 
 	startNewRound() {
-		if(this.player1.public.skills.hp <= 0 || this.player2.public.skills.hp <= 0 || this.abstainCount >= 10) {
+		if(this.player1.public.skills.hp <= 0 || this.player2.public.skills.hp <= 0) {
 			this.battleState = 3;
 			this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 30;
+		} else if(this.abstainCount >= 10) {
+			return this.closeFight();
 		} else {
 			this.battleState = 1;
 			this.nextRoundTurn = getTime() + Math.ceil(options.tps) * 5;
