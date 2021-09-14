@@ -78,7 +78,8 @@ Adds a certain amount of items from a storage.
 
 Registers a type of structure.
 
-## battles namespace
+## `battles` namespace
+---
 
 ### battleChoice
 * option `string`

@@ -131,6 +131,25 @@ module.exports.playerJoinInteraction = function(player) {
 
 module.exports.battleEnd = function(battle) {
 	renderPlayerList(battle.player1.public);
+	const victor = battle.player1.public.skills.hp > 0 ? battle.player1 : battle.player2;
+	const looser = battle.player1.public.skills.hp <= 0 ? battle.player1 : battle.player2;
+	getPlayersInInteraction(battle.player1.public).filter(online).map(playerData).forEach(p => {
+		p.temp.int_defeated = {
+			victor: victor.public.username,
+			loser: looser.public.username
+		};
+		p.addPropToQueue('int_defeated');
+	});
+}
+
+module.exports.battleStart = function(battle) {
+	getPlayersInInteraction(battle.player1.public).filter(online).map(playerData).forEach(p => {
+		p.temp.int_pvpstarted = {
+			attacker: battle.player1.public.username,
+			defender: battle.player2.public.username
+		};
+		p.addPropToQueue('int_pvpstarted');
+	});
 }
 
 /**

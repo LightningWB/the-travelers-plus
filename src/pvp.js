@@ -60,7 +60,7 @@ class Battle {
 		battles[randString] = this;
 		this.id = randString;
 		this.sendData();
-		emit('travelers', 'battle::fightOpened', this);
+		emit('travelers', 'battles::fightOpened', this);
 	}
 
 	/**
@@ -202,12 +202,12 @@ class Battle {
 	onExecute(_packet, player) {
 		if(this.battleState === 3) {
 			const cancel = util.out(false, 'boolean');
+			const victim = player === this.player1 ? this.player2 : this.player1;
 			emit('travelers', 'battles::execute', player, victim, cancel, this);
 			if(cancel.get()) {
 				return;
 			}
 			this.closeFight();
-			const victim = player === this.player1 ? this.player2 : this.player1;
 		}
 	}
 
