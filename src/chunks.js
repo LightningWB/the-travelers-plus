@@ -1,4 +1,4 @@
-const { chunks, emit, triggerEvent, players, SAVE_INTERVAL } = require('./bullet')
+const { chunks, emit, triggerEvent, players, SAVE_INTERVAL, util } = require('./bullet')
 
 let turn = 0;
 let activeChunks = [];
@@ -66,7 +66,11 @@ module.exports.tick = function(player)
 						(player.public.x > meX - 16 && player.public.x < meX + 16) &&// x values
 						(player.public.y > meY - 16 && player.public.y < meY + 16)// y values
 					){
-						ps.push({x: player.public.x, y: player.public.y});
+						const out = util.out(true, 'boolean');
+						emit('travelers', 'canPlayerSee', me, player, out);
+						if(out.get()) {
+							ps.push({x: player.public.x, y: player.public.y});
+						}
 					}
 				}
 			}
