@@ -143,6 +143,8 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	plugin.on('equip_actions::player_scanner_highrange::scan', require('./equipment/player_scanner_highrange').scan, BASE_PRIORITY);
 	// low scanner
 	plugin.on('equip_actions::player_scanner::scan', require('./equipment/player_scanner').scan, BASE_PRIORITY);
+	// heat mask
+	plugin.on('travelers::canScanPlayer', require('./equipment/heat_masker').canScan, BASE_PRIORITY);
 	// shovel
 	plugin.on('equip_actions::shovel::dig', require('./equipment/shovel').dig, BASE_PRIORITY);
 	plugin.on('equip_actions::shovel::fill', require('./equipment/shovel').fill, BASE_PRIORITY);

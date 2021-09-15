@@ -1,6 +1,6 @@
 const { chunks, players, util, emit } = require('../bullet');
 
-const MAX_DISTANCE = 100;
+const MAX_DISTANCE = 30;
 
 function distanceTo(pos1, pos2) {
 	return Math.max(Math.abs(Math.max(pos1.x, pos2.x)-Math.min(pos1.x, pos2.x)),Math.max(Math.abs(Math.max(pos1.y, pos2.y)-Math.min(pos1.y, pos2.y))));
