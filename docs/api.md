@@ -180,6 +180,13 @@ Emitted for every step. If out is true, will cancel movement.
 
 Emitted for every step. If out is true, will cancel movement.
 
+## canPlayerSee
+* viewer `player`
+* viewee `player`
+* out `out<boolean>`
+
+Emitted to check if a player is visible to another player. Only done if they are within 15 tiles and the viewee isn't dead. Out can be used to mark them as invisible to the viewer.
+
 ## eventLog
 * message `string`
 * player
