@@ -141,6 +141,8 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	plugin.on('equip_actions::low_teleporter::west', require('./equipment/low_teleporter').west, BASE_PRIORITY);
 	// high scanner
 	plugin.on('equip_actions::player_scanner_highrange::scan', require('./equipment/player_scanner_highrange').scan, BASE_PRIORITY);
+	// low scanner
+	plugin.on('equip_actions::player_scanner::scan', require('./equipment/player_scanner').scan, BASE_PRIORITY);
 	// shovel
 	plugin.on('equip_actions::shovel::dig', require('./equipment/shovel').dig, BASE_PRIORITY);
 	plugin.on('equip_actions::shovel::fill', require('./equipment/shovel').fill, BASE_PRIORITY);
