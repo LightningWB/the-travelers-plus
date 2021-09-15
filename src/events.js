@@ -574,6 +574,10 @@ module.exports.int_exchange = function(packet, player) {
 	{
 		const p = players.getPlayerByUsername(player.private.lootingPlayer);
 		lootExchange(packet, player, p.private.supplies, p.public.skills.max_carry);
+		if(packet.item === p.public.equipped) {
+			emit('actions', 'dequip', {causedBySuppliesChange: true}, p);
+			delete p.public.equipped;
+		}
 	}
 }
 

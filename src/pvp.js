@@ -391,7 +391,6 @@ module.exports.tick = function() {
 }
 
 module.exports.leaveInt = function(packet, player) {
-	console.log(player.public.username, 'leaving')
 	if(challenges[player.public.username]) {
 		delete challenges[player.public.username];
 	}

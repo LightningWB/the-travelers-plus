@@ -53,7 +53,13 @@ module.exports.takePlayerItem = function(id, count, player) {
 		player.private.supplies[id] = 0;
 	}
 	player.private.supplies[id] -= count;
-	if(player.private.supplies[id] <= 0)player.private.supplies[id] = undefined;
+	if(player.private.supplies[id] <= 0) {
+		player.private.supplies[id] = undefined;
+		if(id === player.public.equipped) {
+			emit('actions', 'dequip', {causedBySuppliesChange: true}, player);
+			delete player.public.equipped;
+		}
+	}
 }
 
 module.exports.removeItem = function(id, count, storage) {
