@@ -187,6 +187,13 @@ Emitted for every step. If out is true, will cancel movement.
 
 Emitted to check if a player is visible to another player. Only done if they are within 15 tiles and the viewee isn't dead. Out can be used to mark them as invisible to the viewer.
 
+## canScanPlayer
+* scanner `player`
+* scanned `player`
+* out `out<boolean>`
+
+Emitted to check if a player is scannable to another player. Only done if they are within scanner range and the scanned isn't dead. Out can be used to mark them as unscannable to the scanner.
+
 ## eventLog
 * message `string`
 * player
