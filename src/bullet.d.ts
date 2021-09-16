@@ -3,7 +3,15 @@
  */
 
 import * as events from "events";
-
+type howToPlayPart = {
+	type: 'img',
+	data: string | Buffer
+} | {
+	type: 'text',
+	content: string
+} | {
+	type: 'lineBreak'
+};
 declare namespace utility
 {
 	export function randomString(len:number):string
@@ -38,7 +46,7 @@ declare namespace utility
 		getType():dataType
 	}
 	export function out<T>(val: T, t?:dataType): Out<T>
-	export function getObjs(chunk:chunks.chunk): chunks.obj[]
+	export function getObjs(chunk:chunk.chunk): chunk.obj[]
 }
 
 declare namespace chunk
@@ -229,9 +237,7 @@ declare namespace plugins
 		  */
 		setStorage(storage: storage): void
 		addLeaderboard(name: string, scorer: (player: player.playerData,) => number, maps:{[key:string]:(player: player.playerData) => any}, _translators:{[key:string]:(player: player.playerData) => string}):void
-		{
-			net.addLeaderboard(name, scorer, maps, _translators);
-		}
+		addHowToPlaySection(name: string, values: howToPlayPart[]):void
 	}
 	export function makePlugin(id:string):plugin
 	export function emit(namespace: string, method: string, ...args):void

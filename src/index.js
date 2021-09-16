@@ -1,5 +1,7 @@
 const BASE_PRIORITY = 0;
 const thetravelers = require('./bullet');
+const fs = require('fs');
+const { join } = require('path');
 
 const plugin = thetravelers.makePlugin('the travelers plus');
 // storage stuff
@@ -253,3 +255,33 @@ plugin.addLeaderboard('locations explored',
 	p => p.public.locs_explored,
 	{locs_explored: p => p.public.locs_explored},
 	{primary: l => l.locs_explored + ' locations'});
+
+// how to play
+plugin.addHowToPlaySection('intro', [
+	// any strings with double quotes are to save me time
+	{
+		type: 'text',
+		content: "The Travelers is an MMO, but it's mostly an idle game. Don't try to constantly play it, it'll get boring fast. Use the game's automatic tools to play for you while away, and use notifications to let you know when something interesting happens. The world is massive, and most of it is empty, so enjoy it in pieces instead of sessions."
+	},
+	{type: 'lineBreak'},
+	{
+		type: 'text',
+		content: 'The community objective is to solve the worldwide puzzle hidden in the game. Start at the center of the world. When you get to (0, 0) you will find something that will lead you to the first clue. The puzzle is extremely difficult and will take many players a long time to solve. Rest assured, every stage is solvable and fair.',
+	},
+	{type: 'lineBreak'},
+	{
+		type: 'text',
+		content: 'When you first start playing The Travelers, you are offered a tutorial. This how-to-play page will assume you skipped the tutorial, since most people will either skip it or gloss over it anyway.'
+	}
+]);
+
+plugin.addHowToPlaySection('the map', [
+	{
+		type: 'text',
+		content: 'The map displays the world as far as you can see, up to 15 tiles (kilometers) away. Each tile represents what the region consists of; it could be ash, trees, swamp, and more. Your biome is indicated under the tracker above the map. If you don\'t know what a tile is, you can hover over it with your mouse to view a description of it.'
+	},
+	{
+		type: 'img',
+		data: fs.readFileSync(join(__dirname, 'assets/htp_map.png'))
+	}
+]);
