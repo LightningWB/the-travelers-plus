@@ -31,11 +31,7 @@ module.exports.renderItems = function(player, addToQueue) {
 			data: items[id]
 		};
 	}
-	if(Object.keys(player.temp.supplies).length !== 0) {
-		if(addToQueue !== false)player.addPropToQueue('supplies');
-	} else {
-		delete player.temp.supplies;
-	}
+	if(addToQueue !== false)player.addPropToQueue('supplies');
 }
 
 module.exports.givePlayerItem = function(id, count, player) {

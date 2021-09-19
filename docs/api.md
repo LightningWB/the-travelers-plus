@@ -55,6 +55,12 @@ Adds javascript for the client to run.
 
 Sets how long an event should last for in ms.
 
+## addGameEffect
+* id `string`
+* effect `effect`
+
+Adds an effect to the list of available effects.
+
 ## addGameItem
 * id `string`
 * item
@@ -234,6 +240,13 @@ Gets the xp rewards for each event.
 
 Gets the current game time.
 
+## giveEffect
+* player
+* effectId `string`
+* time = Infinity `number`
+
+Gives an effect to a player that'll persist for a certain amount of time or forever(Infinity).
+
 ## givePlayerItem
 * id `string`
 * amount `number`
@@ -247,6 +260,13 @@ Gives a certain amount of items of a given id to a player.
 * out `out<boolean>`
 
 Determines if an attacker has to challenge the opponent before starting a battle.
+
+## isPropRange
+* x `int`
+* y `int`
+* out `out<boolean>`
+
+The value of out is used to determine if it is in a protection range.
 
 ## killPlayer
 * player

@@ -28,15 +28,29 @@ const canSee = (player, targetPlayer) => player && targetPlayer && targetPlayer.
 
 const renderPlayerList = loc => {
 	const ps = getPlayersInInteraction(loc).map(p => {
-		return {
+		const response =  {
 			username: p,
-			in_battle: false,
-			online: players.isPlayerOnline(p)
+			online: false
+		};
+
+		if(players.isPlayerOnline(p)) {
+			const data = players.getOnlinePlayer(p);
+			response.in_battle = data.cache.activeBattleId !== undefined;
+			response.online = true;
+			response.has_constitution = data.private.effects && data.private.effects.constitution > 0;
 		}
+		return response;
 	});
+	const propRange = util.out(false, 'boolean');
+	const {x, y} = loc;
+	if(x <= 100 && x >= -100 && y >= -100 && y <= 100) {
+		propRange.set(true);
+	}
+	emit('travelers', 'isPropRange', loc.x, loc.y, propRange);
 	getPlayersInInteraction(loc).filter(online).map(playerData).forEach(p => {
 		p.temp.int_here = ps;
-		p.addPropToQueue('int_here');
+		p.temp.outside_protection = !propRange.get();
+		p.addPropToQueue('int_here', 'outside_protection');
 	});
 }
 

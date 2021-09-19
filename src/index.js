@@ -41,6 +41,18 @@ plugin.on('travelers::resetSkills', require('./stats').travelersResetSkills, BAS
 plugin.on('travelers::resetLevel', require('./stats').resetLevel, BASE_PRIORITY);
 plugin.on('travelers::givePlayerXp', require('./stats').givePlayerXp, BASE_PRIORITY);
 plugin.on('travelers::onPlayerStep', require('./stats').onStep, BASE_PRIORITY);
+// effects
+plugin.on('travelers::addGameEffect', require('./fx').addGameEffect, BASE_PRIORITY);
+plugin.on('travelers::giveEffect', require('./fx').addEffect, BASE_PRIORITY);
+plugin.on('travelers::killPlayer', require('./fx').playerKill, BASE_PRIORITY);
+plugin.on('playerTick', require('./fx').playerTick, BASE_PRIORITY);
+plugin.on('playerConnect', require('./fx').playerJoin, BASE_PRIORITY);
+plugin.on('ready', require('./fx').ready, BASE_PRIORITY);
+	// constitution
+	plugin.on('travelers::isChallenge', require('./fx').isChallenge, BASE_PRIORITY);
+	plugin.on('travelers::playerJoinInteraction', require('./fx').playerJoinInteraction, BASE_PRIORITY + 10);
+	// weight
+	plugin.on('travelers::getMovementSpeed', require('./fx').getMovementSpeed, BASE_PRIORITY);
 // interactions
 plugin.on('travelers::battles::end', require('./interactions').battleEnd, BASE_PRIORITY);
 plugin.on('travelers::battles::fightOpened', require('./interactions').battleStart, BASE_PRIORITY);

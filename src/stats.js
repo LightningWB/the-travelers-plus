@@ -134,7 +134,7 @@ module.exports.tick = function(player) {
 	}
 	if(player.public.state === 'travel')
 	{
-		if(player.public.skills.sp < player.public.skills.max_sp)
+		if(player.public.skills.sp < player.public.skills.max_sp && player.public.skills.carry <= player.public.skills.max_carry)
 		{
 			player.addPropToQueue('skills');
 			player.public.skills.sp++;
