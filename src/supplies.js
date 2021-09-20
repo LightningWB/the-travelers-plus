@@ -40,6 +40,7 @@ module.exports.givePlayerItem = function(id, count, player) {
 		player.private.supplies[id] = 0;
 	}
 	player.private.supplies[id] += count;
+	emit('travelers', 'calcWeight', player);
 	if(player.private.supplies[id] <= 0)player.private.supplies[id] = undefined;
 }
 
@@ -49,6 +50,7 @@ module.exports.takePlayerItem = function(id, count, player) {
 		player.private.supplies[id] = 0;
 	}
 	player.private.supplies[id] -= count;
+	emit('travelers', 'calcWeight', player);
 	if(player.private.supplies[id] <= 0) {
 		player.private.supplies[id] = undefined;
 		if(id === player.public.equipped) {

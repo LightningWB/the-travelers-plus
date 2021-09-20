@@ -244,11 +244,11 @@ const NO_BUILD_TILES = ['T', 'M', 'w', 'H', 'C'];
 module.exports.placeStructure = function(data, player) {
 	const structureData = STRUCTURE_DATA[PLACING_TO_ID[data.id]];
 	const val = util.out(true, 'boolean');
-	if(NO_BUILD_TILES.includes(generateTileAt(data.x, data.y))) {
+	if(NO_BUILD_TILES.includes(generateTileAt(data.x, data.y)) || chunks.isObjectHere(data.x, data.y)) {
 		val.set(false);
 	}
 	emit('travelers', 'canPlaceStructure', data, player, val);
-	if(chunks.isObjectHere(data.x, data.y) || !val.get()) {
+	if(!val.get()) {
 		emit('travelers', 'eventLog', 'unable to place object here.', player)
 		return false;
 	}
@@ -263,6 +263,9 @@ module.exports.placeStructure = function(data, player) {
 			id: structureData.eventId,
 			loot: {}
 		}
+	}
+	if(chunks.isObjectHere(data.x, data.y)) {
+		chunks.removeObject(data.x, data.y);
 	}
 	chunks.addObject(data.x, data.y, {}, privateData);
 	const obj = chunks.getObject(data.x, data.y);
