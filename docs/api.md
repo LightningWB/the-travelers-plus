@@ -79,7 +79,7 @@ Adds items to the game.
 
 Adds a certain amount of items from a storage.
 
-## addItem
+## addStructureData
 * data `structure`
 
 Registers a type of structure.
