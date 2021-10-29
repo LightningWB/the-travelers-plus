@@ -1,4 +1,4 @@
-const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
+const {emit, players, util, chunks, options, generateTileAt, patches} = require('./bullet');
 const { item, givePlayerItem, giveItemToPlayer, takePlayerItem } = require('./supplies');
 
 const levelUnlocks = [];
@@ -49,7 +49,8 @@ module.exports.tick = function(player) {
 				player.public.craft_queue[id].remaining--;
 				if(player.public.craft_queue[id].remaining <= 0)
 				{
-					giveItemToPlayer(player.public.craft_queue[id].item_id, 1, player);
+					const it = item(player.public.craft_queue[id].item_id);
+					giveItemToPlayer(player.public.craft_queue[id].item_id, it.craft_makes || 1, player);
 					emit('travelers', 'renderItems', player);
 				}
 				else activeIds.push(id);
@@ -174,3 +175,5 @@ module.exports.connect = function(player) {
 		player.addPropToQueue('craft_items');
 	}
 }
+
+patches.addPatch('CRAFTING.open', ' + wdmg + "</b>"', ' + wdmg + "</b>" + (obj.craft_makes ? "<br />\u2022 will craft " + obj.craft_makes + "" : "")', false)
