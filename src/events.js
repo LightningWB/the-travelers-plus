@@ -114,7 +114,7 @@ function chooseEvent(events)
 	events.forEach(e => {
 		total += e.weight;
 	});
-	let randLeft = Math.floor(Math.random() * total);
+	let randLeft = util.rand(0, total);
 	for(const event of events)
 	{
 		randLeft -= event.weight;
