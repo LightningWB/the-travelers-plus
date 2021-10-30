@@ -145,6 +145,9 @@ module.exports.tick = function(player) {
 			player.public.skills.hp++;
 		}
 	}
+	if(player.public.skills.xp < 0) {
+		player.public.skills.xp = 0;
+	}
 }
 
 /**

@@ -238,7 +238,7 @@ class Battle {
 	 * @param {players.player} player 
 	 */
 	onBattleOpt(packet, player) {
-		if(typeof packet.option === 'string' && Battle.ALLOWED_BATTLE_OPS.includes(packet.option)) {
+		if(typeof packet.option === 'string' && Battle.ALLOWED_BATTLE_OPS.includes(packet.option) && player.public.skills.sp > 0) {
 			const cancel = util.out(false, 'boolean');
 			emit('travelers', 'battles::battleChoice', packet.option, player, cancel, this);
 			if(cancel.get()) {
