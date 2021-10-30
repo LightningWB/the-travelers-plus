@@ -370,9 +370,9 @@ class Battle {
 		if(this.player2.public.skills.hp <= 0) {
 			emit('travelers', 'killPlayer', this.player2);
 		}
+		emit('travelers', 'battles::end', this);
 		this.exit(this.player1);
 		this.exit(this.player2);
-		emit('travelers', 'battles::end', this);
 		delete battles[this.id];
 	}
 }
