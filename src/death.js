@@ -10,26 +10,35 @@ module.exports.kill = function(player) {
 	player.public.death_x = player.public.x;// use public to also say after a relog
 	player.public.death_y = player.public.y;
 	
-	spiral.loopOut(player.public.x, player.public.y, loc => {
-		const {x, y} = loc;
-		if(!chunks.isObjectHere(x, y)) {
-			const tile = generateTileAt(x, y);
-			if(tile !== 'w' && tile !== '░' && tile !== 'H' && tile !== 'C') {
-				emit('travelers', 'addEventTile',
-					x,
-					y,
-					'@',
-					'body',
-					'body'
-				);
-				const eventObj = chunks.getObject(x, y);
-				require('./crafting').cancelAll(null, player, false);
-				eventObj.private.eventData.loot = {main: util.clone(player.private.supplies)};
-				player.private.supplies = {};
-				return true;
-			}
+	let hasItem = false;
+	for(const id in player.private.supplies) {
+		if(player.private.supplies[id] > 0) {
+			hasItem = true;
+			break;
 		}
-	});
+	}
+	if(hasItem) {
+		spiral.loopOut(player.public.x, player.public.y, loc => {
+			const {x, y} = loc;
+			if(!chunks.isObjectHere(x, y)) {
+				const tile = generateTileAt(x, y);
+				if(tile !== 'w' && tile !== '░' && tile !== 'H' && tile !== 'C') {
+					emit('travelers', 'addEventTile',
+						x,
+						y,
+						'@',
+						'body',
+						'body'
+					);
+					const eventObj = chunks.getObject(x, y);
+					require('./crafting').cancelAll(null, player, false);
+					eventObj.private.eventData.loot = {main: util.clone(player.private.supplies)};
+					player.private.supplies = {};
+					return true;
+				}
+			}
+		});
+	}
 	
 	if(players.isPlayerOnline(player.public.username)) {
 		player.temp.effects_removed = true;
