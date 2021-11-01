@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
 const getItem = require('./supplies').item;
 const giveItemToPlayer = require('./supplies').giveItemToPlayer;
+const { config } = require('.');
 
 // if someone uses public event ids to brute force this, nice job to them. they can see button target ids until the server restarts.
 const salt = util.randomString(9);
@@ -12,8 +13,8 @@ const expiry = {// time in seconds
 };
 
 const XP_REWARDS = {
-	house: 25,
-	city: 100
+	house: config.house_xp_reward,
+	city: config.city_xp_reward
 };
 
 // to save player in correct room

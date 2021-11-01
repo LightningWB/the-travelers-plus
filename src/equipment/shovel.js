@@ -1,3 +1,4 @@
+const { config } = require('..');
 const {emit, players, util, chunks, options, generateTileAt} = require('../bullet');
 const { placeEvent } = require('../events');
 const { isValidHole, isMetalHole } = require('../holes');
@@ -30,15 +31,13 @@ module.exports.dig = function(player) {
 	const obj = chunks.getObject(x, y);
 	if(obj)
 	{
-		if(obj.public.char !== 'o')return;
+		if(obj.public.char !== 'o')return false;
 		else obj.private.visible = undefined;
 	}
 	else {
 		if(recentMetals.find(o => o.x === x && o.y === y) === undefined && isMetalHole(x, y)) {
-			if(player.private.foundTrapdoor !== true) {
-				if(util.rand(0, 1000) <= 1) {
-					placeEvent(x, y, '_', 'trapdoor', 'trapdoor');
-				}
+			if(player.private.foundTrapdoor !== true && util.rand(0, 1000) <= 1) {
+				placeEvent(x, y, '_', 'trapdoor', 'trapdoor');
 			} else {
 				placeEvent(x, y, 'o', 'hole', 'hole');
 				const lootFull = chunks.getObject(x, y).private.eventData.loot;
@@ -59,10 +58,12 @@ module.exports.dig = function(player) {
 					loot[bonus] = bonusCount;
 				}
 				recentMetals.push({x, y});
-				if(recentMetals.length > 5000) {
+				if(recentMetals.length > config.max_metal_holes) {
 					recentMetals.shift();
 				}
 			}
+		} else {
+			placeEvent(x, y, 'o', 'hole', 'hole');
 		}
 	}
 	emit('travelers', 'movePlayerToEvent', player);

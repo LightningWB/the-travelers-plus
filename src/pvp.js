@@ -1,4 +1,5 @@
 const { players, util, emit, options } = require('./bullet');
+const { config } = require('.');
 const utils = require('./interactions').utils;
 const getItem = require('./supplies').item;
 const getItems = require('./supplies').getItems;
@@ -365,9 +366,11 @@ class Battle {
 
 	closeFight() {
 		if(this.player1.public.skills.hp <= 0) {
+			emit('travelers', 'battles::playerWon', this.player2, this.player1, this);
 			emit('travelers', 'killPlayer', this.player1);
 		}
 		if(this.player2.public.skills.hp <= 0) {
+			emit('travelers', 'battles::playerWon', this.player1, this.player2, this);
 			emit('travelers', 'killPlayer', this.player2);
 		}
 		emit('travelers', 'battles::end', this);
@@ -403,28 +406,30 @@ module.exports.leaveInt = function(packet, player) {
 
 
 module.exports.attack = function(packet, player) {
-	if(typeof packet.option === 'string' && players.isPlayerOnline(packet.option)) {
-		const opponent = players.getPlayerByUsername(packet.option);
-		if(opponent.cache.activeBattleId || player.cache.activeBattleId || opponent.public.state !== 'int')return false;
-		const challenge = util.out(false, 'boolean');
-		{
-			const {x, y} = player.public;
-			if(x <= 100 && x >= -100 && y >= -100 && y <= 100) {
-				challenge.set(true);
+	if(config.pvp_enabled) {
+		if(typeof packet.option === 'string' && players.isPlayerOnline(packet.option)) {
+			const opponent = players.getPlayerByUsername(packet.option);
+			if(opponent.cache.activeBattleId || player.cache.activeBattleId || opponent.public.state !== 'int')return false;
+			const challenge = util.out(false, 'boolean');
+			{
+				const {x, y} = player.public;
+				if(x <= 100 && x >= -100 && y >= -100 && y <= 100) {
+					challenge.set(true);
+				}
 			}
-		}
-		emit('travelers', 'isChallenge', player, opponent, challenge);
-		if(challenge.get()) {
-			challenges[player.public.username] = packet.option;
-			utils.getPlayersInInteraction(player.public).filter(utils.online).map(utils.playerData).forEach(p => {
-				p.temp.int_challenge = {
-					challenger: player.public.username,
-					challenged: packet.option
-				};
-				p.addPropToQueue('int_challenge');
-			});
-		} else {
-			new Battle(player, opponent);
+			emit('travelers', 'isChallenge', player, opponent, challenge);
+			if(challenge.get()) {
+				challenges[player.public.username] = packet.option;
+				utils.getPlayersInInteraction(player.public).filter(utils.online).map(utils.playerData).forEach(p => {
+					p.temp.int_challenge = {
+						challenger: player.public.username,
+						challenged: packet.option
+					};
+					p.addPropToQueue('int_challenge');
+				});
+			} else {
+				new Battle(player, opponent);
+			}
 		}
 	}
 }
@@ -471,4 +476,14 @@ module.exports.onReady = function() {
 			}
 		}
 	}
+}
+
+module.exports.playerWon = function(victor, looser, battle) {
+	let xp = looser.public.skills.xp * config.pvp_xp_reward_modifier;
+	if(config.pvp_xp_reward_min >= 0 && xp < config.pvp_xp_reward_min) {
+		xp = config.pvp_xp_reward_min;
+	} else if(config.pvp_xp_reward_max >= 0 && xp > config.pvp_xp_reward_max) {
+		xp = config.pvp_xp_reward_max;
+	}
+	emit('travelers', 'givePlayerXp', victor, xp);
 }

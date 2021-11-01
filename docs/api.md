@@ -145,6 +145,13 @@ Triggered when a new combat round starts.
 
 Triggered when a player submits their weapon for the fight and marks them self are ready.
 
+## playerWon
+* victor
+* looser
+* battle
+
+Triggered when a player wins a battle by executing the looser.
+
 ### reviewRound
 * battle
 
@@ -253,6 +260,12 @@ Gives an effect to a player that'll persist for a certain amount of time or fore
 * player
 
 Gives a certain amount of items of a given id to a player.
+
+## givePlayerXp
+* player
+* amount `number`
+
+Gives a player XP.
 
 ## isChallenge
 * attacker `player`

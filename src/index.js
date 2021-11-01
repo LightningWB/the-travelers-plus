@@ -1,9 +1,80 @@
 const BASE_PRIORITY = 0;
 const thetravelers = require('./bullet');
-const fs = require('fs');
-const { join } = require('path');
 
 const plugin = thetravelers.makePlugin('the travelers plus');
+// config stuff
+const config = plugin.loadConfig({
+	header: 'the travelers plus\nhttps://github.com/LightningWB/the-travelers-plus',
+	options: {
+		hardcore: {
+			description: 'Disables respawning.',
+			allowed: 'Boolean',
+			default: false,
+		},
+		xp_exponential_rate: {
+			description: 'The exponential growth rate for xp required.',
+			allowed: 'Number',
+			default: 2.75,
+		},
+		xp_level_increase_rate: {
+			description: 'The amount the xp increases per level not including the exponential factor.',
+			allowed: 'Number',
+			default: 20,
+		},
+		house_xp_reward: {
+			description: 'The amount of xp rewarded for discovering a house.',
+			allowed: 'Number',
+			default: 25,
+		},
+		city_xp_reward: {
+			description: 'The amount of xp rewarded for discovering a city.',
+			allowed: 'Number',
+			default: 100,
+		},
+		stump_clear_time: {
+			description: 'How often cut down trees regrow in seconds.',
+			allowed: 'Integer',
+			default: 3600 * 24
+		},
+		metal_hole_chance: {
+			description: 'The chance of a metal hole being at a particular location.',
+			allowed: 'Positive Number',
+			default: .3,
+		},
+		max_metal_holes: {
+			description: 'The maximum amount of metal holes that can exist before existing locations can contain metal again.',
+			allowed: 'Positive Number',
+			default: 5000,
+		},
+		pvp_enabled: {
+			description: 'Whether or not pvp is enabled.',
+			allowed: 'Boolean',
+			default: true,
+		},
+		pvp_xp_reward_modifier: {
+			description: 'The percentage of xp rewarded for killing a player.',
+			allowed: 'Positive Number',
+			default: .1,
+		},
+		pvp_xp_reward_min: {
+			description: 'The minimum amount of xp rewarded for killing a player. Set to a negative number to disable.',
+			allowed: 'Number',
+			default: -1,
+		},
+		pvp_xp_reward_max: {
+			description: 'The maximum amount of xp rewarded for killing a player. Set to a negative number to disable.',
+			allowed: 'Number',
+			default: -1,
+		},
+		death_xp_penalty: {
+			description: 'The percentage of xp lost when a player dies.',
+			allowed: 'Positive Number',
+			default: .1,
+		}
+	}
+});
+Object.freeze(config);// thou shalt not edit this
+module.exports.config = config;
 // storage stuff
 const storage = plugin.getStorage();
 module.exports.storage = storage;

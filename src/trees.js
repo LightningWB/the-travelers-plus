@@ -1,8 +1,9 @@
-const {players, generateTileAt, chunks, emit, util} = require('./bullet');
+const { config } = require('.');
+const {players, generateTileAt, chunks, emit, util, options} = require('./bullet');
 const { giveItemToPlayer, renderItems } = require('./supplies');
 
 let currentTime = 0;
-const RESET_INTERVAL = 3600 * 24;// every 24 hours at 1 tps like the travelers
+const RESET_INTERVAL = config.stump_clear_time * Math.ceil(options.tps);
 
 /**
  * @param {object} packet 

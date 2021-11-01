@@ -1,3 +1,4 @@
+const { config } = require('.');
 const { chunks } = require('./bullet');
 const noise = require('./libs/noise');
 const DELETE_ITEMS = ['wood_stick', 'scrap_metal', 'steel_shard', 'copper_ore'];
@@ -6,6 +7,7 @@ const BONUS_ITEMS = ['plastic', 'bullet', 'cloth'];
 const TOTAL_ITEMS = DELETE_ITEMS.concat(BONUS_ITEMS);
 
 const DELETE_COUNT = 11;
+const CHANCE = -1 + config.metal_hole_chance * 2;// noise can be negative
 
 /**
  * determines if a hole object should be saved
@@ -92,5 +94,5 @@ module.exports.isMetalHole = function(x, y) {
 	if(hole && hole.private.eventData && hole.private.eventData.type === 'hole' && hole.private.visible === false) {
 		return true;
 	}
-	return metalNoise.simplex2(x * 10000, y * 10000) < -.6;// chance is 20% so double because noise can be negative
+	return metalNoise.simplex2(x * 10000, y * 10000) < CHANCE;
 }

@@ -1,3 +1,4 @@
+const { config } = require('.');
 const {emit, players, util, chunks, options} = require('./bullet');
 
 /**
@@ -35,7 +36,7 @@ const skillUpgradeValues = {
  */
 function xpForLevel(l)
 {
-	return Math.ceil((2 * Math.pow(l, 2.75)) + (20 * l) + 20) * 3;
+	return Math.ceil((2 * Math.pow(l, config.xp_exponential_rate)) + (config.xp_level_increase_rate * l) + 20) * 3;
 }
 
 /**
@@ -85,7 +86,7 @@ module.exports.skill_upgrade = function(packet, player) {
 
 module.exports.resetLevel = function(player) {
 	// drop player level by 10% and recalculate xp
-	const resetLevel = Math.ceil((player.public.skills.level + 1) * 0.9) - 1;
+	const resetLevel = Math.ceil((player.public.skills.level + 1) * (1 - config.death_xp_penalty)) - 1;
 	const resetXp = xpForLevel(resetLevel - 1);
 	const resetNextLevelXp = xpForLevel(resetLevel);
 
