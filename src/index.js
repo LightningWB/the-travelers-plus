@@ -142,6 +142,8 @@ plugin.on('playerConnect', require('./interactions').playerConnect, BASE_PRIORIT
 plugin.on('disconnect', require('./interactions').disconnect, BASE_PRIORITY);
 plugin.on('playerTick', require('./interactions').playerTick, BASE_PRIORITY);
 // events
+plugin.on('travelers::getEventHashTable', require('./events').getEventHashTable, BASE_PRIORITY);
+plugin.on('travelers::getHashedValue', require('./events').getHashedValue, BASE_PRIORITY);
 plugin.on('travelers::onPlayerStep', require('./events').movePlayer, BASE_PRIORITY - 10);
 plugin.on('travelers::calcPlayerEvent', require('./events').calcPlayerEvent, BASE_PRIORITY);
 plugin.on('travelers::movePlayerToEvent', require('./events').movePlayerToEvent, BASE_PRIORITY);

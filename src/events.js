@@ -30,6 +30,14 @@ function hash(str)
 	return result;
 }
 
+module.exports.getEventHashTable = function(out) {
+	out.set(util.clone(hashTable));
+}
+
+module.exports.getHashedValue = function(str, out) {
+	out.set(hash(str));
+}
+
 function addData(storage) {
 	const result = {};
 	for(const key of Object.keys(storage)) {

@@ -225,6 +225,17 @@ Sends an event log that isn't xss safe to a player.
 
 Fired when an event needs loot to be generated.
 
+## getEventHashTable
+* out `out<{[key:string]: number}>`
+
+Returns the table that can be used to reverse event hashes. `hash_table[hash] = original`
+
+## getHashedValue
+* input `string`
+* out `out<string>`
+
+Returns the hashed value of a string using the event salt.
+
 ## getItem
 * id `string`
 * ptr `object`
