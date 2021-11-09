@@ -242,6 +242,7 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	plugin.on('travelers::onPlayerStep', require('./equipment/metal_detector').onPlayerStep, BASE_PRIORITY);
 	// radio
 	plugin.on('playerConnect', require('./equipment/radio').connect, BASE_PRIORITY);
+	plugin.on('travelers::radioBroadcast', require('./equipment/radio').radioBroadcast, BASE_PRIORITY);
 	plugin.on('equip_actions::radio::radio_toggle', require('./equipment/radio').radio_toggle, BASE_PRIORITY);
 	plugin.on('equip_actions::radio::radio_transmit', require('./equipment/radio').radio_transmit, BASE_PRIORITY);
 	plugin.on('equip_actions::radio::radio_setchannel', require('./equipment/radio').radio_setchannel, BASE_PRIORITY);

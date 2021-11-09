@@ -27,18 +27,22 @@ module.exports.radio_toggle = function(player) {
 	addStatusText(player);
 }
 
+module.exports.radioBroadcast = function(message, freq, sender = undefined) {
+	for(const player of players.onlinePlayers())
+	{
+		if(player.private.radio && player.private.radio.channel === freq)
+		{
+			emit('travelers', 'eventLog', (player === sender ? 'broadcasted transmission:\n' : 'received transmission:\n') + message, player);
+		}
+	}
+}
+
 module.exports.radio_transmit = function(user) {
 	if(user.private.radio)
 	{
 		user.message('radio_transmit', m=>{
 			m = m.replace(/\n/g, '');
-			for(const player of players.onlinePlayers())
-			{
-				if(player.private.radio && player.private.radio.channel === user.private.radio.channel)
-				{
-					emit('travelers', 'eventLog', (player === user ? 'broadcasted transmission:\n' : 'received transmission:\n') + m, player);
-				}
-			}
+			emit('travelers', 'radioBroadcast', m, user.private.radio.channel, user);
 		}, 100);
 	}
 }
