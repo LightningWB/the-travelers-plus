@@ -88,5 +88,13 @@
 		"char": "Θ",
 		"isBreakable": true,
 		"breakTime": 10
+	},
+	{
+		"id": "airwave_tower",
+		"placingItem": "airwave_tower",
+		"char": "ƛ",
+		"isBreakable": true,
+		"breakTime": 1800,
+		"walkOver": false
 	}
 ]

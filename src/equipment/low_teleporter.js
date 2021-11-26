@@ -4,11 +4,15 @@ const TP_DISTANCE = 100;
 const ITEM_COUNT = 1;
 const ITEM_ID = 'battery';
 
+const isRadioTowerNearby = (loc) => util.findObjectsInRadius(loc, 10, obj => obj.private.structureId === 'airwave_tower').length > 0;
+
 /**
  * @param {players.player} player 
  */
- module.exports.north = function(player) {
-	if(!player.private.supplies[ITEM_ID] || player.private.supplies[ITEM_ID] < ITEM_COUNT)return;
+ module.exports.north = async function(player) {
+	const targetLoc = {x: player.public.x, y: player.public.y + TP_DISTANCE};
+	await chunks.loadChunk(targetLoc.x, targetLoc.y);
+	if(!player.private.supplies[ITEM_ID] || player.private.supplies[ITEM_ID] < ITEM_COUNT || isRadioTowerNearby(player.public) || isRadioTowerNearby(targetLoc))return;
 	player.private.supplies[ITEM_ID] -= ITEM_COUNT;
 	emit('travelers', 'renderItems', player);
 	emit('travelers', 'calcWeight', player);
@@ -19,8 +23,10 @@ const ITEM_ID = 'battery';
 /**
  * @param {players.player} player 
  */
- module.exports.south = function(player) {
-	if(!player.private.supplies[ITEM_ID] || player.private.supplies[ITEM_ID] < ITEM_COUNT)return;
+ module.exports.south = async function(player) {
+	const targetLoc = {x: player.public.x, y: player.public.y - TP_DISTANCE};
+	await chunks.loadChunk(targetLoc.x, targetLoc.y);
+	if(!player.private.supplies[ITEM_ID] || player.private.supplies[ITEM_ID] < ITEM_COUNT || isRadioTowerNearby(player.public) || isRadioTowerNearby(targetLoc))return;
 	player.private.supplies[ITEM_ID] -= ITEM_COUNT;
 	emit('travelers', 'renderItems', player);
 	emit('travelers', 'calcWeight', player);
@@ -31,8 +37,10 @@ const ITEM_ID = 'battery';
 /**
  * @param {players.player} player 
  */
- module.exports.east = function(player) {
-	if(!player.private.supplies[ITEM_ID] || player.private.supplies[ITEM_ID] < ITEM_COUNT)return;
+ module.exports.east = async function(player) {
+	const targetLoc = {x: player.public.x + TP_DISTANCE, y: player.public.y};
+	await chunks.loadChunk(targetLoc.x, targetLoc.y);
+	if(!player.private.supplies[ITEM_ID] || player.private.supplies[ITEM_ID] < ITEM_COUNT || isRadioTowerNearby(player.public) || isRadioTowerNearby(targetLoc))return;
 	player.private.supplies[ITEM_ID] -= ITEM_COUNT;
 	emit('travelers', 'renderItems', player);
 	emit('travelers', 'calcWeight', player);
@@ -43,8 +51,10 @@ const ITEM_ID = 'battery';
 /**
  * @param {players.player} player 
  */
- module.exports.west = function(player) {
-	if(!player.private.supplies[ITEM_ID] || player.private.supplies[ITEM_ID] < ITEM_COUNT)return;
+ module.exports.west = async function(player) {
+	const targetLoc = {x: player.public.x - TP_DISTANCE, y: player.public.y};
+	await chunks.loadChunk(targetLoc.x, targetLoc.y);
+	if(!player.private.supplies[ITEM_ID] || player.private.supplies[ITEM_ID] < ITEM_COUNT || isRadioTowerNearby(player.public) || isRadioTowerNearby(targetLoc))return;
 	player.private.supplies[ITEM_ID] -= ITEM_COUNT;
 	emit('travelers', 'renderItems', player);
 	emit('travelers', 'calcWeight', player);

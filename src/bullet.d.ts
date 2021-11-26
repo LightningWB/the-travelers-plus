@@ -47,6 +47,13 @@
 	 }
 	 export function out<T>(val: T, t?:dataType): Out<T>
 	 export function getObjs(chunk:chunk.chunk): chunk.obj[]
+	 /**
+	  * finds all world objects within an inclusive radius of a location that satisfy a condition
+	  * @param loc
+	  * @param radius 
+	  * @param cb 
+	  */
+	  export function findObjectsInRadius(loc: {x:number, y:number}, radius:number, cb?:((obj:chunk.obj) => boolean)): chunk.obj[]
  }
  
  declare namespace chunk
