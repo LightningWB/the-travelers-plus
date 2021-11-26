@@ -22,7 +22,11 @@
         {
           "for": "staircase",
           "text": "the staircase"
-        }
+        },
+		{
+			"for": "concrete",
+			"text": "continue"
+		}
       ]
     },
     "staircase": {
@@ -41,7 +45,11 @@
               "count": 1
             }
           ]
-        }
+        },
+		{
+			"for": "concrete",
+			"text": "back downstairs"
+		}
       ]
     },
     "offices": {
@@ -61,7 +69,11 @@
             }
           ],
           "reqForAll": true
-        }
+        },
+		{
+			"for": "concrete",
+			"text": "back downstairs"
+		}
       ]
     },
     "hazard": {
