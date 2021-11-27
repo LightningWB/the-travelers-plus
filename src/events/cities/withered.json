@@ -36,11 +36,11 @@
           "text": "go west"
         },
         {
-          "for": "",
+          "for": "north-path",
           "text": "go north"
         },
         {
-          "for": "",
+          "for": "east-path",
           "text": "go east"
         },
         "leave"
@@ -95,11 +95,30 @@
     "rotting": {
       "id": "rotting",
       "title": "a rotting body",
-      "body": "the stink of the corpse is heaviest here. his backpack is open, supplies free to take. there's a message written on the wall, in dried blood: \"stop following me\"  [LOOT TABLE NOT MADE]",
+      "body": "the stink of the corpse is heaviest here. his backpack is open, supplies free to take. there's a message written on the wall, in dried blood: \"stop following me\"  [LOOT TABLE NOT COMPLETE]",
       "loot": true,
       "nextId": "heavy",
       "size": 10,
-      "lootTable": []
+      "lootTable": [
+		  {
+			  "id": "scrap_metal",
+			  "min": 1,
+			  "max": 5,
+			  "chance": 1
+		  },
+		  {
+			  "id": "steel_shard",
+			  "min": 1,
+			  "max": 4,
+			  "chance": 0.8
+		  },
+		  {
+			  "id": "rope",
+			  "min": 1,
+			  "max": 3,
+			  "chance": 0.5
+		  }
+	  ]
     },
     "stench": {
       "id": "stench",
@@ -149,7 +168,7 @@
       "btns": [
         {
           "for": "four",
-          "text": "northeast"
+          "text": "northwest"
         },
         {
           "for": "intersection",
@@ -330,11 +349,36 @@
     "toolbox": {
       "id": "toolbox",
       "title": "a toolbox",
-      "body": "there might be a few useful things left. [LOOT TABLE NOT MADE]",
+      "body": "there might be a few useful things left. [LOOT TABLE NOT COMPLETE]",
       "loot": true,
       "nextId": "dark",
       "size": 10,
-      "lootTable": []
+      "lootTable": [
+		  {
+			  "id": "cloth",
+			  "min": 1,
+			  "max": 7,
+			  "chance": 0.5
+		  },
+		  {
+			  "id": "wood_stick",
+			  "min": 1,
+			  "max": 7,
+			  "chance": 0.5
+		  },
+		  {
+			  "id": "scrap_metal",
+			  "min": 1,
+			  "max": 5,
+			  "chance": 0.5
+		  },
+		  {
+			  "id": "steel_shard",
+			  "min": 1,
+			  "max": 3,
+			  "chance": 0.5
+		  }
+	  ]
     },
     "heavy-2": {
       "id": "heavy-2",
@@ -358,11 +402,48 @@
     "tall": {
       "id": "tall",
       "title": "a tall room",
-      "body": "sewage splashes from a pipe far above, illuminated brightly by yellow bulbs in the high ceiling. a web of reflections dances along the wall; a pool of liquid dominates this room, and in the corner is a wooden box of supplies. [LOOT TABLE NOT MADE]",
+      "body": "sewage splashes from a pipe far above, illuminated brightly by yellow bulbs in the high ceiling. a web of reflections dances along the wall; a pool of liquid dominates this room, and in the corner is a wooden box of supplies. [LOOT TABLE NOT COMPLETE]",
       "loot": true,
       "nextId": "heavy-2",
       "size": 10,
-      "lootTable": []
+      "lootTable": [
+		  {
+			  "id": "cloth",
+			  "min": 1,
+			  "max": 7,
+			  "chance": 0.5
+		  },
+		  {
+			  "id": "wood_stick",
+			  "min": 1,
+			  "max": 7,
+			  "chance": 0.5
+		  },
+		  {
+			  "id": "scrap_metal",
+			  "min": 1,
+			  "max": 5,
+			  "chance": 0.5
+		  },
+		  {
+			  "id": "steel_shard",
+			  "min": 1,
+			  "max": 3,
+			  "chance": 0.5
+		  },
+		  {
+			  "id": "plastic",
+			  "min": 1,
+			  "max": 5,
+			  "chance": 0.5
+		  },
+		  {
+			  "id": "crowbar",
+			  "min": 1,
+			  "max": 1,
+			  "chance": 0.2
+		  }
+	  ]
     },
     "ladder": {
       "id": "ladder",
@@ -913,7 +994,7 @@
     "backpack": {
       "id": "backpack",
       "title": "an abandoned backpack",
-      "body": "half submerged in the murky liquid is a backpack, open and inviting. [LOOT TABLE NOT MADE]",
+      "body": "half submerged in the murky liquid is a backpack, open and inviting.",
       "loot": true,
       "nextId": "discolored",
       "size": 10,
