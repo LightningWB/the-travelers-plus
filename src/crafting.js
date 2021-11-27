@@ -176,4 +176,4 @@ module.exports.connect = function(player) {
 	}
 }
 
-patches.addPatch('CRAFTING.open', ' + wdmg + "</b>"', ' + wdmg + "</b>" + (obj.craft_makes ? "<br />\u2022 will craft " + obj.craft_makes + "" : "")', false)
+patches.addPatch('CRAFTING.open', ' + wdmg + "</b>"', ' + wdmg + "</b>" + (obj.craft_makes ? "<br /><b>\u2022 will craft " + obj.craft_makes + "</b>" : "")', false)
