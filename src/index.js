@@ -75,6 +75,8 @@ const config = plugin.loadConfig({
 });
 Object.freeze(config);// thou shalt not edit this
 module.exports.config = config;
+thetravelers.patches.addPatch('XP.getNextLevelXP', '2.75', config.xp_exponential_rate, false);
+thetravelers.patches.addPatch('XP.getNextLevelXP', '20', config.xp_level_increase_rate, false);
 // storage stuff
 const storage = plugin.getStorage();
 module.exports.storage = storage;
