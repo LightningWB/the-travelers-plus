@@ -416,7 +416,7 @@ module.exports.attack = function(packet, player) {
 			const challenge = util.out(false, 'boolean');
 			{
 				const {x, y} = player.public;
-				if(x <= 100 && x >= -100 && y >= -100 && y <= 100) {
+				if(x <= Math.abs(config.spawn_challenge_radius) && x >= -Math.abs(config.spawn_challenge_radius) && y >= -Math.abs(config.spawn_challenge_radius) && y <= Math.abs(config.spawn_challenge_radius)) {
 					challenge.set(true);
 				}
 			}
@@ -488,5 +488,5 @@ module.exports.playerWon = function(victor, looser, battle) {
 	} else if(config.pvp_xp_reward_max >= 0 && xp > config.pvp_xp_reward_max) {
 		xp = config.pvp_xp_reward_max;
 	}
-	emit('travelers', 'givePlayerXp', victor, xp);
+	emit('travelers', 'givePlayerXp', victor, util.out(xp));
 }

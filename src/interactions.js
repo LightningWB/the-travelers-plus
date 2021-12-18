@@ -1,5 +1,6 @@
 const { xssReplace } = require('./base');
 const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
+const { config } = require('.');
 const { addData } = require('./events');
 
 /**
@@ -43,7 +44,7 @@ const renderPlayerList = loc => {
 	});
 	const propRange = util.out(false, 'boolean');
 	const {x, y} = loc;
-	if(x <= 100 && x >= -100 && y >= -100 && y <= 100) {
+	if(x <= Math.abs(config.spawn_challenge_radius) && x >= -Math.abs(config.spawn_challenge_radius) && y >= -Math.abs(config.spawn_challenge_radius) && y <= Math.abs(config.spawn_challenge_radius)) {
 		propRange.set(true);
 	}
 	emit('travelers', 'isPropRange', loc.x, loc.y, propRange);

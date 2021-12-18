@@ -51,6 +51,11 @@ const config = plugin.loadConfig({
 			allowed: 'Boolean',
 			default: true,
 		},
+		spawn_challenge_radius: {
+			description: 'The radius of the spawn area that is challenge only.',
+			allowed: 'Number',
+			default: 100
+		},
 		pvp_xp_reward_modifier: {
 			description: 'The percentage of xp rewarded for killing a player.',
 			allowed: 'Positive Number',
