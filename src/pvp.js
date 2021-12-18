@@ -359,6 +359,9 @@ class Battle {
 		if(p1Skills.sp > p1Skills.max_sp) {
 			p1Skills.sp = p1Skills.max_sp;
 		}
+		if(p1Skills.sp < 0) {
+			p1Skills.sp = 0;
+		}
 		if(p2Skills.hp < 0) {
 			p2Skills.hp = 0;
 		}
