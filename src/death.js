@@ -70,7 +70,7 @@ module.exports.suicide = function(_packet, player) {
 }
 
 module.exports.reincarnate = function(_packet, player) {
-  if(config.hard_core === true) {
+  if(config.hardcore === true) {
 	return false;
   }
   const val = util.out({x:util.rand(-500, 500), y:util.rand(-500, 500)}, 'object');
