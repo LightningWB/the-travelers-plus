@@ -11,6 +11,11 @@ const config = plugin.loadConfig({
 			allowed: 'Boolean',
 			default: false,
 		},
+		spawn_radius: {
+			description: 'The radius in which players can spawn around (0, 0).',
+			allowed: 'Number',
+			default: 500,
+		},
 		xp_exponential_rate: {
 			description: 'The exponential growth rate for xp required.',
 			allowed: 'Number',

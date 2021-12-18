@@ -1,3 +1,4 @@
+const { config } = require('.');
 const {emit, players, util, chunks} = require('./bullet');
 const { placeEvent } = require('./events');
 let plugin;
@@ -56,8 +57,8 @@ module.exports.plugin = (p)=>plugin = p;
  * @param {players.player} player 
  */
 module.exports.create = function(player) {
-	player.public.x = util.rand(-500, 500);
-	player.public.y = util.rand(-500, 500);
+	player.public.x = util.rand(-config.spawn_radius, config.spawn_radius);
+	player.public.y = util.rand(-config.spawn_radius, config.spawn_radius);
 	const {x, y} = player.public;
 	const dir = util.rand(1, 4);
 	const targetPos = {
