@@ -41,9 +41,11 @@ module.exports.getHashedValue = function(str, out) {
 function addData(storage) {
 	const result = {};
 	for(const key of Object.keys(storage)) {
-		result[key] = {
-			count: storage[key],
-			data: getItem(key)
+		if(storage[key] > 0) {
+			result[key] = {
+				count: storage[key],
+				data: getItem(key)
+			}
 		}
 	}
 	return result;
@@ -290,7 +292,9 @@ module.exports.calcPlayerEvent = function(player) {
 			else for(const item in eventObj.loot[activeRoom.id])
 			{
 				const i = eventObj.loot[activeRoom.id][item];
-				items[item] = {count: i, data: getItem(item)};
+				if(i > 0) {
+					items[item] = {count: i, data: getItem(item)};
+				}
 			}
 			const loot = {
 				title: activeRoom.title,
