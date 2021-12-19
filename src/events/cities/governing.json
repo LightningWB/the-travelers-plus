@@ -224,7 +224,7 @@
     "concrete": {
       "id": "concrete",
       "title": "a concrete path",
-      "body": "the tunnel ends, its concrete path continuing forward in a tour around the nearby monuments. it winds and turns before arriving at a short hill, at the peak of which a tall obelisk stands, made of large white bricks. its base is covered in graffiti",
+      "body": "the tunnel ends, its concrete path continuing forward in a tour around the nearby monuments. it winds and turns before arriving at a short hill, at the peak of which a tall obelisk stands, made of large white bricks. its base is covered in graffiti.",
       "btns": [
         {
           "for": "winding",
@@ -236,7 +236,7 @@
     "winding": {
       "id": "winding",
       "title": "the winding path",
-      "body": "the tunnel ends, its concrete path continuing forward in a tour around the nearby monuments. it winds and turns before arriving at a short hill, at the peak of which a tall obelisk stands, made of large white bricks. its base is covered in graffiti.",
+      "body": "past the obelisk is a long, flat pool of black water. what isn't covered in ash reflects the black sky, giving a strangely empty appearance to the wide rectangular dip in the ground. at the end of the path is a long stone staircase, which goes up several meters until you arrive at the foot of a large stone man, sitting in a massive throne. a memorial to an old leader.",
       "btns": [
         {
           "for": "treasury",
