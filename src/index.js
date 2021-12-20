@@ -338,6 +338,19 @@ thetravelers.emit('travelers', 'addEvent', 'sign', require('./events/other/sign.
 // load structure data
 require('./structures.json').forEach(s => thetravelers.emit('travelers', 'addStructureData', s));
 
+plugin.on('globalMessage', (message) => {
+	const eventScreen = 'POPUP.new("Announcement",' + JSON.stringify(message) + ');';
+	const engineLog = 'ENGINE.log("<b>"+' + JSON.stringify(message) + '+"</b>",false);';
+	for(const player of thetravelers.players.onlinePlayers())
+	{
+		if(player.public.state === 'travel') {
+			thetravelers.emit('travelers', 'addExeJs', player, eventScreen);
+		} else {
+			thetravelers.emit('travelers', 'addExeJs', player, engineLog);
+		}
+	}
+}, BASE_PRIORITY);
+
 plugin.addLeaderboard('experience',
 	p => p.public.skills.xp,
 	{xp: p => p.public.skills.xp, level: p => p.public.skills.level},
