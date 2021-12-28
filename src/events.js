@@ -250,15 +250,17 @@ module.exports.movePlayerToEvent = function(player, type) {
 	{
 		emit('travelers', 'stopPlayerMovement', player);
 		const eventObj = chunks.getObject(player.public.x, player.public.y);
-		player.private.eventData = {
-			room: 'main',
-			type: eventObj.private.eventData.type,
-			id: eventObj.private.eventData.id
-		};
-		player.public.state = 'event';
-		player.addPropToQueue('state');
-		checkRoomAction(player);
-		emit('travelers', 'calcPlayerEvent', player);
+		if(eventObj) {
+			player.private.eventData = {
+				room: 'main',
+				type: eventObj.private.eventData.type,
+				id: eventObj.private.eventData.id
+			};
+			player.public.state = 'event';
+			player.addPropToQueue('state');
+			checkRoomAction(player);
+			emit('travelers', 'calcPlayerEvent', player);
+		}
 	}
 }
 
