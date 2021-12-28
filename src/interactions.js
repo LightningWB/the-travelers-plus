@@ -1,7 +1,13 @@
 const { xssReplace } = require('./base');
-const {emit, players, util, chunks, options, generateTileAt} = require('./bullet');
+const {emit, players, util, chunks, options, patches} = require('./bullet');
 const { config } = require('.');
 const { addData } = require('./events');
+
+const leaveTimer = Math.ceil(5 * options.tps);
+patches.addJs(`INT.the_travelers_plus_timerStart = ${leaveTimer};`);
+patches.addPatch('INT.openInit', 'leave (5)', `leave (${leaveTimer})`, false);
+patches.addPatch('INT.openInit', 'time = 5 - ', 'time = INT.the_travelers_plus_timerStart - ', false);
+patches.addPatch('INT.openInit', '1000', 1000 / options.tps, false);
 
 /**
  * @param {{x: number, y: number}} location any object that has an "x" and "y" property
@@ -145,7 +151,7 @@ module.exports.playerTick = function(player) {
 module.exports.playerJoinInteraction = function(player) {
 	player.public.state = 'int';
 	if(players.isPlayerOnline(player.public.username)) {
-		player.cache.intLeaveTimeout = 5;
+		player.cache.intLeaveTimeout = leaveTimer;
 		player.addPropToQueue('state');
 	}
 }
