@@ -429,6 +429,12 @@ module.exports.event_choice = function(packet, player) {
 	{
 		const activeRoom = getRoom(player);
 		const eventObj = getEvent(player.public.x, player.public.y);
+		if(!activeRoom || !eventObj) {
+			player.public.state = 'travel';
+			player.private.eventData = undefined;
+			player.addPropToQueue('state');
+			throw new Error(`no active room or event when player with ${JSON.stringify(player.private.eventData)} made choice ${packet.option} at ${player.public.x}, ${player.public.y}`);
+		}
 		compileBtns(activeRoom);
 		// verify they can press the button
 		const targetBtn = activeRoom.btns.find(b=>b.for === packet.option);
@@ -616,7 +622,7 @@ module.exports.loot_exchange = function(packet, player) {
 	{
 		const eventObj = getEvent(player.public.x, player.public.y);
 		const activeRoom = getRoom(player);
-		if(eventObj && eventObj.type === player.private.eventData.type && eventObj.id === player.private.eventData.id)
+		if(activeRoom && eventObj && eventObj.type === player.private.eventData.type && eventObj.id === player.private.eventData.id)
 		{
 			const loot = eventObj.loot[player.private.eventData.room];
 			lootExchange(packet, player, loot, activeRoom.size);
