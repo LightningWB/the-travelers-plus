@@ -118,6 +118,7 @@ module.exports.onAddEvent = function(type, data) {
 		{
 			data.rooms[newId].visitTarget = hash(data.rooms[newId].visitTarget);
 		}
+		compileBtns(data.rooms[newId]);
 	}
 }
 
@@ -171,6 +172,7 @@ function getEvent(x, y)
  */
 function compileBtns(room)
 {
+	if(!room)return;
 	room.btns = room.btns.map(e=>{
 		if(typeof e === 'string')return {
 			for: '__leave__',
@@ -313,7 +315,6 @@ module.exports.calcPlayerEvent = function(player) {
 		}
 		else// normal event screen
 		{
-			compileBtns(activeRoom);// replace the "leave" with a real button
 			const btns = {};
 			for(let btn of activeRoom.btns)
 			{
@@ -435,7 +436,6 @@ module.exports.event_choice = function(packet, player) {
 			player.addPropToQueue('state');
 			throw new Error(`no active room or event when player with ${JSON.stringify(player.private.eventData)} made choice ${packet.option} at ${player.public.x}, ${player.public.y}`);
 		}
-		compileBtns(activeRoom);
 		// verify they can press the button
 		const targetBtn = activeRoom.btns.find(b=>b.for === packet.option);
 		if(targetBtn)
