@@ -501,6 +501,12 @@ module.exports.loot_next = function(packet, player) {
 	if(player.public.state === 'looting')
 	{
 		const activeRoom = getRoom(player);
+		if(!activeRoom) {
+			player.public.state = 'travel';
+			player.private.eventData = undefined;
+			player.addPropToQueue('state');
+			throw new Error(`no active room when player with ${JSON.stringify(player.private.eventData)} made moved from looting at ${player.public.x}, ${player.public.y}`);
+		}
 		if(activeRoom.loot)
 		{
 			player.private.eventData.room = activeRoom.nextId || 'leave';
