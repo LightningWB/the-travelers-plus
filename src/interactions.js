@@ -65,8 +65,8 @@ module.exports.utils = {
  * @param {players.player} player 
  */
 module.exports.movePlayer = function(player) {
-	if(player.public.state === 'travel' && player.cache.travelData.dir !== '') {
- 		const {x, y} = player.public;
+	const {x, y} = player.public;
+	if(player.public.state === 'travel' && player.cache.travelData.dir !== '' && chunks.isChunkLoaded(x, y)) {
 		 /**
 		  * checks if a player can be brought into an event
 		  * @param {players.player} p 
