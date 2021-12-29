@@ -23,6 +23,7 @@ const hashTable = {};
 function hash(str)
 {
 	if(str === 'main')return 'main';
+	if(str === 'death')return 'death';
 	const cipher = crypto.createHash('sha512');
 	cipher.update(str + salt)
 	const result = cipher.digest('hex');
