@@ -91,6 +91,7 @@ thetravelers.patches.addPatch('XP.getNextLevelXP', '20', config.xp_level_increas
 const storage = plugin.getStorage();
 module.exports.storage = storage;
 module.exports.saveStorage = () => plugin.setStorage(storage);
+plugin.on('save', require('./time').save);
 
 // state checking
 require('./checks').registerStates(plugin);

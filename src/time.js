@@ -11,6 +11,11 @@ module.exports.gameTickPre = function() {
 	}
 }
 
+module.exports.save = function() {
+	storage.time = GAME_TIME;
+	saveStorage();
+}
+
 module.exports.playerTick = function(player) {
 	player.temp.turn = GAME_TIME;
 	player.public.seconds_played++;
