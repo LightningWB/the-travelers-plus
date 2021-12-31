@@ -76,6 +76,11 @@ const config = plugin.loadConfig({
 			allowed: 'Number',
 			default: -1,
 		},
+		offline_kill_reward: {
+			description: 'The amount of xp rewarded for killing a player when they are offline. set to a negative number to disable.',
+			allowed: 'Number',
+			default: -1
+		},
 		death_xp_penalty: {
 			description: 'The percentage of xp lost when a player dies.',
 			allowed: 'Positive Number',

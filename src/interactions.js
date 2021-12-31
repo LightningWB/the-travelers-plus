@@ -268,6 +268,11 @@ module.exports.next = function(packet, player) {
 module.exports.killOffline = function(packet, player) {
 	if(typeof packet.username === 'string' && offline(packet.username)) {
 		const victim = players.getPlayerByUsername(packet.username);
+		if(config.offline_kill_reward > 0) {
+			player.public.skills.xp += Math.floor(victim.public.skills.xp * config.offline_kill_reward);
+			player.temp.gained_xp = Math.floor(victim.public.skills.xp * config.offline_kill_reward);
+			player.addPropToQueue('gained_xp');
+		}
 		emit('travelers', 'killPlayer', victim);
 		renderPlayerList(player.public);
 		const killMsg = {
