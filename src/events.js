@@ -155,7 +155,9 @@ function chooseEvent(events)
  */
 function getRoom(player)
 {
-	return events[player.private.eventData.type].find(e=>e.id === player.private.eventData.id).rooms[player.private.eventData.room];
+	const event = events[player.private.eventData.type].find(e=>e.id === player.private.eventData.id);
+	if(!event)return null;
+	return event.rooms[player.private.eventData.room];
 }
 
 function getEvent(x, y)
