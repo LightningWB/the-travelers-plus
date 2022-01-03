@@ -85,6 +85,21 @@ const config = plugin.loadConfig({
 			description: 'The percentage of xp lost when a player dies.',
 			allowed: 'Positive Number',
 			default: .1,
+		},
+		wood_break_time: {
+			description: 'The time in seconds that a wood tier structure takes to break.',
+			allowed: 'Positive Number',
+			default: 10800
+		},
+		scrap_break_time: {
+			description: 'The time in seconds that a scrap tier structure takes to break.',
+			allowed: 'Positive Number',
+			default: 21600
+		},
+		steel_break_time: {
+			description: 'The time in seconds that a steel tier structure takes to break.',
+			allowed: 'Positive Number',
+			default: 57600
 		}
 	}
 });
@@ -343,7 +358,7 @@ thetravelers.emit('travelers', 'addEvent', 'sign', require('./events/other/sign.
 	}
 })();
 // load structure data
-require('./structures.json').forEach(s => thetravelers.emit('travelers', 'addStructureData', s));
+require('./structures').forEach(s => thetravelers.emit('travelers', 'addStructureData', s));
 
 plugin.on('globalMessage', (message) => {
 	const eventScreen = 'POPUP.new("Announcement",' + JSON.stringify(message) + ');';

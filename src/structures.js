@@ -1,10 +1,23 @@
-[
+const config = require('./').config;
+const bullet = require('./bullet');
+const tps = bullet.options.tps;
+
+const items = require('./supplies').getItems();
+items.wood_block.break_time = Math.ceil(config.wood_break_time * tps);
+items.scrap_block.break_time = Math.ceil(config.scrap_break_time * tps);
+items.steel_block.break_time = Math.ceil(config.steel_break_time * tps);
+items.wood_door.break_time = Math.ceil(config.wood_break_time * tps);
+items.scrap_door.break_time = Math.ceil(config.scrap_break_time * tps);
+items.steel_door.break_time = Math.ceil(config.steel_break_time * tps);
+items.reality_anchor.break_time = Math.ceil(config.wood_break_time * (2/3) * tps);
+
+module.exports = [
 	{
 		"id": "wood_block",
 		"placingItem": "wood_block",
 		"char": "+",
 		"isBreakable": true,
-		"breakTime": 10800,
+		"breakTime": Math.ceil(config.wood_break_time * tps),
 		"walkOver": false
 	},
 	{
@@ -12,7 +25,7 @@
 		"placingItem": "scrap_block",
 		"char": "#",
 		"isBreakable": true,
-		"breakTime": 21600,
+		"breakTime": Math.ceil(config.scrap_break_time * tps),
 		"walkOver": false
 	},
 	{
@@ -20,7 +33,7 @@
 		"placingItem": "steel_block",
 		"char": "<b>#</b>",
 		"isBreakable": true,
-		"breakTime": 57600,
+		"breakTime": Math.ceil(config.steel_break_time * tps),
 		"walkOver": false
 	},
 	{
@@ -28,7 +41,7 @@
 		"placingItem": "wood_door",
 		"char": "D",
 		"isBreakable": true,
-		"breakTime": 10800,
+		"breakTime": Math.ceil(config.wood_break_time * tps),
 		"isDoor": true
 	},
 	{
@@ -36,7 +49,7 @@
 		"placingItem": "scrap_door",
 		"char": "<b>D</b>",
 		"isBreakable": true,
-		"breakTime": 21600,
+		"breakTime": Math.ceil(config.scrap_break_time * tps),
 		"isDoor": true
 	},
 	{
@@ -44,7 +57,7 @@
 		"placingItem": "steel_door",
 		"char": "$",
 		"isBreakable": true,
-		"breakTime": 57600,
+		"breakTime": Math.ceil(config.steel_break_time * tps),
 		"isDoor": true
 	},
 	{
@@ -52,7 +65,7 @@
 		"placingItem": "reality_anchor",
 		"char": "┬",
 		"isBreakable": true,
-		"breakTime": 7200,
+		"breakTime": Math.ceil(config.wood_break_time * (2/3) * tps),
 		"walkOver": false
 	},
 	{
