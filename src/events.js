@@ -55,7 +55,7 @@ function addData(storage) {
 module.exports.addData = addData;
 
 /**
- * @type {import('./events').eventTotal}
+ * @type {import('./events types').eventTotal}
  */
 const events = {};
 
@@ -65,6 +65,7 @@ module.exports.addEvent = function(type, data) {
 		events[type] = [];
 	}
 	events[type].push(data);
+	console.log(events)
 }
 
 module.exports.addExpiry = function(type, time) {
@@ -813,7 +814,7 @@ module.exports.loadChunk = function(chunk) {
 			if(objs)objs.forEach(o=>{
 				if(o.private.eventData)
 				{
-					if(events[o.private.eventData.type][o.private.eventData.id] === undefined) {
+					if(events[o.private.eventData.type].find(e => e.id === o.private.eventData.id) === undefined) {
 						deleteObjs.push({x: o.public.x, y: o.public.y});
 						return;
 					}
