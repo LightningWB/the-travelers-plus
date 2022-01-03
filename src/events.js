@@ -810,9 +810,14 @@ module.exports.loadChunk = function(chunk) {
 		if(id !== 'meta')
 		{
 			const objs = chunk[id];
+			let deleteObjs = [];
 			if(objs)objs.forEach(o=>{
 				if(o.private.eventData)
 				{
+					if(events[o.private.eventData.type][o.private.eventData.id] === undefined) {
+						deleteObjs.push({x: o.public.x, y: o.public.y});
+						return;
+					}
 					for(const id in o.private.eventData.loot)
 					{
 						for(const lootable in o.private.eventData.loot[id])
@@ -833,6 +838,9 @@ module.exports.loadChunk = function(chunk) {
 					}
 					else o.private.eventData.visitedRooms = [];// allow malformed objects to be fine
 				}
+			});
+			deleteObjs.forEach(o=>{
+				chunks.removeObject(o.x, o.y);
 			});
 		}
 	}
