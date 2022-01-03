@@ -413,7 +413,7 @@ module.exports.generateLoot = function(room, items) {
 	{
 		if(Math.random() <= tableItem.chance)
 		{
-			const amount = Math.floor(Math.random() * (tableItem.max - tableItem.min) + tableItem.min);
+			const amount = Math.floor(Math.random() * (tableItem.max - tableItem.min + 1) + tableItem.min);
 			if(items[tableItem.id] === undefined)
 			{
 				const item = {};
