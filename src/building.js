@@ -199,7 +199,7 @@ module.exports.break = function(packet, player) {
   // get break speed
   let breakTime = structure.public.break_time;
   let breakItem = 'hands'
-  if(packet.option !== breakItem)
+  if(packet.option !== breakItem && player.private.supplies[packet.option] > 0)
   {
     const tool = getItem(packet.option);
     if (tool.break_ratio !== undefined)
