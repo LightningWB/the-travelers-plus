@@ -65,7 +65,6 @@ module.exports.addEvent = function(type, data) {
 		events[type] = [];
 	}
 	events[type].push(data);
-	console.log(events)
 }
 
 module.exports.addExpiry = function(type, time) {
