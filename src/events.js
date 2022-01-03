@@ -544,15 +544,16 @@ module.exports.loot_next = function(packet, player) {
 
 function lootExchange(packet, player, storage, size) {
 	const loot = storage;
-	packet.amount = Math.abs(packet.amount);
+	packet.amount = parseInt(Math.abs(packet.amount));
+	let d = {};
+	emit('travelers', 'getItem', packet.item, d);
+	if(!d || isNaN(packet.amount))return;
 	// taking items
 	if(packet.which)
 	{
 		if(loot[packet.item] && packet.amount !== 0)
 		{
 			if(loot[packet.item].count < packet.amount)packet.amount = loot[packet.item].count;
-			let d = {};
-			emit('travelers', 'getItem', packet.item, d);
 			let takingWeight = packet.amount * d.weight;
 			let availableWeight = player.public.skills.max_carry - player.public.skills.carry;
 			while(takingWeight > availableWeight && packet.amount > 0)
@@ -580,8 +581,6 @@ function lootExchange(packet, player, storage, size) {
 		if(player.private.supplies[packet.item] && player.private.supplies[packet.item] >= packet.amount && packet.amount !== 0)
 		{
 			if(player.private.supplies[packet.item] && player.private.supplies[packet.item].count < packet.amount)packet.amount = player.private.supplies[packet.item];
-			let d = {};
-			emit('travelers', 'getItem', packet.item, d);
 			let currentWeight = 0;
 			for(const item in loot)
 			{
