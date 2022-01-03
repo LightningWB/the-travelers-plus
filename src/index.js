@@ -374,5 +374,6 @@ plugin.addLeaderboard('locations explored',
 	p => p.public.locs_explored,
 	{locs_explored: p => p.public.locs_explored},
 	{primary: l => l.locs_explored + ' locations'});
+plugin.setPrimaryLeaderboard('experience');
 
 require('./how to play')(plugin);
