@@ -8,6 +8,7 @@ patches.addJs(`INT.the_travelers_plus_timerStart = ${leaveTimer};`);
 patches.addPatch('INT.openInit', 'leave (5)', `leave (${leaveTimer})`, false);
 patches.addPatch('INT.openInit', 'time = 5 - ', 'time = INT.the_travelers_plus_timerStart - ', false);
 patches.addPatch('INT.openInit', '1000', 1000 / options.tps, false);
+patches.addPatch('ENGINE.applyData', `if (YOU.state === "int") {`, `if(YOU.prevState === "event" && YOU.state === "int") {POPUP.hide();}if (YOU.state === "int") {`, false);
 
 /**
  * @param {{x: number, y: number}} location any object that has an "x" and "y" property
@@ -67,26 +68,32 @@ module.exports.utils = {
 	playerData
 };
 
-/**
- * @param {players.player} player 
- */
-module.exports.movePlayer = function(player) {
+module.exports.startFromPlayer = function(player) {
 	const {x, y} = player.public;
-	if(player.public.state === 'travel' && player.cache.travelData.dir !== '' && chunks.isChunkLoaded(x, y)) {
-		 /**
-		  * checks if a player can be brought into an event
-		  * @param {players.player} p 
-		  */
-		const shouldBeMoved = p => (p.public.state === 'travel' || p.public.state === 'int') && p.public.username !== player.public.username && p.public.x === x && p.public.y === y;
+	if(chunks.isChunkLoaded(x, y)) {
+		/**
+			  * checks if a player can be brought into an event
+			  * @param {players.player} p 
+			  */
+		const shouldBeMoved = p => p && (p.public.state !== 'death') && p.public.username !== player.public.username && p.public.x === x && p.public.y === y;
 		const activeChunk = chunks.getChunk(x, y);
 		const playersToBeMoved = activeChunk.meta.players.filter(name => shouldBeMoved(players.getPlayerByUsername(name)));
 		if(playersToBeMoved.length > 0) {
 			// move them to interactions
-			playersToBeMoved.filter(name => players.getPlayerByUsername(name).public.state === 'travel').forEach(name => emit('travelers', 'playerJoinInteraction', players.getPlayerByUsername(name)));
+			playersToBeMoved.forEach(name => emit('travelers', 'playerJoinInteraction', players.getPlayerByUsername(name)));
 			emit('travelers', 'playerJoinInteraction', player);
 			// now update everyone's player list
 			renderPlayerList(player.public);
 		}
+	}
+}
+
+/**
+ * @param {players.player} player 
+ */
+module.exports.movePlayer = function(player) {
+	if(player.public.state === 'travel' && player.cache.travelData.dir !== '') {
+		emit('travelers', 'startInteractionFromPlayer', player);
 	}
 }
 
@@ -186,6 +193,7 @@ module.exports.leave_int = function(packet, player) {
 	if(player.cache.intLeaveTimeout || player.cache.activeBattleId)return false;
 	player.public.state = 'travel';
 	player.addPropToQueue('state');
+	renderPlayerList(player.public);
 }
 
 /**

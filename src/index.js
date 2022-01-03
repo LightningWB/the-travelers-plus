@@ -146,6 +146,7 @@ plugin.on('ready', require('./fx').ready, BASE_PRIORITY);
 plugin.on('travelers::battles::end', require('./interactions').battleEnd, BASE_PRIORITY);
 plugin.on('travelers::battles::fightOpened', require('./interactions').battleStart, BASE_PRIORITY);
 plugin.on('travelers::movePlayer', require('./interactions').movePlayer, BASE_PRIORITY - 10);
+plugin.on('travelers::startInteractionFromPlayer', require('./interactions').startFromPlayer, BASE_PRIORITY);
 plugin.on('travelers::playerJoinInteraction', require('./interactions').playerJoinInteraction, BASE_PRIORITY);
 plugin.on('actions::leave_int', require('./interactions').leave_int, BASE_PRIORITY);
 plugin.on('actions::chat', require('./interactions').chat, BASE_PRIORITY);// communication
