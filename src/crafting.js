@@ -112,7 +112,7 @@ module.exports.addUnlockLevel = function(id, level) {
  * @param {players.player} player 
  */
 module.exports.craft = function(packet, player) {
-	if(player.public.state !== 'travel')return;
+	if(player.public.state !== 'travel' || !isFinite(packet.count))return;
 	const craftable = item(packet.item);
 	if(!craftable.craft)return;
 	const craftData = craftable.craft_data;
