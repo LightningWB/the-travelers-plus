@@ -237,7 +237,7 @@ module.exports.leaveMessage = function(packet, player) {
 module.exports.getMessage = function(packet, player) {
 	const targetPlayer = players.getPlayerByUsername(packet.username);
 	if(canSee(player, targetPlayer) && offline(packet.username)) {
-		player.temp.int_gotmsg = targetPlayer.private.offline_msgs[player.public.username];
+		player.temp.int_gotmsg = targetPlayer?.private?.offline_msgs[player.public.username];
 		player.addPropToQueue('int_gotmsg');
 	}
 }
