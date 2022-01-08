@@ -40,10 +40,15 @@ function xpForLevel(l)
 }
 
 /**
+ * adds one to distance traveled stat
+ * subtracts stamina if double stepped
+ * adds xp for step traveled
  * @param {players.player} player 
  */
-module.exports.movePlayer = function(player) {
-	if(player.cache.travelData && player.cache.travelData.dir && player.cache.doubleStep)
+module.exports.onStep = function(player) {
+	player.public.steps_taken++;
+    
+    if(player.cache.travelData && player.cache.travelData.dir && player.cache.doubleStep)
 	{
 		player.public.skills.sp-=10;
 		player.addPropToQueue('skills');
@@ -53,10 +58,6 @@ module.exports.movePlayer = function(player) {
 		player.public.skills.xp++;
 		player.addPropToQueue('skills');
 	}
-}
-
-module.exports.onStep = function(player) {
-	player.public.steps_taken++;
 }
 
 

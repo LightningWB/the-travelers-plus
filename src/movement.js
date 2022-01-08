@@ -50,8 +50,9 @@ module.exports.doubleStep = function(packet, player) {
 module.exports.tick = function(player) {
 	if(player.cache.travelData)
 	{
-		emit('travelers', 'movePlayer', player);
-		if(player.cache.travelData && !player.cache.travelData.autowalk)
+		
+        emit('travelers', 'movePlayer', player);
+        if(player.cache.travelData && !player.cache.travelData.autowalk)
 		{
 			emit('travelers', 'stopPlayerMovement', player);
 		}
@@ -72,7 +73,6 @@ module.exports.move = function(player) {
 		emit('travelers', 'getMovementSpeed', player, val);
 		let distance = (player.cache.doubleStep ? DOUBLE_STEP_MULTIPLIER: 1) * val.get();
 		const initialDistance = distance;
-		player.cache.doubleStep = false;
 		while(distance > 0) {
 			const {x, y} = util.compassChange(player.public.x, player.public.y, player.cache.travelData.dir, 1);
 			
@@ -99,6 +99,7 @@ module.exports.move = function(player) {
 			distance--;
 			const val = util.out(false, 'boolean');
 			emit('travelers', 'onPlayerStep', player, val);
+            player.cache.doubleStep = false;
 			if(val.get())break;
 		}
 		if(initialDistance === distance) return false;// no movement happened
