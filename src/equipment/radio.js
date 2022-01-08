@@ -57,3 +57,7 @@ module.exports.radio_setchannel = function(player) {
 		}, 9);
 	}
 }
+
+module.exports.removeRadio = function(player) {
+	delete player.private.radio;
+}

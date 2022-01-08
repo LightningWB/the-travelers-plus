@@ -23,7 +23,7 @@ module.exports.equip = function(packet, player) {
 }
 
 module.exports.dequip = function(packet, player) {
-	if(player.public.state === 'travel')
+	if(player.public.state === 'travel' && player.public.equipped)
 	{
 		emit('equip_actions', player.public.equipped + '::dequip', player);
 		player.public.equipped = undefined;

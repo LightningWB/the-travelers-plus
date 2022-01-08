@@ -280,6 +280,8 @@ plugin.on('actions::equipment', require('./equipment').equipment, BASE_PRIORITY)
 	plugin.on('equip_actions::radio::radio_toggle', require('./equipment/radio').radio_toggle, BASE_PRIORITY);
 	plugin.on('equip_actions::radio::radio_transmit', require('./equipment/radio').radio_transmit, BASE_PRIORITY);
 	plugin.on('equip_actions::radio::radio_setchannel', require('./equipment/radio').radio_setchannel, BASE_PRIORITY);
+	plugin.on('equip_actions::radio::dequip', require('./equipment/radio').removeRadio, BASE_PRIORITY);
+	plugin.on('travelers::killPlayer', require('./equipment/radio').removeRadio, BASE_PRIORITY - 10);
 	// boat
 	plugin.on('travelers::canPlayerMoveOnTile', require('./equipment/boat').canPlayerMoveOnTile, BASE_PRIORITY);
 	plugin.on('actions::dequip', require('./equipment/boat').unequip, BASE_PRIORITY + 10);
