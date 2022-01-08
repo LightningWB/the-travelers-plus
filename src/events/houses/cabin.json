@@ -71,6 +71,9 @@
 			"title": "pried open",
 			"body": "the lid is wide open, leaning against the wall.",
 			"loot": true,
+			"lootTable": [
+				{"id": "alien_fragment", "title":"unknown material fragment", "min": 1, "max": 1, "chance": 1}
+			],
 			"nextId": "basement"
 		},
 		"backyard": {
