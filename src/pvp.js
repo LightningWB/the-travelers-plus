@@ -482,7 +482,7 @@ module.exports.onReady = function() {
 }
 
 module.exports.playerWon = function(victor, looser, battle) {
-	let xp = looser.public.skills.xp * config.pvp_xp_reward_modifier;
+	let xp = Math.ceil(looser.public.skills.xp * config.pvp_xp_reward_modifier);
 	if(config.pvp_xp_reward_min >= 0 && xp < config.pvp_xp_reward_min) {
 		xp = config.pvp_xp_reward_min;
 	} else if(config.pvp_xp_reward_max >= 0 && xp > config.pvp_xp_reward_max) {

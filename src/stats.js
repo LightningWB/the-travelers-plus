@@ -130,6 +130,9 @@ module.exports.reset_skills = function(_packet, player) {
  * @param {players.player} player 
  */
 module.exports.tick = function(player) {
+	if(parseInt(player.public.skills.xp) !== player.public.skills.xp) {
+		player.public.skills.xp = Math.ceil(player.public.skills.xp);
+	}
 	while(player.public.skills.xp >= player.public.skills.next_level_xp)
 	{
 		emit('travelers', 'levelUpPlayer', player);
