@@ -319,19 +319,19 @@ class Battle {
 		if(!cancel.get()) {
 			switch (p1Move) {
 				case 'h':
-					if(p2Move !== 'h') {
+					if(p2Move !== 'h' && p2Move !== 'dl' && p2Move !== 'dr') {
 						p2Skills.hp -= p1Attack * 2;
 					}
 					p1Skills.sp -= p1Stam * 2;
 					break;
 				case 'al':
-					if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dr') {
+					if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dr' && p2Move !== 'b') {
 						p2Skills.hp -= p1Attack;
 					}
 					p1Skills.sp -= p1Stam * 2;
 					break;
 				case 'ar':
-					if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dl') {
+					if(p2Move !== 'h' && p2Move !== 'ar' && p2Move !== 'al' && p2Move !== 'dl' && p2Move !== 'b') {
 						p2Skills.hp -= p1Attack;
 					}
 					p1Skills.sp -= p1Stam * 2;
