@@ -108,8 +108,6 @@ module.exports.onAddEvent = function(type, data) {
 				{
 					if(!item.id || Object.keys(getItem(item.id)).length === 0) {
 						util.debug('WARN', `Loot table in room "${data.rooms[newId].title}" in event "${oldData.id}" of event type "${type}" has an invalid item id: "${item.id}"`);
-					} else {
-						table.push(item);
 					}
 				}
 				data.rooms[newId].lootTable = table;
