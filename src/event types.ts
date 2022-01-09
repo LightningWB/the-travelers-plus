@@ -102,6 +102,11 @@ export type room = {// text room
 	 */
 	loot: true,
 	/**
+	 * if the loot should be saved once the player leaves the room
+	 * useful for crafting in events
+	 */
+	store?: boolean,
+	/**
 	 * the next room to bring the player to
 	 * set to "leave" to have a looting screen end an event
 	 */

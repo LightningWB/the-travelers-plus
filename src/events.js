@@ -507,11 +507,21 @@ module.exports.loot_next = function(packet, player) {
 	if(player.public.state === 'looting')
 	{
 		const activeRoom = getRoom(player);
+		const eventObj = getEvent(player.public.x, player.public.y);
 		if(!activeRoom) {
 			player.public.state = 'travel';
 			player.private.eventData = undefined;
 			player.addPropToQueue('state');
 			throw new Error(`no active room when player with ${JSON.stringify(player.private.eventData)} made moved from looting at ${player.public.x}, ${player.public.y}`);
+		}
+		if(!eventObj) {
+			player.public.state = 'travel';
+			player.private.eventData = undefined;
+			player.addPropToQueue('state');
+			throw new Error(`no active event tile with player in ${JSON.stringify(player.private.eventData)} at ${player.public.x}, ${player.public.y}`);
+		}
+		if(activeRoom.store === false && eventObj.loot[activeRoom.id] !== undefined) {
+			delete eventObj.loot[activeRoom.id];
 		}
 		if(activeRoom.loot)
 		{
