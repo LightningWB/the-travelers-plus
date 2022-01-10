@@ -4,7 +4,7 @@ const TP_DISTANCE = 100;
 const ITEM_COUNT = 1;
 const ITEM_ID = 'battery';
 
-const isRadioTowerNearby = (loc) => util.findObjectsInRadius(loc, 10, obj => obj.private.structureId === 'airwave_tower').length > 0;
+const isRadioTowerNearby = (loc) => util.findObjectsInRadius(loc, 8, obj => obj.private.structureId === 'airwave_tower').length > 0;
 
 /**
  * @param {players.player} player 
