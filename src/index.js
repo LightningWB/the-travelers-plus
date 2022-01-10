@@ -311,6 +311,8 @@ plugin.on('travelers::eventLogUnsafe', require('./base').eventLog, BASE_PRIORITY
 plugin.on('travelers::eventLog', require('./base').eventLogEscape, BASE_PRIORITY);
 plugin.on('travelers::addExeJs', require('./base').addExeJs, BASE_PRIORITY);
 plugin.on('playerConnect', require('./base').join, BASE_PRIORITY + 1000);
+plugin.on('actions::genmsg', require('./base').genmsg, BASE_PRIORITY);
+plugin.on('actions::*', require('./base').any, BASE_PRIORITY);
 plugin.on('playerCreate', require('./base').create, BASE_PRIORITY);
 // chunks
 plugin.on('playerConnect', require('./chunks').tick, BASE_PRIORITY);

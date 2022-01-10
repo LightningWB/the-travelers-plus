@@ -146,8 +146,12 @@ module.exports.tick = function(player) {
 		}
 		if(player.public.skills.hp < player.public.skills.max_hp)
 		{
-			player.addPropToQueue('skills');
-			player.public.skills.hp++;
+			const val = util.out(true, 'boolean');
+			emit('travelers', 'shouldHealPlayer', player, val);
+			if(val.get()) {
+				player.public.skills.hp++;
+				player.addPropToQueue('skills');
+			}
 		}
 	}
 	if(player.public.skills.xp < 0) {

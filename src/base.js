@@ -1,56 +1,38 @@
 const { config } = require('.');
 const {emit, players, util, chunks} = require('./bullet');
 const { placeEvent } = require('./events');
-let plugin;
-module.exports.plugin = (p)=>plugin = p;
+
+const message_list = [];
 
 /**
  * @param {players.player} player 
  */
  module.exports.join = function(player) {
 	player.message = function(id, cb, size = Infinity) {// the message popups for stuff like signs
-		let fulfilled = false;
-		function tryToGetUser() {
-			plugin.once('actions::genmsg', (packet, p)=>{
-				if(fulfilled)return;
-				if(player.public.username === p.public.username)
-				{
-					if(id === packet.option)cb(packet.text.substring(0, size));// other stuff can be ignored
-					fulfilled = true;
-				}
-				else
-				{
-					tryToGetUser();
-				}
-			});
-		}
-
-		function addAllAction()
-		{
-			plugin.once('actions::*', (packet, p)=>{
-				if(fulfilled)return;
-				if(player.public.username === p.public.username)
-				{
-					if(packet.action && packet.action !== 'genmsg')fulfilled = true;
-					else addAllAction();
-				}
-				else addAllAction();
-			});
-			plugin.once('travelers::movePlayer', p => {
-				if(fulfilled)return;
-				if(p.public.username === player.public.username)
-				{
-					fulfilled = true;
-				}
-				else addAllAction();
-			});
-		}
-		setTimeout(()=>{
-			addAllAction();
-			tryToGetUser();
-		}, 0);
+		message_list[player.id] = {
+			cb,
+			size,
+			id
+		};
 	}
 
+}
+
+module.exports.genmsg = function(packet, player) {
+	const waiting = message_list[player.id];
+	if(waiting) {
+		if(waiting.id === packet.option) {
+			waiting.cb(packet.text.substring(0, waiting.size));
+		}
+		delete message_list[player.id];
+	}
+}
+
+module.exports.any = function(packet, player) {
+	const waiting = message_list[player.id];
+	if(waiting && packet.action !== 'genmsg') {
+		delete message_list[player.id];
+	}
 }
 
 /**
