@@ -306,7 +306,6 @@ plugin.on('saveChunk', require('./trees').unloadChunk, BASE_PRIORITY);
 plugin.on('playerTick', require('./trees').playerTick, BASE_PRIORITY);
 plugin.on('gameTickPre', require('./trees').tick, BASE_PRIORITY);
 // base
-require('./base').plugin(plugin);// give base access to the plugin for message popups
 plugin.on('travelers::eventLogUnsafe', require('./base').eventLog, BASE_PRIORITY);
 plugin.on('travelers::eventLog', require('./base').eventLogEscape, BASE_PRIORITY);
 plugin.on('travelers::addExeJs', require('./base').addExeJs, BASE_PRIORITY);
