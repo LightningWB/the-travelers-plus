@@ -293,7 +293,7 @@ module.exports.breakStructure = function(x, y, player) {
   const placedStructure = chunks.getObject(x, y);
   if(placedStructure !== undefined)
   {
-    emit('travelers', 'structureBroke::' + placedStructure.private.id, placedStructure, player);
+    emit('travelers', 'structureBroke::' + placedStructure.private.structureId, placedStructure, player);
     chunks.removeObject(placedStructure.public.x, placedStructure.public.y);
   }
 }
