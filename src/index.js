@@ -337,30 +337,32 @@ plugin.on('actions::loot_next', require('./tutorial').loot_next, BASE_PRIORITY);
 plugin.on('playerCreate', require('./tutorial').playerCreate, BASE_PRIORITY);
 
 // loading data
-thetravelers.emit('travelers', 'addGameItems', require('./itemData.json'));
-require('./events/houses.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'house', require('./events/houses/' + e)));
-require('./events/cites.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'city', require('./events/cities/' + e)));
-thetravelers.emit('travelers', 'addEvent', 'body', require('./events/other/body.json'));
-thetravelers.emit('travelers', 'addEvent', 'backpack', require('./events/other/backpack.json'));
-thetravelers.emit('travelers', 'addEvent', 'dropped_items', require('./events/other/droppedItems.json'));
-thetravelers.emit('travelers', 'addEvent', 'trapdoor', require('./events/other/trapdoor.json'));
-thetravelers.emit('travelers', 'addEvent', 'crater', require('./events/other/crater.json'));
-thetravelers.emit('travelers', 'addEvent', 'hole', require('./events/other/hole.json'));
-thetravelers.emit('travelers', 'addEvent', 'storageUnit', require('./events/other/smallBox.json'));
-thetravelers.emit('travelers', 'addEvent', 'storageUnit', require('./events/other/largeBox.json'));
-thetravelers.emit('travelers', 'addEvent', 'sign', require('./events/other/sign.json'));
-(function(){// load recipe level unlocks
-	const data = require('./craftingData.json');
-	for(const key in data)
-	{
-		for(const item of data[key])
+plugin.on('ready', () => {
+	thetravelers.emit('travelers', 'addGameItems', require('./itemData.json'));
+	require('./events/houses.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'house', require('./events/houses/' + e)));
+	require('./events/cites.json').forEach(e=>thetravelers.emit('travelers', 'addEvent', 'city', require('./events/cities/' + e)));
+	thetravelers.emit('travelers', 'addEvent', 'body', require('./events/other/body.json'));
+	thetravelers.emit('travelers', 'addEvent', 'backpack', require('./events/other/backpack.json'));
+	thetravelers.emit('travelers', 'addEvent', 'dropped_items', require('./events/other/droppedItems.json'));
+	thetravelers.emit('travelers', 'addEvent', 'trapdoor', require('./events/other/trapdoor.json'));
+	thetravelers.emit('travelers', 'addEvent', 'crater', require('./events/other/crater.json'));
+	thetravelers.emit('travelers', 'addEvent', 'hole', require('./events/other/hole.json'));
+	thetravelers.emit('travelers', 'addEvent', 'storageUnit', require('./events/other/smallBox.json'));
+	thetravelers.emit('travelers', 'addEvent', 'storageUnit', require('./events/other/largeBox.json'));
+	thetravelers.emit('travelers', 'addEvent', 'sign', require('./events/other/sign.json'));
+	(function(){// load recipe level unlocks
+		const data = require('./craftingData.json');
+		for(const key in data)
 		{
-			thetravelers.emit('travelers', 'addCraftableItem', item, Number(key));
+			for(const item of data[key])
+			{
+				thetravelers.emit('travelers', 'addCraftableItem', item, Number(key));
+			}
 		}
-	}
-})();
-// load structure data
-require('./structures').forEach(s => thetravelers.emit('travelers', 'addStructureData', s));
+	})();
+	// load structure data
+	require('./structures').forEach(s => thetravelers.emit('travelers', 'addStructureData', s));
+}, BASE_PRIORITY + 10);
 
 plugin.on('globalMessage', (message) => {
 	const eventScreen = 'POPUP.new("Announcement",' + JSON.stringify(message) + ');';
