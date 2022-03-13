@@ -159,7 +159,7 @@ class Battle {
 				}
 				this.player1.addPropToQueue('battle_start');
 			}
-			if(players.isPlayerOnline(this.player1.public.username)) {
+			if(players.isPlayerOnline(this.player2.public.username)) {
 				this.player2.temp.battle_start = {
 					against: this.player1.public.username,
 					youAttacked: false// player one always starts the fights
@@ -191,6 +191,9 @@ class Battle {
 	 */
 	onReady(packet, player) {
 		if(this.battleState === 0) {
+			if (packet.weapon === '') {
+				packet.weapon = 'hands';
+			}
 			if(Battle.weapons[packet.weapon] && (packet.weapon === 'hands' || player.private.supplies[packet.weapon] > 0)) {
 				player.cache.battleStats.weapon = packet.weapon;
 				player.cache.battleStats.ready = true;
