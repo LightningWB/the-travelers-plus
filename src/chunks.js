@@ -4,21 +4,26 @@ let turn = 0;
 let activeChunks = [];
 
 const checkChunkPlayers = (chunk, chunkX, chunkY) => {
-	if(chunk && chunk.meta.players === undefined)chunk.meta.players = [];
-	for(const name of chunk.meta.players) {
-		const player = players.getPlayerByUsername(name);
-		const {x, y} = chunks.toChunkCoords(player.public.x, player.public.y);
-		if(chunk && x !== chunkX && y !== chunkY && chunk.meta.players.includes(player.public.username))
-		{
-			const playerIndex = chunk.meta.players.findIndex((playerInChunk) => playerInChunk === player.public.username);
-			chunk.meta.players.splice(playerIndex, 1);
+	try {
+		if(chunk && (chunk.meta.players === undefined || !Array.isArray(chunk.meta.players)))chunk.meta.players = [];
+		for(const name of chunk.meta.players) {
+			const player = players.getPlayerByUsername(name);
+			const {x, y} = chunks.toChunkCoords(player.public.x, player.public.y);
+			if(chunk && x !== chunkX && y !== chunkY && chunk.meta.players.includes(player.public.username))
+			{
+				const playerIndex = chunk.meta.players.findIndex((playerInChunk) => playerInChunk === player.public.username);
+				chunk.meta.players.splice(playerIndex, 1);
+			}
 		}
-	}
-	for(const name of chunk.meta.players) {
-		while(chunk.meta.players.lastIndexOf(name) !== chunk.meta.players.indexOf(name)) {
-			const playerIndex = chunk.meta.players.lastIndexOf(name);
-			chunk.meta.players.splice(playerIndex, 1);
+		for(const name of chunk.meta.players) {
+			while(chunk.meta.players.lastIndexOf(name) !== chunk.meta.players.indexOf(name)) {
+				const playerIndex = chunk.meta.players.lastIndexOf(name);
+				chunk.meta.players.splice(playerIndex, 1);
+			}
 		}
+	} catch(e) {
+		util.debug('ERROR', `Failed checking chunk players at ${chunkX}|${chunkY}. Chunk players: ${chunk.meta.players}`);
+		throw e;
 	}
 }
 
@@ -163,7 +168,7 @@ module.exports.chunkLoad = function(chunk) {
 		chunk.meta.players = chunk.players;
 		delete chunk.players;
 	}
-	else if(chunk.meta.players === undefined)chunk.meta.players = [];
+	else if(chunk.meta.players === undefined || !Array.isArray(chunk.meta.players))chunk.meta.players = [];
 	for(const key in chunk) {
 		if(key !== 'meta' && chunk[key]) {
 			const splitUp = key.split('|');
