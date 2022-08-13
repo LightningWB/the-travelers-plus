@@ -30,7 +30,7 @@ module.exports.placed = function(reality_anchor, player) {
 }
 
 module.exports.broke = function(reality_anchor, _player) {
-  const owner = players.getPlayerByUsername(reality_anchor.private.owner);
+  const owner = players.getPlayer(reality_anchor.private.owner);
   if (owner && owner.private.respawnPoint.x === reality_anchor.public.x && owner.private.respawnPoint.y === reality_anchor.public.y)
   {
     owner.private.respawnPoint = undefined;
