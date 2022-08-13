@@ -15,8 +15,13 @@ const removeRespawn = (loc) => {
 	}, 10);
 }
 
+/**
+ * 
+ * @param {*} reality_anchor 
+ * @param {players.player} player 
+ */
 module.exports.placed = function(reality_anchor, player) {
-  reality_anchor.private.owner = player.public.username;
+  reality_anchor.private.owner = player.private.id;
   if(player.private.respawnPoint) {
 	  removeRespawn(player.private.respawnPoint);
   }

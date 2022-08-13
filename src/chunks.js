@@ -186,6 +186,9 @@ module.exports.chunkLoad = function(chunk) {
 						chunks.removeObject(obj.public.x, obj.public.y);
 					}
 				}
+				if(obj.private.structureId === 'reality_anchor' && typeof obj.private.owner === 'string') {
+					obj.private.owner = players.getPlayerByUsername(obj.private.owner).private.id;
+				}
 			}
 		}
 	}
