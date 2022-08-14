@@ -140,10 +140,15 @@ module.exports.save = function()
 			for(const key in chunk) {
 				if(key !== 'meta') {
 					try {
-						if(chunk[key]) for(const obj of chunk[key]) {
-							if(obj.private.expiry) {
-								if(new Date().getTime() > obj.private.expiry) {
-									chunks.removeObject(obj.public.x, obj.public.y);
+						if(chunk[key]) {
+							while(chunk[key].length > 1) {
+								chunk[key].pop();
+							}
+							for(const obj of chunk[key]) {
+								if(obj.private.expiry) {
+									if(new Date().getTime() > obj.private.expiry) {
+										chunks.removeObject(obj.public.x, obj.public.y);
+									}
 								}
 							}
 						}
